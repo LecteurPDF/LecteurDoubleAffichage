@@ -170,8 +170,8 @@ public class OutilLecture {
      * @throws PageInexistante
      */
     public ImageView getNextPage() throws PageInexistante {
-        if(!pageCorrecte(pageCour+1)) {
-            throw new PageInexistante(pageCour+1);
+        if(!pageCorrecte(pageCour+2)) {
+            throw new PageInexistante(pageCour+2);
         }
         pageCour++;
         return getPagePdfToImg(pageCour);
