@@ -269,11 +269,11 @@ public class ControleurPrincipal {
 		//TODO: Fenetre preference
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader();
-			fxmlLoader.setLocation(getClass().getResource("preference.fxml"));
+			fxmlLoader.setLocation(getClass().getResource("../preference/preference.fxml"));
 
 			Scene scene = new Scene(fxmlLoader.load(), 300, 500);
 			Stage stage = new Stage();
-			stage.setTitle("Pr�f�rence - Lecteur PDF");
+			stage.setTitle("Préférence - Lecteur PDF");
 			stage.setScene(scene);
 
 			stage.setResizable(false);
@@ -283,7 +283,8 @@ public class ControleurPrincipal {
 			stage.initModality( Modality.APPLICATION_MODAL );
 			stage.showAndWait();
 		} catch (IOException e) {
-			Main.journaux.severe("Probl�me de lancement de la fenetre pr�f�rence");
+			Main.journaux.severe("Problème de lancement de la fenetre préférence");
+			e.printStackTrace();
 		}
 	}
 
