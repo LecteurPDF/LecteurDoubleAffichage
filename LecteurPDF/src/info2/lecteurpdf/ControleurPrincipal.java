@@ -23,6 +23,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -40,6 +41,8 @@ public class ControleurPrincipal {
 	private OutilLecture pdf = new OutilLecture();
 
 	private Preferences prefs = Preferences.getInstance();
+
+	private boolean pleinecran = false;
 
 	@FXML
 	private VBox parentVBox;
@@ -63,6 +66,7 @@ public class ControleurPrincipal {
 	@FXML
 	private ScrollPane scrollPaneImg;
 
+
 	/** La page que l'on affiche sous forme d'ImageView */
 	private ImageView imageAfficher;
 
@@ -71,6 +75,9 @@ public class ControleurPrincipal {
 
 	/** Taille de la fenetre en horizontal */
 	private double initialY;
+
+    @FXML
+    private Button btnPleinEcran;
 
 
 	public void initialize() {
@@ -335,5 +342,21 @@ public class ControleurPrincipal {
 		}
 		Platform.exit();
 	}
+
+
+    @FXML
+    void switchPleinEcran(ActionEvent event) {
+
+    	Stage primaryStage = (Stage) parentVBox.getScene().getWindow();
+
+    	pleinecran = !pleinecran ;
+
+//    	primaryStage.hide();
+//    	stage.show();
+
+
+    	primaryStage.setFullScreen(pleinecran);
+
+    }
 
 }

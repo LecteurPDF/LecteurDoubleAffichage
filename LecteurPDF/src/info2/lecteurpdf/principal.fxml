@@ -73,6 +73,15 @@
                   <Button fx:id="btnPrecPage" mnemonicParsing="false" onAction="#precedentePage" text="&lt;" />
                   <TextField fx:id="txbNbPage" onAction="#nbPage" prefHeight="31.0" prefWidth="110.0" />
                   <Button fx:id="btnNextPage" mnemonicParsing="false" onAction="#prochainePage" text="&gt;" />
+                  <Button fx:id="btnPleinEcran" mnemonicParsing="false" onAction="#switchPleinEcran">
+                     <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../fullscreen.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </items>
             </ToolBar>
          </top>
