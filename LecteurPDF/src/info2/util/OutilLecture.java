@@ -2,7 +2,7 @@
  * OutilLecture.java                            22/11/2018
  */
 
-package info2.lecteurpdf;
+package info2.util;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,17 +13,18 @@ import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
+import info2.lecteurpdf.Main;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 
 /**
- * Permet de gérer une page pdf, à partir d'un fichier pdf ( String du chemin + nom ) on crée
+ * Permet de gï¿½rer une page pdf, ï¿½ partir d'un fichier pdf ( String du chemin + nom ) on crï¿½e
  * un objet qui contient :
- *   - Le fichier lui-même (pdf)
+ *   - Le fichier lui-mï¿½me (pdf)
  *   - La page que l'on est en train de regarder
  * A aucun moment on ne modifie le fichier, on ne fait que le lire
- * Le fichié est ouvert lorsque l'objet est crée, il sera fermé grâce à la méthode .close()
+ * Le fichiï¿½ est ouvert lorsque l'objet est crï¿½e, il sera fermï¿½ grï¿½ce ï¿½ la mï¿½thode .close()
  * Le but de la classe est de transformer une page en ImageView et de gerer l'affichage de cette image
  * @author sannac, vivier, pouzelgues, renoleau
  * @version 1
@@ -33,7 +34,7 @@ public class OutilLecture {
     /** Le document pdf sur lequel on va agir */
     private PDDocument document;
 
-    /** La page que l'on est en train de lire, on commence à 0 */
+    /** La page que l'on est en train de lire, on commence ï¿½ 0 */
     private int pageCour = 0;
 
     /** Nombre de page totale */
@@ -50,7 +51,7 @@ public class OutilLecture {
 		/**
     	 * Construit l'exception quand la page n'existe pas,
     	 * qu'il y a depassement par exemple
-    	 * @param nbPage nombre de la page concerné
+    	 * @param nbPage nombre de la page concernï¿½
     	 */
     	public PageInexistante(int nbPage) {
     		super("Page " + nbPage + " inexistante");
@@ -58,14 +59,14 @@ public class OutilLecture {
     }
 
 	/**
-     * Constructeur par défaut, sans argument
+     * Constructeur par dï¿½faut, sans argument
      */
     public OutilLecture() {
     }
 
     /**
      * Permet d'initialiser un objet OutilLecture, il contient
-     *   - Le fichier lui-même (pdf)
+     *   - Le fichier lui-mï¿½me (pdf)
      *   - La page que l'on est en train de regarder
      * @param nomFichier Le fichier pdf que l'on veut ouvrir et afficher
      */
@@ -75,17 +76,17 @@ public class OutilLecture {
             document = PDDocument.load(new File(nomFichier));
             nbPages = document.getNumberOfPages();
         } catch (InvalidPasswordException e) {
-            // Protégé
-        	Main.journaux.warning("FIchier protégé d'un mot de passe");
+            // Protï¿½gï¿½
+        	Main.journaux.warning("FIchier protï¿½gï¿½ d'un mot de passe");
         } catch (IOException e) {
-            // Fichier non trouvé
-            Main.journaux.warning("FIchier non trouvé");
+            // Fichier non trouvï¿½
+            Main.journaux.warning("FIchier non trouvï¿½");
         }
 
     };
 
     /**
-     * Retourne le nombre de pages réel totales du PDF courant
+     * Retourne le nombre de pages rï¿½el totales du PDF courant
      * @return nombre de pages du pdf
      */
     public int getNbPages() {
@@ -95,7 +96,7 @@ public class OutilLecture {
     /**
      * Permet de transformer une page pdf en image ImageView
      * @param page La page que l'on souhaite transformer
-     * @return La page transformée en ImageView
+     * @return La page transformï¿½e en ImageView
      * @throws PageInexistante
      */
     public ImageView getPagePdfToImg( int page ) throws PageInexistante {
@@ -110,17 +111,17 @@ public class OutilLecture {
         PDFRenderer pdfRenderer = new PDFRenderer(document);
 
         try {
-            /* Création d'une image en couleur avec 100 DPI */
+            /* Crï¿½ation d'une image en couleur avec 100 DPI */
             BufferedImage bim = pdfRenderer.renderImageWithDPI(page, 122, ImageType.RGB);
-            setPagesCour(page); // La page courante est changée
+            setPagesCour(page); // La page courante est changï¿½e
 
             /* Convertion d'un objet JavaAWT en JavaFX */
             WritableImage fxImage = SwingFXUtils.toFXImage(bim, null);
             imageCentrale = new ImageView(fxImage);
 
         } catch (IOException e) {
-            /* Problème lors de la lecture du fichier */
-            Main.journaux.warning("Probléme de lecture fihcier");
+            /* Problï¿½me lors de la lecture du fichier */
+            Main.journaux.warning("Problï¿½me de lecture fihcier");
         }
 
         return imageCentrale;
@@ -134,7 +135,7 @@ public class OutilLecture {
     }
 
     /**
-     * Pages courantes réel
+     * Pages courantes rï¿½el
      * @return valeur de pageCour
      */
     public int getPagesCourReel() {
@@ -162,9 +163,9 @@ public class OutilLecture {
     }
 
     /**
-     * Permet D'obtenir la page ( sous forme d'ImageView ) suivante à afficher
+     * Permet D'obtenir la page ( sous forme d'ImageView ) suivante ï¿½ afficher
      * Si on est page 2 -> On renvoie la page 3
-     * Page courante est incrémenté
+     * Page courante est incrï¿½mentï¿½
      * @return La page suivante en ImageView
      * @throws PageInexistante
      */
@@ -178,10 +179,10 @@ public class OutilLecture {
     }
 
     /**
-     * Permet D'obtenir la page ( sous forme d'ImageView ) précédente à afficher
+     * Permet D'obtenir la page ( sous forme d'ImageView ) prï¿½cï¿½dente ï¿½ afficher
      * Si on est page 3 -> On renvoie la page 3
-     * Page courante est décrémenté
-     * @return La page précédente en ImageView
+     * Page courante est dï¿½crï¿½mentï¿½
+     * @return La page prï¿½cï¿½dente en ImageView
      * @throws PageInexistante
      */
     public ImageView getPrecPage() throws PageInexistante {
@@ -194,7 +195,7 @@ public class OutilLecture {
     }
 
     /**
-     * Permet de définir si la pagecourante existe
+     * Permet de dï¿½finir si la pagecourante existe
      * @return true si elle existe, sinon false
      */
     public boolean pageCorrecte(int page) {
@@ -212,7 +213,7 @@ public class OutilLecture {
         try {
             document.close();
         } catch (IOException e) {
-            // Probléme fermeture
+            // Problï¿½me fermeture
             Main.journaux.warning("Pas de fermeture de fichier");
         }
     }

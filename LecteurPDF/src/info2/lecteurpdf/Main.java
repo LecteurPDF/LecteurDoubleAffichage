@@ -2,33 +2,30 @@ package info2.lecteurpdf;
 
 
 import java.util.logging.Logger;
-import java.util.prefs.Preferences;
 
+import info2.util.Preferences;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
 
 /**
- * Ouverture de la fenétre principal
+ * Ouverture de la fenï¿½tre principal
  *
  */
 public class Main extends Application {
 
 	public static Logger journaux = Logger.getLogger("Journaux de logs");
 
-	static Preferences prefs;
+	/* Preference de l'application */
+	static Preferences prefs = Preferences.getInstance();
 
     @Override
     public void start(Stage primaryStage) {
 
-    	// Crée une instance Preferences
-    	//TODO: Voir pourquoi erreur dans la console
-    	prefs = Preferences.userNodeForPackage(this.getClass());
 
     	try {
 
@@ -50,7 +47,7 @@ public class Main extends Application {
             primaryStage.show();
 
         } catch(Exception e) {
-            journaux.severe("Probléme lancement de l'app graphique");
+            journaux.severe("Problï¿½me lancement de l'app graphique");
         }
     }
 

@@ -6,9 +6,10 @@ package info2.lecteurpdf;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.prefs.Preferences;
 
-import info2.lecteurpdf.OutilLecture.PageInexistante;
+import info2.util.OutilLecture;
+import info2.util.OutilLecture.PageInexistante;
+import info2.util.Preferences;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,16 +30,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Permet de controler les différents objets de SceneBuilder
+ * Permet de controler les diffï¿½rents objets de SceneBuilder
  * @author sannac, vivier, pouzelgues, renoleau
  * @version 1.0
  */
 public class ControleurPrincipal {
 
-	/** Elements du fichier pdf ouvert en cours ( fichier et page affichée en ce moment ) */
+	/** Elements du fichier pdf ouvert en cours ( fichier et page affichï¿½e en ce moment ) */
 	private OutilLecture pdf = new OutilLecture();
 
-	private Preferences prefs = Main.prefs;
+	private Preferences prefs = Preferences.getInstance();
 
 	@FXML
 	private VBox parentVBox;
@@ -46,19 +47,19 @@ public class ControleurPrincipal {
 	@FXML
 	private BorderPane bpUnPdf;
 
-	/** Permet d'accéder à la page précédente */
+	/** Permet d'accï¿½der ï¿½ la page prï¿½cï¿½dente */
 	@FXML
 	private Button btnPrecPage;
 
-	/** Permet d'accéder à la page suivante */
+	/** Permet d'accï¿½der ï¿½ la page suivante */
 	@FXML
 	private Button btnNextPage;
 
-	/** Permet d'accéder à la page saisie par l'utilisateur */
+	/** Permet d'accï¿½der ï¿½ la page saisie par l'utilisateur */
 	@FXML
 	private TextField txbNbPage;
 
-	/** Là où la page est affichée */
+	/** Lï¿½ oï¿½ la page est affichï¿½e */
 	@FXML
 	private ScrollPane scrollPaneImg;
 
@@ -77,7 +78,7 @@ public class ControleurPrincipal {
 	}
 
 	/**
-	 * Prise de la touche clavier utilisé
+	 * Prise de la touche clavier utilisï¿½
 	 *
 	 * @param event
 	 */
@@ -90,7 +91,7 @@ public class ControleurPrincipal {
 
 			try {
 				imageAfficher.setImage(pdf.getNextPage().getImage());
-				/* On met l'ImageView à la bonne échelle */
+				/* On met l'ImageView ï¿½ la bonne ï¿½chelle */
 				setImagePrefs();
 				txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
 			} catch (PageInexistante e) {
@@ -111,16 +112,16 @@ public class ControleurPrincipal {
 			/* Si le fichier existe, on l'affiche */
 			if(fich != null) {
 
-				pdf = new OutilLecture(fich.getAbsolutePath()); // On crée l'objet avec le lien du fichier pdf
+				pdf = new OutilLecture(fich.getAbsolutePath()); // On crï¿½e l'objet avec le lien du fichier pdf
 
 				// imageAfficher.imageProperty().set(null); TODO : lag sur gros fichiers
-				//imageAfficher.setImage(pdf.getPagePdfToImg(0).getImage()); // On met l'image sur l'écran
+				//imageAfficher.setImage(pdf.getPagePdfToImg(0).getImage()); // On met l'image sur l'ï¿½cran
 
 				//anchorPaneImg.getChildren().add(new ImageView(pdf.getPagePdfToImg(0).getImage()));
 
 				imageAfficher = new ImageView(pdf.getPagePdfToImg(0).getImage());
 
-				/* On met l'ImageView à la bonne échelle */
+				/* On met l'ImageView ï¿½ la bonne ï¿½chelle */
 				setImagePrefs();
 
 				/* On met au centre */
@@ -128,7 +129,7 @@ public class ControleurPrincipal {
 
 				//emplacementImage.getTopAnchor(imageAfficher);
 
-				//System.out.println("Page fini de chargé");
+				//System.out.println("Page fini de chargï¿½");
 
 				txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
 
@@ -139,7 +140,7 @@ public class ControleurPrincipal {
 	}
 
 	/**
-	 * Permet de définir le fichier que l'on va afficher
+	 * Permet de dï¿½finir le fichier que l'on va afficher
 	 * @param event
 	 */
 	@FXML
@@ -151,7 +152,7 @@ public class ControleurPrincipal {
 		FileChooser.ExtensionFilter filtreFichierPdf = new FileChooser.ExtensionFilter("Fichier PDF (*.pdf)", "*.pdf");
 		choixFichier.getExtensionFilters().add(filtreFichierPdf);
 		try {
-			/* Ouverture de la fenêtre pour choix du fichier */
+			/* Ouverture de la fenï¿½tre pour choix du fichier */
 			File file = choixFichier.showOpenDialog(new Stage());
 			prefs.put("DERNIER_FICHIER", file.getAbsolutePath());
 
@@ -159,7 +160,7 @@ public class ControleurPrincipal {
 			chargementFichier(file);
 
 		} catch (NullPointerException e) {
-			Main.journaux.warning("Aucun fichier selectionné");
+			Main.journaux.warning("Aucun fichier selectionnï¿½");
 		}
 
 	}
@@ -173,7 +174,7 @@ public class ControleurPrincipal {
 			//TODO: Afficher liste des fichiers ouvert
 			chargementFichier(new File(prefs.get("DERNIER_FICHIER", null)));
 		} catch( NullPointerException e ) {
-			Main.journaux.info("Aucun fichier en mémoire");
+			Main.journaux.info("Aucun fichier en mï¿½moire");
 		}
 
 	}
@@ -200,14 +201,14 @@ public class ControleurPrincipal {
 
 
 	/**
-	 * Permet d'afficher la précédente page
+	 * Permet d'afficher la prï¿½cï¿½dente page
 	 * @param event btnPrecPage
 	 */
 	@FXML
 	void precedentePage(ActionEvent event) {
 		try {
 			imageAfficher.setImage(pdf.getPrecPage().getImage());
-			/* On met l'ImageView à la bonne échelle */
+			/* On met l'ImageView ï¿½ la bonne ï¿½chelle */
 			setImagePrefs();
 			txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
 		} catch (PageInexistante e) {
@@ -224,7 +225,7 @@ public class ControleurPrincipal {
 	void prochainePage(ActionEvent event) {
 		try {
 			imageAfficher.setImage(pdf.getNextPage().getImage());
-			/* On met l'ImageView à la bonne échelle */
+			/* On met l'ImageView ï¿½ la bonne ï¿½chelle */
 			setImagePrefs();
 			txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
 		} catch (PageInexistante e) {
@@ -234,27 +235,27 @@ public class ControleurPrincipal {
 	}
 
 	/**
-	 * Permet d'afficher la page souhaitée par l'utilisateur
+	 * Permet d'afficher la page souhaitï¿½e par l'utilisateur
 	 * @param event txbNbPage
 	 */
 	@FXML
 	void nbPage(ActionEvent event) {
 		try {
 			imageAfficher.setImage(pdf.getPagePdfToImg(Integer.parseInt(txbNbPage.getText()) - 1).getImage());
-			/* On met l'ImageView à la bonne échelle */
+			/* On met l'ImageView ï¿½ la bonne ï¿½chelle */
 			setImagePrefs();
 			txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
-			Main.journaux.warning("Format du nombre errroné");
+			Main.journaux.warning("Format du nombre errronï¿½");
 		} catch (PageInexistante e) {
 			Main.journaux.warning("Page inexistante");
 		}
 	}
 
 	/**
-	 * Permet l'ouverture de la fenétre préférence
-	 * @param event non utilisé
+	 * Permet l'ouverture de la fenï¿½tre prï¿½fï¿½rence
+	 * @param event non utilisï¿½
 	 */
 	@FXML
 	void ouvrirPref(ActionEvent event) {
@@ -265,7 +266,7 @@ public class ControleurPrincipal {
 
 			Scene scene = new Scene(fxmlLoader.load(), 300, 500);
 			Stage stage = new Stage();
-			stage.setTitle("Préférence - Lecteur PDF");
+			stage.setTitle("Prï¿½fï¿½rence - Lecteur PDF");
 			stage.setScene(scene);
 
 			stage.setResizable(false);
@@ -275,7 +276,7 @@ public class ControleurPrincipal {
 			stage.initModality( Modality.APPLICATION_MODAL );
 			stage.showAndWait();
 		} catch (IOException e) {
-			Main.journaux.severe("Probléme de lancement de la fenetre préférence");
+			Main.journaux.severe("Problï¿½me de lancement de la fenetre prï¿½fï¿½rence");
 		}
 	}
 
@@ -305,7 +306,7 @@ public class ControleurPrincipal {
 	}
 
 	/**
-	 * Permet d'agrandir la fenêtre
+	 * Permet d'agrandir la fenï¿½tre
 	 * @param event
 	 */
 	@FXML
@@ -321,7 +322,7 @@ public class ControleurPrincipal {
 	}
 
 	/**
-	 * Permet de fermer proprement le fichier et la fenêtre
+	 * Permet de fermer proprement le fichier et la fenï¿½tre
 	 * @param event
 	 */
 	@FXML
