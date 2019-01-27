@@ -6,6 +6,8 @@ package info2.lecteurpdf;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.LinkedList;
 
 import info2.util.OutilLecture;
 import info2.util.OutilLecture.PageInexistante;
@@ -14,6 +16,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -37,44 +41,15 @@ import javafx.stage.Stage;
  */
 public class ControleurPrincipal {
 
-	/** Elements du fichier pdf ouvert en cours ( fichier et page affich�e en ce moment ) */
-	private OutilLecture pdf = new OutilLecture();
+	private LinkedList<Vue> vues = new LinkedList<Vue>();
 
 	private Preferences prefs = Preferences.getInstance();
 
-	private boolean pleinecran = false;
+    @FXML
+    private AnchorPane vueGauche;
 
 	@FXML
 	private VBox parentVBox;
-
-	@FXML
-	private BorderPane bpUnPdf;
-
-	/** Permet d'acc�der � la page pr�c�dente */
-	@FXML
-	private Button btnPrecPage;
-
-	/** Permet d'acc�der � la page suivante */
-	@FXML
-	private Button btnNextPage;
-
-	/** Permet d'acc�der � la page saisie par l'utilisateur */
-	@FXML
-	private TextField txbNbPage;
-
-	/** L� o� la page est affich�e */
-	@FXML
-	private ScrollPane scrollPaneImg;
-
-
-	/** La page que l'on affiche sous forme d'ImageView */
-	private ImageView imageAfficher;
-
-	/** Taille de la fenetre en vertical */
-	private double initialX;
-
-	/** Taille de la fenetre en horizontal */
-	private double initialY;
 
     @FXML
     private Button btnPleinEcran;
@@ -89,69 +64,36 @@ public class ControleurPrincipal {
 	 *
 	 * @param event
 	 */
-	@FXML
-	void entreeClavier(KeyEvent event) {
-
-		KeyCode entreeClavier = event.getCode();
-
-		if (entreeClavier == KeyCode.getKeyCode(prefs.get("TOUCHE_PAGE_SUIVANTE", KeyCode.CHANNEL_DOWN.toString() ))) {
-
-			try {
-				imageAfficher.setImage(pdf.getNextPage().getImage());
-				/* On met l'ImageView � la bonne �chelle */
-				setImagePrefs();
-				txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
-			} catch (PageInexistante e) {
-				System.out.println( e.getMessage() );
-			}
-
-		} else if(entreeClavier == KeyCode.getKeyCode(prefs.get("TOUCHE_PAGE_PRECEDENTE", KeyCode.CHANNEL_UP.toString() ))){
-			//TODO
-		} else {
-			System.out.println("Pas de preferences");
-
-		}
-
-	}
-
-	private void chargementFichier(File fich) {
-		try {
-			/* Si le fichier existe, on l'affiche */
-			if(fich != null) {
-
-				pdf = new OutilLecture(fich.getAbsolutePath()); // On cr�e l'objet avec le lien du fichier pdf
-
-				// imageAfficher.imageProperty().set(null); TODO : lag sur gros fichiers
-				//imageAfficher.setImage(pdf.getPagePdfToImg(0).getImage()); // On met l'image sur l'�cran
-
-				//anchorPaneImg.getChildren().add(new ImageView(pdf.getPagePdfToImg(0).getImage()));
-
-				imageAfficher = new ImageView(pdf.getPagePdfToImg(0).getImage());
-
-				/* On met l'ImageView � la bonne �chelle */
-				setImagePrefs();
-
-				/* On met au centre */
-				// TODO Centrer image
-
-				//emplacementImage.getTopAnchor(imageAfficher);
-
-				//System.out.println("Page fini de charg�");
-
-				txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
-
-			}
-		} catch (PageInexistante e) {
-			Main.journaux.warning("Page inexistante");
-		}
-	}
+//	@FXML
+//	void entreeClavier(KeyEvent event) {
+//
+//		KeyCode entreeClavier = event.getCode();
+//
+//		if (entreeClavier == KeyCode.getKeyCode(prefs.get("TOUCHE_PAGE_SUIVANTE", KeyCode.CHANNEL_DOWN.toString() ))) {
+//
+//			try {
+//				imageAfficher.setImage(pdf.getNextPage().getImage());
+//				/* On met l'ImageView � la bonne �chelle */
+//				setImagePrefs();
+//				txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
+//			} catch (PageInexistante e) {
+//				System.out.println( e.getMessage() );
+//			}
+//
+//		} else if(entreeClavier == KeyCode.getKeyCode(prefs.get("TOUCHE_PAGE_PRECEDENTE", KeyCode.CHANNEL_UP.toString() ))){
+//			//TODO
+//		} else {
+//			System.out.println("Pas de preferences");
+//
+//		}
+//
+//	}
 
 	/**
 	 * Permet de d�finir le fichier que l'on va afficher
 	 * @param event
 	 */
-	@FXML
-	void changerFichier(ActionEvent event) {
+	public void changerFichier() {
 
 		final FileChooser choixFichier = new FileChooser(); // Choisisseur de fichier
 
@@ -163,8 +105,12 @@ public class ControleurPrincipal {
 			File file = choixFichier.showOpenDialog(new Stage());
 			prefs.put("DERNIER_FICHIER", file.getAbsolutePath());
 
+			vues.add(new Vue(file));
 
-			chargementFichier(file);
+			System.out.println("Ma zu");
+
+			AnchorPane.setTopAnchor(vues.get(0).getVue(), 10.0);
+			vueGauche.getChildren().add(vues.get(0).getVue());
 
 		} catch (NullPointerException e) {
 			Main.journaux.warning("Aucun fichier selectionn�");
@@ -179,7 +125,7 @@ public class ControleurPrincipal {
 
 		try {
 			//TODO: Afficher liste des fichiers ouvert
-			chargementFichier(new File(prefs.get("DERNIER_FICHIER", null)));
+			//TODO vues.get(0).chargementFichier(new File(prefs.get("DERNIER_FICHIER", null)));
 		} catch( NullPointerException e ) {
 			Main.journaux.info("Aucun fichier en m�moire");
 		}
@@ -187,78 +133,6 @@ public class ControleurPrincipal {
 	}
 
 
-	/**
-	 * Mettre en place les preferences a mettre sur dans l'interface
-	 * depuis l'ImageView imageAfficher
-	 */
-	private void setImagePrefs() {
-
-		imageAfficher.setPreserveRatio(true);
-		//		imageAfficher.setFitWidth(400);
-		//		imageAfficher.setFitHeight(300);
-
-		scrollPaneImg.setContent(null);
-		scrollPaneImg.setContent(imageAfficher);
-
-		//        bpUnPdf.setPrefSize(400, 300);
-		//        bpUnPdf.setCenter(imageAfficher);
-
-
-	}
-
-
-	/**
-	 * Permet d'afficher la pr�c�dente page
-	 * @param event btnPrecPage
-	 */
-	@FXML
-	void precedentePage(ActionEvent event) {
-		try {
-			imageAfficher.setImage(pdf.getPrecPage().getImage());
-			/* On met l'ImageView � la bonne �chelle */
-			setImagePrefs();
-			txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
-		} catch (PageInexistante e) {
-			Main.journaux.warning("Page inexistante");
-		}
-
-	}
-
-	/**
-	 * Permet d'afficher la prochaine page
-	 * @param event btnNextPage
-	 */
-	@FXML
-	void prochainePage(ActionEvent event) {
-		try {
-			imageAfficher.setImage(pdf.getNextPage().getImage());
-			/* On met l'ImageView � la bonne �chelle */
-			setImagePrefs();
-			txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
-		} catch (PageInexistante e) {
-			Main.journaux.warning("Page inexistante");
-		}
-
-	}
-
-	/**
-	 * Permet d'afficher la page souhait�e par l'utilisateur
-	 * @param event txbNbPage
-	 */
-	@FXML
-	void nbPage(ActionEvent event) {
-		try {
-			imageAfficher.setImage(pdf.getPagePdfToImg(Integer.parseInt(txbNbPage.getText()) - 1).getImage());
-			/* On met l'ImageView � la bonne �chelle */
-			setImagePrefs();
-			txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			Main.journaux.warning("Format du nombre errron�");
-		} catch (PageInexistante e) {
-			Main.journaux.warning("Page inexistante");
-		}
-	}
 
 	/**
 	 * Permet l'ouverture de la fen�tre pr�f�rence
@@ -289,47 +163,6 @@ public class ControleurPrincipal {
 	}
 
 	/**
-	 * Permet de prendre la valeur initial de la fenetre
-	 * avant deplacement de celle ci
-	 * @param event entree souris
-	 */
-	@FXML
-	void clickPourDeplacement(MouseEvent event) {
-		if (event.getButton() != MouseButton.MIDDLE) {
-			initialX = event.getSceneX();
-			initialY = event.getSceneY();
-		}
-	}
-
-	/**
-	 * Permet de suivre la souris pendant le deplacement de la fenetre
-	 * @param me entree souris
-	 */
-	@FXML
-	public void dragPourDeplacement(MouseEvent me) {
-		if (me.getButton() != MouseButton.MIDDLE) {
-			parentVBox.getScene().getWindow().setX(me.getScreenX() - initialX);
-			parentVBox.getScene().getWindow().setY(me.getScreenY() - initialY);
-		}
-	}
-
-	/**
-	 * Permet d'agrandir la fen�tre
-	 * @param event
-	 */
-	@FXML
-	void agrandissementFenetre(ActionEvent event) {
-
-		Stage stage = (Stage) parentVBox.getScene().getWindow();
-
-		if( stage.isMaximized() ) {
-			stage.setMaximized(false);
-		} else {
-			stage.setMaximized(true);
-		}
-	}
-
-	/**
 	 * Permet de fermer proprement le fichier et la fen�tre
 	 * @param event
 	 */
@@ -337,27 +170,11 @@ public class ControleurPrincipal {
 	void fermetureFenetre(ActionEvent event) {
 
 		try {
-			pdf.close();
+			//>TODOvues.get(0).fermetureVue();
 		} catch( NullPointerException e) {
 
 		}
 		Platform.exit();
 	}
-
-
-    @FXML
-    void switchPleinEcran(ActionEvent event) {
-
-    	Stage primaryStage = (Stage) parentVBox.getScene().getWindow();
-
-    	pleinecran = !pleinecran ;
-
-//    	primaryStage.hide();
-//    	stage.show();
-
-
-    	primaryStage.setFullScreen(pleinecran);
-
-    }
 
 }
