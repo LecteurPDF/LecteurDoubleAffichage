@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="parentVBox" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info2.lecteurpdf.ControleurPrincipal">
@@ -66,38 +68,46 @@
             <Button layoutX="571.0" layoutY="-1.0" mnemonicParsing="false" onAction="#agrandissementFenetre" prefHeight="0.0" prefWidth="27.0" text="/" visible="false" AnchorPane.rightAnchor="42.0" />
          </children>
       </AnchorPane>
-      <BorderPane fx:id="bpUnPdf">
-         <top>
-            <ToolBar prefHeight="45.0" prefWidth="640.0" BorderPane.alignment="CENTER">
-               <items>
-                  <Button fx:id="btnPrecPage" mnemonicParsing="false" onAction="#precedentePage" text="&lt;" />
-                  <TextField fx:id="txbNbPage" onAction="#nbPage" prefHeight="31.0" prefWidth="110.0" />
-                  <Button fx:id="btnNextPage" mnemonicParsing="false" onAction="#prochainePage" text="&gt;" />
-                  <Button fx:id="btnPleinEcran" mnemonicParsing="false" onAction="#switchPleinEcran">
-                     <graphic>
-                        <ImageView fitHeight="21.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../fullscreen.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </items>
-            </ToolBar>
-         </top>
-         <center>
-            <ScrollPane fx:id="scrollPaneImg" accessibleRole="IMAGE_VIEW" fitToHeight="true" fitToWidth="true" pannable="true">
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
-            </ScrollPane>
-         </center>
-         <bottom>
-            <AnchorPane prefHeight="11.0" prefWidth="640.0" BorderPane.alignment="CENTER" />
-         </bottom>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </BorderPane>
+      <SplitPane dividerPositions="1.0" VBox.vgrow="ALWAYS">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="158.0" prefWidth="632.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ToolBar nodeOrientation="LEFT_TO_RIGHT">
+                           <items>
+                              <Group>
+                                 <children>
+                                    <Button fx:id="btnPrecPage" layoutX="2.0" layoutY="-3.0" mnemonicParsing="false" onAction="#precedentePage" text="&lt;" />
+                                    <TextField fx:id="txbNbPage" layoutX="33.0" layoutY="-5.0" onAction="#nbPage" prefHeight="31.0" prefWidth="83.0" />
+                                    <Button fx:id="btnNextPage" contentDisplay="CENTER" layoutX="122.0" layoutY="-3.0" mnemonicParsing="false" onAction="#prochainePage" text="&gt;" />
+                                 </children>
+                              </Group>
+                              <Button fx:id="btnPleinEcran" mnemonicParsing="false" onAction="#switchPleinEcran">
+                                 <graphic>
+                                    <ImageView fitHeight="21.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../fullscreen.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </items>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                        </ToolBar>
+                        <ScrollPane fx:id="scrollPaneImg" accessibleRole="IMAGE_VIEW" pannable="true" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+        </items>
+      </SplitPane>
   </children>
 </VBox>
