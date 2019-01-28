@@ -6,6 +6,7 @@ import java.io.IOException;
 import info2.util.OutilLecture;
 import info2.util.Preferences;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class Vue {
@@ -18,26 +19,41 @@ public class Vue {
 
 	private VBox vue;
 
+	private ControleurVue controlleur;
 
-	public Vue (File fich) {
-		pdf = new OutilLecture(fich.getAbsolutePath());
+
+	public Vue () {
 
 		try {
-			System.out.println("avant");
-			vue = (VBox) FXMLLoader.load(getClass().getResource("vue.fxml"));
-			System.out.println("apres");
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("vue.fxml"));
+			vue = (VBox) loader.load();
+			controlleur = loader.getController();
+			controlleur.setVue(this);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
 
+	public ControleurVue getControlleur() {
+		return controlleur;
+	}
+
 	public VBox getVue() {
 		return vue;
 	}
 
+	public void setVue(VBox vue) {
+		this.vue = vue;
+	}
+
 	public OutilLecture getPdf() {
 		return pdf;
+	}
+
+	public void setPdf(File fich) {
+		pdf = new OutilLecture(fich.getAbsolutePath());
 	}
 
 }

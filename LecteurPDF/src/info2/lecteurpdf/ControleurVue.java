@@ -2,6 +2,8 @@ package info2.lecteurpdf;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import info2.util.OutilLecture;
 import info2.util.OutilLecture.PageInexistante;
@@ -10,6 +12,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -18,7 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class ControleurVue {
+public class ControleurVue implements Initializable{
 
 	private Preferences prefs = Preferences.getInstance();
 
@@ -46,12 +49,17 @@ public class ControleurVue {
 
 	private boolean pleinecran = false;
 
+	public void setVue(Vue vue) {
+		this.vue = vue;
+	}
+
+
 	public void chargementFichier(File fich) {
 		try {
 			/* Si le fichier existe, on l'affiche */
 			if(fich != null) {
 
-				vue = new Vue(fich);
+				vue.setPdf(fich);
 
 				imageAfficher = new ImageView(vue.getPdf().getPagePdfToImg(0).getImage());
 
@@ -161,6 +169,12 @@ public class ControleurVue {
 		} catch( NullPointerException e) {
 
 		}
+	}
+
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+
 	}
 
 }

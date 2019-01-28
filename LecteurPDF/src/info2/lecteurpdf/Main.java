@@ -48,6 +48,7 @@ public class Main extends Application {
 
         } catch(Exception e) {
             journaux.severe("Probl�me lancement de l'app graphique");
+            //e.printStackTrace();
         }
     }
 

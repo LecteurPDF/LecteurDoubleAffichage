@@ -45,14 +45,16 @@ public class ControleurPrincipal {
 
 	private Preferences prefs = Preferences.getInstance();
 
-    @FXML
-    private AnchorPane vueGauche;
+	@FXML
+	private AnchorPane vueGauche;
 
 	@FXML
 	private VBox parentVBox;
 
-    @FXML
-    private Button btnPleinEcran;
+	@FXML
+	private Button btnPleinEcran;
+
+	private ImageView imageAfficher;
 
 
 	public void initialize() {
@@ -64,30 +66,30 @@ public class ControleurPrincipal {
 	 *
 	 * @param event
 	 */
-//	@FXML
-//	void entreeClavier(KeyEvent event) {
-//
-//		KeyCode entreeClavier = event.getCode();
-//
-//		if (entreeClavier == KeyCode.getKeyCode(prefs.get("TOUCHE_PAGE_SUIVANTE", KeyCode.CHANNEL_DOWN.toString() ))) {
-//
-//			try {
-//				imageAfficher.setImage(pdf.getNextPage().getImage());
-//				/* On met l'ImageView � la bonne �chelle */
-//				setImagePrefs();
-//				txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
-//			} catch (PageInexistante e) {
-//				System.out.println( e.getMessage() );
-//			}
-//
-//		} else if(entreeClavier == KeyCode.getKeyCode(prefs.get("TOUCHE_PAGE_PRECEDENTE", KeyCode.CHANNEL_UP.toString() ))){
-//			//TODO
-//		} else {
-//			System.out.println("Pas de preferences");
-//
-//		}
-//
-//	}
+	//	@FXML
+	//	void entreeClavier(KeyEvent event) {
+	//
+	//		KeyCode entreeClavier = event.getCode();
+	//
+	//		if (entreeClavier == KeyCode.getKeyCode(prefs.get("TOUCHE_PAGE_SUIVANTE", KeyCode.CHANNEL_DOWN.toString() ))) {
+	//
+	//			try {
+	//				imageAfficher.setImage(pdf.getNextPage().getImage());
+	//				/* On met l'ImageView � la bonne �chelle */
+	//				setImagePrefs();
+	//				txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
+	//			} catch (PageInexistante e) {
+	//				System.out.println( e.getMessage() );
+	//			}
+	//
+	//		} else if(entreeClavier == KeyCode.getKeyCode(prefs.get("TOUCHE_PAGE_PRECEDENTE", KeyCode.CHANNEL_UP.toString() ))){
+	//			//TODO
+	//		} else {
+	//			System.out.println("Pas de preferences");
+	//
+	//		}
+	//
+	//	}
 
 	/**
 	 * Permet de d�finir le fichier que l'on va afficher
@@ -105,12 +107,9 @@ public class ControleurPrincipal {
 			File file = choixFichier.showOpenDialog(new Stage());
 			prefs.put("DERNIER_FICHIER", file.getAbsolutePath());
 
-			vues.add(new Vue(file));
+			chargementFichier(file);
 
-			System.out.println("Ma zu");
 
-			AnchorPane.setTopAnchor(vues.get(0).getVue(), 10.0);
-			vueGauche.getChildren().add(vues.get(0).getVue());
 
 		} catch (NullPointerException e) {
 			Main.journaux.warning("Aucun fichier selectionn�");
@@ -118,16 +117,25 @@ public class ControleurPrincipal {
 
 	}
 
+	private void chargementFichier(File fich) {
+		vues.add(new Vue());
+			vues.get(0).getControlleur().chargementFichier(fich);
 
+			AnchorPane.setTopAnchor(vues.get(0).getVue(), 0.0);
+			AnchorPane.setLeftAnchor(vues.get(0).getVue(), 0.0);
+			AnchorPane.setRightAnchor(vues.get(0).getVue(), 0.0);
+			AnchorPane.setBottomAnchor(vues.get(0).getVue(), 0.0);
+			vueGauche.getChildren().add(vues.get(0).getVue());
+	}
 
 	@FXML
 	void chargerDernierFichier(ActionEvent event) {
 
 		try {
-			//TODO: Afficher liste des fichiers ouvert
-			//TODO vues.get(0).chargementFichier(new File(prefs.get("DERNIER_FICHIER", null)));
+			//TODO Afficher liste des fichiers ouvert
+			chargementFichier(new File(prefs.get("DERNIER_FICHIER", null)));
 		} catch( NullPointerException e ) {
-			Main.journaux.info("Aucun fichier en m�moire");
+			Main.journaux.info("Aucun fichier en mémoire");
 		}
 
 	}
