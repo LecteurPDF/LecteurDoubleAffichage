@@ -4,15 +4,10 @@ import java.io.File;
 import java.io.IOException;
 
 import info2.util.OutilLecture;
-import info2.util.Preferences;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class Vue {
-
-
-	private Preferences prefs = Preferences.getInstance();
 
 	/** Elements du fichier pdf ouvert en cours ( fichier et page affich�e en ce moment ) */
 	private OutilLecture pdf = new OutilLecture();
@@ -54,6 +49,10 @@ public class Vue {
 
 	public void setPdf(File fich) {
 		pdf = new OutilLecture(fich.getAbsolutePath());
+	}
+
+	public void fermetureVue() {
+		pdf.close();
 	}
 
 }

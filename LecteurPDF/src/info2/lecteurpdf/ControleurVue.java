@@ -1,27 +1,23 @@
 package info2.lecteurpdf;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import info2.util.OutilLecture;
 import info2.util.OutilLecture.PageInexistante;
 import info2.util.Preferences;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class ControleurVue implements Initializable{
+public class ControleurVue implements Initializable {
 
 	private Preferences prefs = Preferences.getInstance();
 
@@ -147,13 +143,16 @@ public class ControleurVue implements Initializable{
 
 		Stage primaryStage = (Stage) vboxVue.getScene().getWindow();
 
+		Stage stage = new Stage();
+
+		stage.setScene(new Scene(new VBox(vboxVue), 400, 400));
+
 		pleinecran  = !pleinecran ;
 
-		//    	primaryStage.hide();
-		//    	stage.show();
+		primaryStage.hide();
+		stage.show();
 
-
-		primaryStage.setFullScreen(pleinecran);
+		stage.setFullScreen(pleinecran);
 
 	}
 
