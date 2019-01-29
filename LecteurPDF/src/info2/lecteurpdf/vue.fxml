@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
@@ -12,13 +14,15 @@
 
 <VBox fx:id="vboxVue" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info2.lecteurpdf.ControleurVue">
    <children>
-      <ToolBar nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+      <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" VBox.vgrow="ALWAYS">
          <items>
             <Group>
                <children>
                   <Button fx:id="btnPrecPage" layoutX="2.0" layoutY="-3.0" mnemonicParsing="false" onAction="#precedentePage" text="&lt;" />
-                  <TextField fx:id="txbNbPage" layoutX="33.0" layoutY="-5.0" onAction="#nbPage" prefHeight="31.0" prefWidth="83.0" />
-                  <Button fx:id="btnNextPage" contentDisplay="CENTER" layoutX="122.0" layoutY="-3.0" mnemonicParsing="false" onAction="#prochainePage" text="&gt;" />
+                  <TextField fx:id="txbNbPage" layoutX="33.0" layoutY="-5.0" onAction="#nbPage" prefWidth="51.0" />
+                  <Label layoutX="90.0" layoutY="1.0" text="/" />
+                  <TextField fx:id="txbNbPagesTotal" disable="true" editable="false" layoutX="100.0" layoutY="-5.0" prefWidth="51.0" />
+                  <Button fx:id="btnNextPage" contentDisplay="CENTER" layoutX="158.0" layoutY="-3.0" mnemonicParsing="false" onAction="#prochainePage" text="&gt;" />
                </children>
             </Group>
             <Button fx:id="btnPleinEcran" mnemonicParsing="false" onAction="#switchPleinEcran">
@@ -34,6 +38,9 @@
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </ToolBar>
       <ScrollPane fx:id="scrollPaneImg" accessibleRole="IMAGE_VIEW" onContextMenuRequested="#afficherMenuContextuel" pannable="true" VBox.vgrow="ALWAYS" />
    </children>

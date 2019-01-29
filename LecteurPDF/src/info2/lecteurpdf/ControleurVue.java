@@ -29,7 +29,7 @@ import javafx.stage.Stage;
  */
 public class ControleurVue implements Initializable {
 
-        /** Permet d'accéder aux préférences de l'utilisateurs ( écrites dans le registre ) */
+	/** Permet d'accéder aux préférences de l'utilisateurs ( écrites dans le registre ) */
 	private Preferences prefs = Preferences.getInstance();
 
 	/** L'instance de vue sur laquelle on travaille actuellement */
@@ -47,9 +47,12 @@ public class ControleurVue implements Initializable {
 	@FXML
 	private Button btnNextPage;
 
-	/** Texte qui représente le numéro de page actuel + le nombre d epage en tout */
-        @FXML
-        private TextField txbNbPage;
+	/** Texte qui représente le numéro de page actuel */
+	@FXML
+	private TextField txbNbPage;
+	/** Texte qui représente le nombre de page en tout */
+    @FXML
+    private TextField txbNbPagesTotal;
 
 	/** Bouton permettant de passer la vue en mode Plein Ecran ( Barre navigation & image du fichier pdf ) */
 	@FXML
@@ -70,7 +73,6 @@ public class ControleurVue implements Initializable {
 
 	/** Indique si l'on est en plein écran */
 	private boolean pleinecran = false;
-
 
 
 	/**
@@ -98,7 +100,9 @@ public class ControleurVue implements Initializable {
 				/* On met l'ImageView � la bonne �chelle */
 				setImagePrefs();
 
-	                        txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()) + " / " + Integer.toString(vue.getPdf().getNbPages()));
+				txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()));
+
+				txbNbPagesTotal.setText(Integer.toString(vue.getPdf().getNbPages()));
 
 			}
 		} catch (PageInexistante e) {
@@ -129,7 +133,7 @@ public class ControleurVue implements Initializable {
 			imageAfficher.setImage(vue.getPdf().getPrecPage().getImage());
 			/* On met l'ImageView � la bonne �chelle */
 			setImagePrefs();
-                        txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()) + " / " + Integer.toString(vue.getPdf().getNbPages()));
+			txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()));
 		} catch (PageInexistante e) {
 			Main.journaux.warning("Page inexistante");
 		}
@@ -146,7 +150,7 @@ public class ControleurVue implements Initializable {
 			imageAfficher.setImage(vue.getPdf().getNextPage().getImage());
 			/* On met l'ImageView � la bonne �chelle */
 			setImagePrefs();
-                        txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()) + " / " + Integer.toString(vue.getPdf().getNbPages()));
+			txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()));
 		} catch (PageInexistante e) {
 			Main.journaux.warning("Page inexistante");
 		}
@@ -154,7 +158,7 @@ public class ControleurVue implements Initializable {
 	}
 
 	/**
-	 * Permet d'afficher la page souhait�e par l'utilisateur
+	 * Permet d'afficher la page souhaitée par l'utilisateur
 	 * @param event txbNbPage
 	 */
 	@FXML
@@ -163,8 +167,7 @@ public class ControleurVue implements Initializable {
 			imageAfficher.setImage(vue.getPdf().getPagePdfToImg(Integer.parseInt(txbNbPage.getText()) - 1).getImage());
 			/* On met l'ImageView � la bonne �chelle */
 			setImagePrefs();
-			System.out.println("ok");
-			txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()) + " / " + Integer.toString(vue.getPdf().getNbPages()));
+			txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()));
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			Main.journaux.warning("Format du nombre errroné");
@@ -223,7 +226,11 @@ public class ControleurVue implements Initializable {
 		// Create ContextMenu
 		contextMenu = new ContextMenu();
 
+		/* Les différentes options du menu */
 		MenuItem item1 = new MenuItem("Changer fichier");
+		MenuItem item2 = new MenuItem("Fermer vue");
+
+		/* Evénements des différentes options */
 		item1.setOnAction(new EventHandler<ActionEvent>() {
 
 			public void handle(ActionEvent event) {
@@ -246,7 +253,16 @@ public class ControleurVue implements Initializable {
 			}
 		});
 
-		contextMenu.getItems().add(item1);
+		item2.setOnAction(new EventHandler<ActionEvent>() {
+
+			public void handle(ActionEvent event) {
+				// TODO : suppression
+				//fermetureVue(); -> Ne marche pas
+			}
+		});
+
+		/* Ajout des options */
+		contextMenu.getItems().addAll(item1,item2);
 	}
 
 }
