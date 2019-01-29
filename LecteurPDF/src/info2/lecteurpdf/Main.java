@@ -13,21 +13,21 @@ import javafx.scene.layout.VBox;
 
 
 /**
- * Ouverture de la fen�tre principal
- *
+ * Ouverture de la fenêtre principal
  */
 public class Main extends Application {
 
-	public static Logger journaux = Logger.getLogger("Journaux de logs");
+    /** Le différents logs de l'apllication */
+    public static Logger journaux = Logger.getLogger("Journaux de logs");
 
-	/* Preference de l'application */
-	static Preferences prefs = Preferences.getInstance();
+    /** Permet d'accéder aux préférences de l'utilisateurs ( écrites dans le registre ) */
+    static Preferences prefs = Preferences.getInstance();
 
     @Override
     public void start(Stage primaryStage) {
 
 
-    	try {
+        try {
 
             /* PdfRenderer -> Plus rapide -> java 8 ou +*/
             System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
@@ -35,8 +35,6 @@ public class Main extends Application {
             /* Import FXML */
             VBox root = (VBox) FXMLLoader.load(getClass().getResource("principal.fxml"));
             Scene scene = new Scene(root,900,600);
-
-//            primaryStage.initStyle(StageStyle.UNDECORATED);
 
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
@@ -47,13 +45,13 @@ public class Main extends Application {
             primaryStage.show();
 
         } catch(Exception e) {
-            journaux.severe("Probl�me lancement de l'app graphique");
-            //e.printStackTrace();
+            journaux.severe("Problème au lancement de l'app graphique");
         }
     }
 
     /**
      * Lancement de l'application graphique
+     * @param args inutilisé
      */
     public static void main(String[] args) {
         launch(args);

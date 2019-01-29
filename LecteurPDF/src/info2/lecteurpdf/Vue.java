@@ -7,52 +7,87 @@ import info2.util.OutilLecture;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 
+/**
+ * Une vue ets l'élément qui permet d'afficher une page d'un fichier pdf
+ *   ainsi que les différents éléments qui  concerne cette même page
+ *
+ * Dans cette vue on retrouve différents éléments :
+ *   - Le fichier PDF lui-même
+ *   - La barre de navigation : page précédente / suivante + bouton plein écran + page actuelle
+ * @author kevin.sannac
+ *
+ */
 public class Vue {
 
-	/** Elements du fichier pdf ouvert en cours ( fichier et page affich�e en ce moment ) */
-	private OutilLecture pdf = new OutilLecture();
+    /** Elements du fichier pdf ouvert en cours ( fichier et page affich�e en ce moment ) */
+    private OutilLecture pdf = new OutilLecture();
 
-	private VBox vue;
+    /** La représentation ( fxml ( graphique ) ) de la vue */
+    private VBox vue;
 
-	private ControleurVue controlleur;
+    /** Le controleur lié à la vue ( graphique ) */
+    private ControleurVue controleur;
 
 
-	public Vue () {
+    /**
+     * Permet de créer à partir du controleur et du fichier fxml ( vue.fxml )
+     * une nouvelle vue ( graphique )
+     */
+    public Vue () {
 
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("vue.fxml"));
-			vue = (VBox) loader.load();
-			controlleur = loader.getController();
-			controlleur.setVue(this);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("vue.fxml"));
+            vue = (VBox) loader.load();
+            controleur = loader.getController();
+            controleur.setVue(this);
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        } catch (IOException e) {
+            Main.journaux.severe("Problème lors de la création de la vue");
+        }
 
-	}
+    }
 
-	public ControleurVue getControlleur() {
-		return controlleur;
-	}
+    /**
+     * @return valeur de controleur
+     */
+    public ControleurVue getControleur() {
+        return controleur;
+    }
+    /**
+     * @return valeur de vue
+     */
+    public VBox getVue() {
+        return vue;
+    }
 
-	public VBox getVue() {
-		return vue;
-	}
+    /**
+     * Donne une nouvelle valeur à vue
+     * @param vue La nouvelle valeur de vue
+     */
+    public void setVue(VBox vue) {
+        this.vue = vue;
+    }
 
-	public void setVue(VBox vue) {
-		this.vue = vue;
-	}
+    /**
+     * @return valeur de pdf
+     */
+    public OutilLecture getPdf() {
+        return pdf;
+    }
 
-	public OutilLecture getPdf() {
-		return pdf;
-	}
+    /**
+     * Donne une nouvelle valeur à pdf
+     * @param fich La nouvelle valeur de pdf
+     */
+    public void setPdf(File fich) {
+        pdf = new OutilLecture(fich.getAbsolutePath());
+    }
 
-	public void setPdf(File fich) {
-		pdf = new OutilLecture(fich.getAbsolutePath());
-	}
-
-	public void fermetureVue() {
-		pdf.close();
-	}
+    /**
+     * Ferme la vue
+     */
+    public void fermetureVue() {
+        pdf.close();
+    }
 
 }

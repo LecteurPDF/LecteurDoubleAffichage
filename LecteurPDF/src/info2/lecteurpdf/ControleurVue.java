@@ -22,43 +22,70 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * Permet de controler les différents objets de SceneBuilder -> fichier "vue.fxml"
+ * @author sannac, vivier, pouzelgues, renoleau
+ * @version 1.0
+ */
 public class ControleurVue implements Initializable {
 
+        /** Permet d'accéder aux préférences de l'utilisateurs ( écrites dans le registre ) */
 	private Preferences prefs = Preferences.getInstance();
 
+	/** L'instance de vue sur laquelle on travaille actuellement */
 	private Vue vue;
 
+	/** La fenêtre fxml -> VBox affichée à l'écran */
 	@FXML
 	private VBox vboxVue;
 
+	/** Bouton pour aller à la page précédente */
 	@FXML
 	private Button btnPrecPage;
 
-	@FXML
-	private TextField txbNbPage;
-
+	/** Bouton pour aller à la page suivante */
 	@FXML
 	private Button btnNextPage;
 
+	/** Texte qui représente le numéro de page actuel + le nombre d epage en tout */
+        @FXML
+        private TextField txbNbPage;
+
+	/** Bouton permettant de passer la vue en mode Plein Ecran ( Barre navigation & image du fichier pdf ) */
 	@FXML
 	private Button btnPleinEcran;
 
+	/** Permet de pouvoir scroll la page, sera inséré l'ImageView de la page du PDF */
 	@FXML
 	private ScrollPane scrollPaneImg;
 
+	/** La page du fichier pdf que l'on affiche actuellement */
 	private ImageView imageAfficher;
 
+	/** Menu clic droit :
+	 *       - changer fichier
+	 *       -
+	 */
 	private ContextMenu contextMenu;
 
+	/** Indique si l'on est en plein écran */
 	private boolean pleinecran = false;
 
 
 
+	/**
+	 * Change la valeur de vue
+	 * @param vue La nouvelle valeur de vue
+	 */
 	public void setVue(Vue vue) {
 		this.vue = vue;
 	}
 
 
+	/**
+	 * Permet de charger un nouveau fichier dans la vue actuelle
+	 * @param fich Le fichier que l'on souhaite mettre dans la vue
+	 */
 	public void chargementFichier(File fich) {
 		try {
 			/* Si le fichier existe, on l'affiche */
@@ -71,7 +98,7 @@ public class ControleurVue implements Initializable {
 				/* On met l'ImageView � la bonne �chelle */
 				setImagePrefs();
 
-				txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()));
+	                        txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()) + " / " + Integer.toString(vue.getPdf().getNbPages()));
 
 			}
 		} catch (PageInexistante e) {
@@ -90,12 +117,10 @@ public class ControleurVue implements Initializable {
 
 		scrollPaneImg.setContent(null);
 		scrollPaneImg.setContent(imageAfficher);
-
-
 	}
 
 	/**
-	 * Permet d'afficher la pr�c�dente page
+	 * Permet d'afficher la précédente page
 	 * @param event btnPrecPage
 	 */
 	@FXML
@@ -104,7 +129,7 @@ public class ControleurVue implements Initializable {
 			imageAfficher.setImage(vue.getPdf().getPrecPage().getImage());
 			/* On met l'ImageView � la bonne �chelle */
 			setImagePrefs();
-			txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()));
+                        txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()) + " / " + Integer.toString(vue.getPdf().getNbPages()));
 		} catch (PageInexistante e) {
 			Main.journaux.warning("Page inexistante");
 		}
@@ -121,7 +146,7 @@ public class ControleurVue implements Initializable {
 			imageAfficher.setImage(vue.getPdf().getNextPage().getImage());
 			/* On met l'ImageView � la bonne �chelle */
 			setImagePrefs();
-			txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()));
+                        txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()) + " / " + Integer.toString(vue.getPdf().getNbPages()));
 		} catch (PageInexistante e) {
 			Main.journaux.warning("Page inexistante");
 		}
@@ -138,15 +163,21 @@ public class ControleurVue implements Initializable {
 			imageAfficher.setImage(vue.getPdf().getPagePdfToImg(Integer.parseInt(txbNbPage.getText()) - 1).getImage());
 			/* On met l'ImageView � la bonne �chelle */
 			setImagePrefs();
-			txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()));
+			System.out.println("ok");
+			txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()) + " / " + Integer.toString(vue.getPdf().getNbPages()));
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
-			Main.journaux.warning("Format du nombre errron�");
+			Main.journaux.warning("Format du nombre errroné");
 		} catch (PageInexistante e) {
 			Main.journaux.warning("Page inexistante");
 		}
 	}
 
+	/**
+	 * Permet de passer la vue en mode plein écran, en mode plein écran, le menu n'est plus affiché,
+	 * seule la vue ( Donc la page du fichier et sa barre denavigation le sont)
+	 * @param event inutilisé
+	 */
 	@FXML
 	void switchPleinEcran(ActionEvent event) {
 
@@ -167,8 +198,7 @@ public class ControleurVue implements Initializable {
 
 
 	/**
-	 * Permet de fermer proprement le fichier et la fen�tre
-	 * @param event
+	 * Permet de fermer proprement le fichier et la fenêtre
 	 */
 	void fermetureVue() {
 
@@ -179,6 +209,10 @@ public class ControleurVue implements Initializable {
 		}
 	}
 
+	/**
+	 * Permet d'affichier le menu contextuel ( clic droit )
+	 * @param event
+	 */
 	@FXML
 	void afficherMenuContextuel(ContextMenuEvent event) {
 		contextMenu.show(scrollPaneImg, event.getScreenX(), event.getScreenY());
@@ -207,7 +241,7 @@ public class ControleurVue implements Initializable {
 					chargementFichier(file);
 
 				} catch (NullPointerException e) {
-					Main.journaux.warning("Aucun fichier selectionn�");
+					Main.journaux.warning("Aucun fichier selectionné");
 				}
 			}
 		});
