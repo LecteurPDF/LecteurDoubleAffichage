@@ -40,7 +40,7 @@ public class Main extends Application {
 
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
-            primaryStage.setTitle("Lecture pdf");
+            primaryStage.setTitle("Visio Reader - Lecteur PDF Double Affichage");
             primaryStage.getIcons().add(new Image("icone.png"));
 
             primaryStage.setScene(scene);
