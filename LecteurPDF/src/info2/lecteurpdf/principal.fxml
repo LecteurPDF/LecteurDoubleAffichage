@@ -60,11 +60,6 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <SplitPane dividerPositions="0.0" VBox.vgrow="ALWAYS">
-        <items>
-          <AnchorPane fx:id="vueGauche" />
-          <AnchorPane maxHeight="0.0" maxWidth="0.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-        </items>
-      </SplitPane>
+      <SplitPane fx:id="splitPanePdf" VBox.vgrow="ALWAYS" />
   </children>
 </VBox>

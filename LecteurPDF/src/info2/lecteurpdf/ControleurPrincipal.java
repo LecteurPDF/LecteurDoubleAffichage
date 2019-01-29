@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.SplitPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -37,10 +38,10 @@ public class ControleurPrincipal implements Initializable {
 	private Preferences prefs = Preferences.getInstance();
 
 	@FXML
-	private AnchorPane vueGauche;
+	private VBox parentVBox;
 
 	@FXML
-	private VBox parentVBox;
+	private SplitPane splitPanePdf;
 
 	@FXML
 	private Button btnPleinEcran;
@@ -102,15 +103,44 @@ public class ControleurPrincipal implements Initializable {
 	}
 
 	private void chargementFichier(File fich) {
-		vues.add(new Vue());
-			vues.get(0).getControlleur().chargementFichier(fich);
+		int i = vues.size(); // Index pour l'ajout
 
-			AnchorPane.setTopAnchor(vues.get(0).getVue(), 0.0);
-			AnchorPane.setLeftAnchor(vues.get(0).getVue(), 0.0);
-			AnchorPane.setRightAnchor(vues.get(0).getVue(), 0.0);
-			AnchorPane.setBottomAnchor(vues.get(0).getVue(), 0.0);
-			vueGauche.getChildren().add(vues.get(0).getVue());
+		//		if(i == 2 ) { /* Pour les tests */
+		//			try {
+		//				Stage stage = new Stage();
+		//				FXMLLoader loader = new FXMLLoader(getClass().getResource("principal.fxml"));
+		//				VBox vue = (VBox) loader.load();
+		//				Scene scene = new Scene(vue);
+		//				stage.setScene(scene);
+		//				ControleurPrincipal controlleur = loader.getController();
+		//				controlleur.chargementFichier(fich);
+		//				stage.show();
+		//			} catch (IOException e) {
+		//				// TODO Auto-generated catch block
+		//				e.printStackTrace();
+		//			}
+		//		} else {
+
+		vues.add(new Vue());
+		vues.get(i).getControlleur().chargementFichier(fich);
+
+		AnchorPane newAnchor = new AnchorPane();
+
+
+		if( i >= 2 ) {
+			i = 0;
+			splitPanePdf.getItems().set(i, newAnchor);
+		} else {
+			splitPanePdf.getItems().add(newAnchor);
+		}
+
+		AnchorPane.setTopAnchor(vues.get(i).getVue(), 0.0);
+		AnchorPane.setLeftAnchor(vues.get(i).getVue(), 0.0);
+		AnchorPane.setRightAnchor(vues.get(i).getVue(), 0.0);
+		AnchorPane.setBottomAnchor(vues.get(i).getVue(), 0.0);
+		newAnchor.getChildren().add(vues.get(i).getVue());
 	}
+
 
 	@FXML
 	void chargerDernierFichier(ActionEvent event) {
@@ -171,7 +201,7 @@ public class ControleurPrincipal implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		chargerDernierFichier(null);
+		//chargerDernierFichier(null);
 
 	}
 

@@ -35,6 +35,6 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </ToolBar>
-      <ScrollPane fx:id="scrollPaneImg" accessibleRole="IMAGE_VIEW" pannable="true" VBox.vgrow="ALWAYS" />
+      <ScrollPane fx:id="scrollPaneImg" accessibleRole="IMAGE_VIEW" onContextMenuRequested="#afficherMenuContextuel" pannable="true" VBox.vgrow="ALWAYS" />
    </children>
 </VBox>

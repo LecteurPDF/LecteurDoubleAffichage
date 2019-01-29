@@ -7,14 +7,19 @@ import java.util.ResourceBundle;
 import info2.util.OutilLecture.PageInexistante;
 import info2.util.Preferences;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class ControleurVue implements Initializable {
@@ -43,7 +48,11 @@ public class ControleurVue implements Initializable {
 
 	private ImageView imageAfficher;
 
+	private ContextMenu contextMenu;
+
 	private boolean pleinecran = false;
+
+
 
 	public void setVue(Vue vue) {
 		this.vue = vue;
@@ -170,10 +179,40 @@ public class ControleurVue implements Initializable {
 		}
 	}
 
+	@FXML
+	void afficherMenuContextuel(ContextMenuEvent event) {
+		contextMenu.show(scrollPaneImg, event.getScreenX(), event.getScreenY());
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		// Create ContextMenu
+		contextMenu = new ContextMenu();
 
+		MenuItem item1 = new MenuItem("Changer fichier");
+		item1.setOnAction(new EventHandler<ActionEvent>() {
+
+			public void handle(ActionEvent event) {
+				// TODO charger un fichier
+				final FileChooser choixFichier = new FileChooser(); // Choisisseur de fichier
+
+				/* Extension obligatoire : .PDF */
+				FileChooser.ExtensionFilter filtreFichierPdf = new FileChooser.ExtensionFilter("Fichier PDF (*.pdf)", "*.pdf");
+				choixFichier.getExtensionFilters().add(filtreFichierPdf);
+				try {
+					/* Ouverture de la fen�tre pour choix du fichier */
+					File file = choixFichier.showOpenDialog(new Stage());
+					prefs.put("DERNIER_FICHIER", file.getAbsolutePath());
+
+					chargementFichier(file);
+
+				} catch (NullPointerException e) {
+					Main.journaux.warning("Aucun fichier selectionn�");
+				}
+			}
+		});
+
+		contextMenu.getItems().add(item1);
 	}
 
 }
