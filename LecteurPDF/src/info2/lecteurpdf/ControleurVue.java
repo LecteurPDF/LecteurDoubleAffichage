@@ -243,7 +243,7 @@ public class ControleurVue implements Initializable {
 				try {
 					/* Ouverture de la fen�tre pour choix du fichier */
 					File file = choixFichier.showOpenDialog(new Stage());
-					prefs.put("DERNIER_FICHIER", file.getAbsolutePath());
+					prefs.putDernierFichier(file.getAbsolutePath());
 
 					chargementFichier(file);
 

@@ -20,7 +20,7 @@
               <Menu mnemonicParsing="false" text="Fichier">
                 <items>
                   <MenuItem mnemonicParsing="false" onAction="#changerFichier" onMenuValidation="#changerFichier" text="Ouvrir" />
-                  <Menu mnemonicParsing="false" onAction="#chargerDernierFichier" text="Ouvrir dernier fichier" />
+                  <Menu fx:id="menuDerniersFichiers" mnemonicParsing="false" onAction="#chargerDernierFichier" text="Ouvrir dernier fichier" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem disable="true" mnemonicParsing="false" text="Fermer fichier" />
                   <SeparatorMenuItem mnemonicParsing="false" />
