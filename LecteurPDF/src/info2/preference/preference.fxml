@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<!-- préférence -->
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info2.preference.ControleurPreference">
    <children>
       <SplitPane fx:id="splitpane" dividerPositions="0.5" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #e16731;">
                <children>
-                  <Button mnemonicParsing="false" onAction="#optionsTouches" prefHeight="50.0" prefWidth="2500.0" style="-fx-background-color: transparent; -fx-text-fill: red;" text="Touches" />
-                  <Button mnemonicParsing="false" onAction="#optionDisposition" prefHeight="50.0" prefWidth="2500.0" style="-fx-background-color: transparent; -fx-text-fill: red;" text="Disposition" />
+                  <Button mnemonicParsing="false" onAction="#optionsTouches" onMouseEntered="#survolEntreeBouton" onMouseExited="#survolSortieBouton" prefHeight="50.0" prefWidth="2500.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Raccourci Clavier" />
+                  <Button mnemonicParsing="false" onAction="#optionDisposition" onMouseEntered="#survolEntreeBouton" onMouseExited="#survolSortieBouton" prefHeight="50.0" prefWidth="2500.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Disposition Vues">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></Button>
                </children>
             </VBox>
             <ScrollPane fx:id="affichageInfos" prefHeight="200.0" prefWidth="200.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="399.0" prefWidth="295.0" />
               </content>
             </ScrollPane>
          </items>
