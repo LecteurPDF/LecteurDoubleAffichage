@@ -180,11 +180,11 @@ public class ControleurPrincipal implements Initializable {
 
             /* On prépare le théatre ( stage ) et la scene */
             Stage stage = new Stage();
-            Scene scene = new Scene(fxmlLoader.load(), 300, 500);
+            Scene scene = new Scene(fxmlLoader.load(), 800, 500);
             stage.setTitle("Préférence - Lecteur PDF");
             stage.setScene(scene);
 
-            stage.setResizable(false);
+            //stage.setResizable(false);
 
             /* Fenetre modale */
             stage.initOwner( parentVBox.getScene().getWindow() );
