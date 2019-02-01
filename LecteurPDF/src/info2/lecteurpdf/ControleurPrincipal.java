@@ -25,6 +25,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -117,134 +118,141 @@ public class ControleurPrincipal implements Initializable {
 	private void chargementFichier(File fich) {
 		int i = vues.size(); // Index pour l'ajout
 
-		//		if(i == 2 ) { /* Pour les tests */
-		//			try {
-		//				Stage stage = new Stage();
-		//				FXMLLoader loader = new FXMLLoader(getClass().getResource("principal.fxml"));
-		//				VBox vue = (VBox) loader.load();
-		//				Scene scene = new Scene(vue);
-		//				stage.setScene(scene);
-		//				ControleurPrincipal controleur = loader.getController();
-		//				controleur.chargementFichier(fich);
-		//				stage.show();
-		//			} catch (IOException e) {
-		//				// TODO Auto-generated catch block
-		//				e.printStackTrace();
-		//			}
-		//		} else {
-
-		// Ajout de la vue à la fenêtre actuelle ( maximum 2 vues )
-		vues.add(new Vue());
-		vues.get(i).getControleur().chargementFichier(fich);
-
-		// Ajout de l'AnchorPane au SplitPane ( Parent ) -> contiendra la vue
-		AnchorPane newAnchor = new AnchorPane();
-
-
-		if( i >= 2 ) {
-			i = 0;
-			splitPanePdf.getItems().set(i, newAnchor);
+		if(i >= 2 ) { /* Pour les tests */
+			new Alert(AlertType.WARNING, "TODO: Ouvrir deuxiéme fenetre", ButtonType.OK).showAndWait();
+//			try {
+//
+//				Stage stage = new Stage();
+//				FXMLLoader loader = new FXMLLoader(getClass().getResource("vue.fxml"));
+//				VBox vue = (VBox) loader.load();
+//				SplitPane container = new SplitPane(vue);
+//				Scene scene = new Scene(container);
+//				stage.setScene(scene);
+//				((ControleurVue) loader.getController()).chargementFichier(fich);
+//				stage.show();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+		} else if (i >= 4 ){
+			Main.journaux.info("Max de vue atteint : " + i);
+			Alert alerte = new Alert(AlertType.WARNING, "Vous ne pouvez pas ouvrir plus de 4 vues.", ButtonType.OK);
+			alerte.showAndWait();
 		} else {
-			splitPanePdf.getItems().add(newAnchor);
-		}
 
-		// On positionne et ajoute la vue dans l'AnchorPane
-		AnchorPane.setTopAnchor(vues.get(i).getVue(), 0.0);
-		AnchorPane.setLeftAnchor(vues.get(i).getVue(), 0.0);
-		AnchorPane.setRightAnchor(vues.get(i).getVue(), 0.0);
-		AnchorPane.setBottomAnchor(vues.get(i).getVue(), 0.0);
-		newAnchor.getChildren().add(vues.get(i).getVue());
+			// Ajout de la vue à la fenêtre actuelle ( maximum 2 vues )
+			vues.add(new Vue());
+			vues.get(i).getControleur().chargementFichier(fich);
+
+			// Ajout de l'AnchorPane au SplitPane ( Parent ) -> contiendra la vue
+			AnchorPane newAnchor = new AnchorPane();
+
+
+			if( i >= 2 ) {
+				i = 0;
+				splitPanePdf.getItems().set(i, newAnchor);
+			} else {
+				splitPanePdf.getItems().add(newAnchor);
+			}
+
+			// On positionne et ajoute la vue dans l'AnchorPane
+			AnchorPane.setTopAnchor(vues.get(i).getVue(), 0.0);
+			AnchorPane.setLeftAnchor(vues.get(i).getVue(), 0.0);
+			AnchorPane.setRightAnchor(vues.get(i).getVue(), 0.0);
+			AnchorPane.setBottomAnchor(vues.get(i).getVue(), 0.0);
+			newAnchor.getChildren().add(vues.get(i).getVue());
+		}
 	}
 
 
 
-	/**
-	 * Permet de charger le dernier fichier lancé
-	 * @param event
-	 */
-	@FXML
-	void chargerDernierFichier() {
+		/**
+		 * Permet de charger le dernier fichier lancé
+		 * @param event
+		 */
+		@FXML
+		void chargerDernierFichier() {
 
-		LinkedList<MenuItem> items = new LinkedList<MenuItem>();
-		LinkedList<String> fichiers = prefs.getDerniersFichiers();
-		int i = 0;
-		for(String cour: fichiers) {
-			// Create MenuItems
-			MenuItem newItem = new MenuItem(cour);
+			LinkedList<MenuItem> items = new LinkedList<MenuItem>();
+			LinkedList<String> fichiers = prefs.getDerniersFichiers();
+			int i = 0;
+			for(String cour: fichiers) {
+				// Create MenuItems
+				MenuItem newItem = new MenuItem(cour);
 
-			//QUand l'utilisateur appuye
-			newItem.setOnAction(new EventHandler<ActionEvent>() {
+				//QUand l'utilisateur appuye
+				newItem.setOnAction(new EventHandler<ActionEvent>() {
 
-				@Override
-				public void handle(ActionEvent event) {
-					try {
-						//TODO Afficher liste des fichiers ouvert -> 5 fichiers ?
-						chargementFichier(new File(newItem.getText()));
-					} catch( NullPointerException e ) {
-						Main.journaux.info("Aucun fichier en mémoire");
-						Alert alerte = new Alert(AlertType.WARNING, "Aucun fichiers en mémoire", ButtonType.OK);
-						alerte.showAndWait();
+					@Override
+					public void handle(ActionEvent event) {
+						try {
+							//TODO Afficher liste des fichiers ouvert -> 5 fichiers ?
+							chargementFichier(new File(newItem.getText()));
+						} catch( NullPointerException e ) {
+							Main.journaux.warning("Aucun fichier en mémoire");
+							Alert alerte = new Alert(AlertType.WARNING, "Erreur chemin du fichier", ButtonType.OK);
+							alerte.showAndWait();
+						}
 					}
-				}
-			});
-			items.add(i, newItem);
-			i++;
-		}
+				});
+				items.add(i, newItem);
+				i++;
+			}
 
-		menuDerniersFichiers.getItems().clear();
-		menuDerniersFichiers.getItems().addAll(items);
-
-	}
-
-
-
-	/**
-	 * Permet l'ouverture de la fen�tre préférence
-	 * @param event non utilisé
-	 */
-	@FXML
-	void ouvrirPref(ActionEvent event) {
-		try {
-			/* Chargement du fxml du menu préférence */
-			FXMLLoader fxmlLoader = new FXMLLoader();
-			fxmlLoader.setLocation(getClass().getResource("../preference/preference.fxml"));
-
-			/* On prépare le théatre ( stage ) et la scene */
-			Stage stage = new Stage();
-			Scene scene = new Scene(fxmlLoader.load(), 800, 500);
-			stage.setTitle("Préférence - Lecteur PDF");
-			stage.setScene(scene);
-
-			//stage.setResizable(false);
-
-			/* Fenetre modale */
-			stage.initOwner( parentVBox.getScene().getWindow() );
-			stage.initModality( Modality.APPLICATION_MODAL );
-			stage.showAndWait();
-		} catch (IOException e) {
-			Main.journaux.severe("Problème de lancement de la fenetre préférence");
-		}
-	}
-
-	/**
-	 * Permet de fermer proprement le fichier et la fenêtre
-	 * @param event
-	 */
-	@FXML
-	void fermetureFenetre(ActionEvent event) {
-
-		// TODO : Faire pour plusieurs vues
-		try {
-			vues.get(0).fermetureVue();
-		} catch( NullPointerException e) {
+			menuDerniersFichiers.getItems().clear();
+			menuDerniersFichiers.getItems().addAll(items);
 
 		}
-		Platform.exit();
+
+
+
+		/**
+		 * Permet l'ouverture de la fen�tre préférence
+		 * @param event non utilisé
+		 */
+		@FXML
+		void ouvrirPref(ActionEvent event) {
+			try {
+				/* Chargement du fxml du menu préférence */
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				fxmlLoader.setLocation(getClass().getResource("../preference/preference.fxml"));
+
+				/* On prépare le théatre ( stage ) et la scene */
+				Stage stage = new Stage();
+				Scene scene = new Scene(fxmlLoader.load(), 800, 500);
+				stage.setTitle("Préférence - Lecteur PDF");
+				stage.setScene(scene);
+
+				//stage.setResizable(false);
+
+				/* Fenetre modale */
+				stage.initOwner( parentVBox.getScene().getWindow() );
+				stage.initModality( Modality.APPLICATION_MODAL );
+				stage.showAndWait();
+			} catch (IOException e) {
+				Main.journaux.severe("Problème de lancement de la fenetre préférence");
+			}
+		}
+
+		/**
+		 * Permet de fermer proprement le fichier et la fenêtre
+		 * @param event
+		 */
+		@FXML
+		void fermetureFenetre(ActionEvent event) {
+
+			// TODO : Faire pour plusieurs vues
+			try {
+				vues.get(0).fermetureVue();
+			} catch( NullPointerException e) {
+
+			}
+			Platform.exit();
+		}
+
+		@Override
+		public void initialize(URL arg0, ResourceBundle arg1) {
+
+		}
+
 	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-
-	}
-
-}

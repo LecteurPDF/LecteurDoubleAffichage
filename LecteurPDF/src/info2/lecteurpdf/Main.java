@@ -26,7 +26,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-
         try {
 
             /* PdfRenderer -> Plus rapide -> java 8 ou +*/

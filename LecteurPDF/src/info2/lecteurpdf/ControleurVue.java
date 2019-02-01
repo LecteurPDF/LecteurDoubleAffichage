@@ -263,6 +263,7 @@ public class ControleurVue implements Initializable {
 
 		/* Ajout des options */
 		contextMenu.getItems().addAll(item1,item2);
+		scrollPaneImg.setContextMenu(contextMenu);
 	}
 
 }

@@ -79,7 +79,7 @@ public class OutilLecture {
             // Prot�g�
         	Main.journaux.warning("FIchier prot�g� d'un mot de passe");
         } catch (IOException e) {
-            // Fichier non trouv�
+            // Fichier non trouvé
             Main.journaux.warning("FIchier non trouv�");
         }
 
@@ -101,6 +101,8 @@ public class OutilLecture {
      */
     public ImageView getPagePdfToImg( int page ) throws PageInexistante {
 
+    	float qualite = Float.parseFloat(Preferences.getInstance().get("QUALITE", Float.toString((122))));
+
         ImageView imageCentrale = new ImageView(); // L'image de la page pdf convertie
 
         if(!pageCorrecte(pageCour)) {
@@ -112,7 +114,7 @@ public class OutilLecture {
 
         try {
             /* Cr�ation d'une image en couleur avec 100 DPI */
-            BufferedImage bim = pdfRenderer.renderImageWithDPI(page, 122, ImageType.RGB);
+            BufferedImage bim = pdfRenderer.renderImageWithDPI(page, qualite, ImageType.RGB);
             setPagesCour(page); // La page courante est chang�e
 
             /* Convertion d'un objet JavaAWT en JavaFX */
