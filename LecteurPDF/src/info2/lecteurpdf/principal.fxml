@@ -17,10 +17,10 @@
          <children>
           <MenuBar layoutX="38.0" prefHeight="48.0" prefWidth="556.0" style="-fx-background-color: e16731;">
             <menus>
-              <Menu mnemonicParsing="false" text="Fichier">
+              <Menu mnemonicParsing="false" onShowing="#chargerDernierFichier" text="Fichier">
                 <items>
                   <MenuItem mnemonicParsing="false" onAction="#changerFichier" onMenuValidation="#changerFichier" text="Ouvrir" />
-                  <Menu fx:id="menuDerniersFichiers" mnemonicParsing="false" onAction="#chargerDernierFichier" text="Ouvrir dernier fichier" />
+                  <Menu fx:id="menuDerniersFichiers" mnemonicParsing="false" text="Ouvrir dernier fichier" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem disable="true" mnemonicParsing="false" text="Fermer fichier" />
                   <SeparatorMenuItem mnemonicParsing="false" />

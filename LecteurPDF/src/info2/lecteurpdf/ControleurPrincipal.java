@@ -154,8 +154,6 @@ public class ControleurPrincipal implements Initializable {
 		AnchorPane.setRightAnchor(vues.get(i).getVue(), 0.0);
 		AnchorPane.setBottomAnchor(vues.get(i).getVue(), 0.0);
 		newAnchor.getChildren().add(vues.get(i).getVue());
-
-		initialize(null, null);
 	}
 
 
@@ -165,16 +163,36 @@ public class ControleurPrincipal implements Initializable {
 	 * @param event
 	 */
 	@FXML
-	void chargerDernierFichier(ActionEvent event) {
+	void chargerDernierFichier() {
 
-		try {
-			//TODO Afficher liste des fichiers ouvert -> 5 fichiers ?
-			chargementFichier(new File(prefs.getDerniersFichiers().get(0)));
-		} catch( NullPointerException e ) {
-			Main.journaux.info("Aucun fichier en mémoire");
-			Alert alerte = new Alert(AlertType.WARNING, "Aucun fichiers en mémoire", ButtonType.OK);
-			alerte.showAndWait();
+		LinkedList<MenuItem> items = new LinkedList<MenuItem>();
+		LinkedList<String> fichiers = prefs.getDerniersFichiers();
+		int i = 0;
+		for(String cour: fichiers) {
+			// Create MenuItems
+			MenuItem newItem = new MenuItem(cour);
+
+			//QUand l'utilisateur appuye
+			newItem.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					try {
+						//TODO Afficher liste des fichiers ouvert -> 5 fichiers ?
+						chargementFichier(new File(newItem.getText()));
+					} catch( NullPointerException e ) {
+						Main.journaux.info("Aucun fichier en mémoire");
+						Alert alerte = new Alert(AlertType.WARNING, "Aucun fichiers en mémoire", ButtonType.OK);
+						alerte.showAndWait();
+					}
+				}
+			});
+			items.add(i, newItem);
+			i++;
 		}
+
+		menuDerniersFichiers.getItems().clear();
+		menuDerniersFichiers.getItems().addAll(items);
 
 	}
 
@@ -226,34 +244,7 @@ public class ControleurPrincipal implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		LinkedList<MenuItem> items = new LinkedList<MenuItem>();
-		LinkedList<String> fichiers = prefs.getDerniersFichiers();
-		int i = 0;
-		for(String cour: fichiers) {
-			// Create MenuItems
-			MenuItem newItem = new MenuItem(cour);
 
-			// QUand l'utilisateur appuye
-//	        newItem.setOnAction(new EventHandler<ActionEvent>() {
-//
-//	            @Override
-//	            public void handle(ActionEvent event) {
-//	            	try {
-//	        			//TODO Afficher liste des fichiers ouvert -> 5 fichiers ?
-//	        			chargementFichier(new File(fichiers.get(i)));
-//	        		} catch( NullPointerException e ) {
-//	        			Main.journaux.info("Aucun fichier en mémoire");
-//	        			Alert alerte = new Alert(AlertType.WARNING, "Aucun fichiers en mémoire", ButtonType.OK);
-//	        			alerte.showAndWait();
-//	        		}
-//	            }
-//	        });
-			items.add(i, newItem);
-			i++;
-		}
-
-		menuDerniersFichiers.getItems().clear();
-		menuDerniersFichiers.getItems().addAll(items);
 	}
 
 }

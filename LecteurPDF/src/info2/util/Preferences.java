@@ -59,21 +59,20 @@ public class Preferences {
 		int i;
 		for(i = 0; prefs.get("DERNIER_FICHIER_" + i, null) != null && i <= NB_HISTORIQUE_MAX ; i++ );
 
-		if(i >= NB_HISTORIQUE_MAX + 1) {
-			for(int j = 0 ; j < NB_HISTORIQUE_MAX ; j++ ) {
-				prefs.put("DERNIER_FICHIER_" + (j + 1), def);
+		if(i >= NB_HISTORIQUE_MAX) {
+			for(int j = i ; j > 0 ; j-- ) {
+				prefs.put("DERNIER_FICHIER_" + j, prefs.get("DERNIER_FICHIER_" + (j-1), null));
 				System.out.println("--->" + j);
 			}
-			i = 0;
 		}
 
-		prefs.put("DERNIER_FICHIER_" + i, def);
+		prefs.put("DERNIER_FICHIER_" + 0, def);
 		System.out.println(i);
 	}
 
 	public LinkedList<String> getDerniersFichiers() {
 		LinkedList<String> fichiers = new LinkedList<String>();
-		for(int i = 0; i < NB_HISTORIQUE_MAX; i++) {
+		for(int i = 0; i < NB_HISTORIQUE_MAX && prefs.get("DERNIER_FICHIER_" + i, null) != null ; i++) {
 			fichiers.add(prefs.get("DERNIER_FICHIER_" + i, null));
 		}
 		return fichiers;
