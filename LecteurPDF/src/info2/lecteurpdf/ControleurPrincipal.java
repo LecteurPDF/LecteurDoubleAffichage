@@ -25,7 +25,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -39,7 +38,7 @@ import javafx.stage.Stage;
 public class ControleurPrincipal implements Initializable {
 
 	/** Liste toutes les vues existantes dans la fenêtre actuelle */
-	private LinkedList<Vue> vues = new LinkedList<Vue>();
+	private LinkedList<Vue> vues = Main.vues;
 
 	/** Permet d'accéder aux préférences de l'utilisateurs ( écrites dans le registre ) */
 	private Preferences prefs = Preferences.getInstance();

@@ -18,10 +18,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.skin.SplitPaneSkin;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -218,6 +216,8 @@ public class ControleurVue implements Initializable {
 			//Retrait de l'anchorpane ou est la vue actuelle
 			splitPaneParent.getItems().remove(parent);
 
+			//Retrait dans la liste des vues
+			Main.vues.remove(this.vue);
 
 		} catch( NullPointerException e) {
 

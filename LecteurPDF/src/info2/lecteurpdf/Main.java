@@ -1,6 +1,7 @@
 package info2.lecteurpdf;
 
 
+import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import info2.util.Preferences;
@@ -17,6 +18,9 @@ import javafx.scene.layout.VBox;
  */
 public class Main extends Application {
 
+	/** Liste toutes les vues existantes dans la fenêtre actuelle */
+	static LinkedList<Vue> vues = new LinkedList<Vue>();
+
     /** Le différents logs de l'apllication */
     public static Logger journaux = Logger.getLogger("Journaux de logs");
 
@@ -32,7 +36,8 @@ public class Main extends Application {
             System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
 
             /* Import FXML */
-            VBox root = (VBox) FXMLLoader.load(getClass().getResource("principal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("principal.fxml"));
+            VBox root = (VBox) loader.load();
             Scene scene = new Scene(root,900,600);
 
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
