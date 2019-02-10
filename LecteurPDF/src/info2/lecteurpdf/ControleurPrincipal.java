@@ -119,31 +119,30 @@ public class ControleurPrincipal implements Initializable {
 	private void chargementFichier(File fich) {
 		int i = vues.size(); // Index pour l'ajout
 
-		if( i > 4 ) { /* Trop de fenétre demandé */
+		if( i >= 4 ) { /* Trop de fenétre demandé */
 			//TODO: demander à l'utilisateur quesqu'il veut changer
 			Main.journaux.info("Max de vue atteint : " + i);
 			Alert alerte = new Alert(AlertType.WARNING, "Vous ne pouvez pas ouvrir plus de 4 vues.", ButtonType.OK);
 			alerte.showAndWait();
 
-		} else if (i >= 2 ){
-
+		} else {
+			if (i >= 2 ){
 //			new Alert(AlertType.WARNING, "TODO: Ouvrir deuxiéme fenetre", ButtonType.OK).showAndWait();
 
-			vues.add(new Vue());
-			vues.get(i).getControleur().chargementFichier(fich);
+				// Creation de la fenétre si inexistante
+				if(fenDeux == null) {
+					fenDeux = new SplitPane();
+				}
+//				if(!fenDeux.getScene().getWindow().isShowing()) { //TODO: Voir pourquoi il ne veut pas se lancer
+					Stage stage = new Stage();
+					Scene scene = new Scene(fenDeux, 900, 600);
+					stage.setScene(scene);
+					stage.show();
+//				}
 
-			// Creation de la fenétre si inexistante
-			if(fenDeux == null) {
-				Stage stage = new Stage();
-				fenDeux = new SplitPane();
-				Scene scene = new Scene(fenDeux, 900, 600);
-				stage.setScene(scene);
-				stage.show();
 			}
 
-		}
-
-			// Ajout de la vue à la fenêtre actuelle ( maximum 2 vues )
+			// Ajout de la vue à la fenêtre actuelle ( maximum 2 vues par fenétre)
 			vues.add(new Vue());
 			vues.get(i).getControleur().chargementFichier(fich);
 
@@ -164,6 +163,8 @@ public class ControleurPrincipal implements Initializable {
 			AnchorPane.setBottomAnchor(vues.get(i).getVue(), 0.0);
 			newAnchor.getChildren().add(vues.get(i).getVue());
 
+			System.out.println(vues.toString());
+		}
 	}
 
 
