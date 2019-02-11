@@ -119,26 +119,30 @@ public class ControleurPrincipal implements Initializable {
 	private void chargementFichier(File fich) {
 		int i = vues.size(); // Index pour l'ajout
 
+		/* Supression de la fenetre si fermé */
+		if( i <= 2) {
+			fenDeux = null;
+		}
+
 		if( i >= 4 ) { /* Trop de fenétre demandé */
 			//TODO: demander à l'utilisateur quesqu'il veut changer
 			Main.journaux.info("Max de vue atteint : " + i);
 			Alert alerte = new Alert(AlertType.WARNING, "Vous ne pouvez pas ouvrir plus de 4 vues.", ButtonType.OK);
 			alerte.showAndWait();
 
-		} else {
+		} else { /* Cas d'un ajout sur la fenetre principal */
 			if (i >= 2 ){
 //			new Alert(AlertType.WARNING, "TODO: Ouvrir deuxiéme fenetre", ButtonType.OK).showAndWait();
 
 				// Creation de la fenétre si inexistante
 				if(fenDeux == null) {
 					fenDeux = new SplitPane();
-				}
-//				if(!fenDeux.getScene().getWindow().isShowing()) { //TODO: Voir pourquoi il ne veut pas se lancer
+
 					Stage stage = new Stage();
 					Scene scene = new Scene(fenDeux, 900, 600);
 					stage.setScene(scene);
 					stage.show();
-//				}
+				}
 
 			}
 
@@ -195,6 +199,7 @@ public class ControleurPrincipal implements Initializable {
 						Main.journaux.warning("Aucun fichier en mémoire");
 						Alert alerte = new Alert(AlertType.WARNING, "Erreur chemin du fichier", ButtonType.OK);
 						alerte.showAndWait();
+						e.printStackTrace();
 					}
 				}
 			});
