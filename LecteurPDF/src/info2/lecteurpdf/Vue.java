@@ -2,6 +2,8 @@ package info2.lecteurpdf;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 import info2.util.OutilLecture;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +21,11 @@ import javafx.scene.layout.VBox;
  */
 public class Vue {
 
+	/** Liste toutes les vues existantes dans la fenêtre actuelle */
+	private static LinkedList<Vue> listeVues = new LinkedList<Vue>();
+
+	private Emplacement emplacement;
+
     /** Elements du fichier pdf ouvert en cours ( fichier et page affich�e en ce moment ) */
     private OutilLecture pdf = new OutilLecture();
 
@@ -33,7 +40,9 @@ public class Vue {
      * Permet de créer à partir du controleur et du fichier fxml ( vue.fxml )
      * une nouvelle vue ( graphique )
      */
-    public Vue () {
+    public Vue (Emplacement emplacement) {
+
+    	this.emplacement = emplacement;
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("vue.fxml"));
@@ -41,13 +50,18 @@ public class Vue {
             controleur = loader.getController();
             controleur.setVue(this);
 
+            listeVues.add(this);
         } catch (IOException e) {
             Main.journaux.severe("Problème lors de la création de la vue");
         }
 
     }
 
-    /**
+    public static LinkedList<Vue> getListeVues() {
+		return listeVues;
+	}
+
+	/**
      * @return valeur de controleur
      */
     public ControleurVue getControleur() {
@@ -83,11 +97,23 @@ public class Vue {
         pdf = new OutilLecture(fich.getAbsolutePath());
     }
 
-    /**
+    public Emplacement getEmplacement() {
+		return emplacement;
+	}
+
+	public void setEmplacement(Emplacement emplacement) {
+		this.emplacement = emplacement;
+	}
+
+	/**
      * Ferme la vue
      */
     public void fermetureVue() {
         pdf.close();
+
+		//Retrait dans la liste des vues
+		listeVues.remove(this);
+
     }
 
 }

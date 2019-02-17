@@ -208,17 +208,13 @@ public class ControleurVue implements Initializable {
 	void fermetureVue() {
 
 		try {
-			vue.getPdf().close();
-
 			Parent parent = vboxVue.getParent();
 			// Recueration du splitpane parent, celui qui contient les deux vue
 			SplitPane splitPaneParent = (SplitPane) parent.getParent().getParent();
 			//Retrait de l'anchorpane ou est la vue actuelle
 			splitPaneParent.getItems().remove(parent);
 
-			//Retrait dans la liste des vues
-			Main.vues.remove(this.vue);
-
+			vue.fermetureVue();
 		} catch( NullPointerException e) {
 
 		}

@@ -37,9 +37,6 @@ import javafx.stage.Stage;
  */
 public class ControleurPrincipal implements Initializable {
 
-	/** Liste toutes les vues existantes dans la fenêtre actuelle */
-	private LinkedList<Vue> vues = Main.vues;
-
 	/** Permet d'accéder aux préférences de l'utilisateurs ( écrites dans le registre ) */
 	private Preferences prefs = Preferences.getInstance();
 
@@ -117,6 +114,7 @@ public class ControleurPrincipal implements Initializable {
 	 * @param fich Le fichier que l'on souhaite afficher dans la vue
 	 */
 	private void chargementFichier(File fich) {
+		LinkedList<Vue> vues = Vue.getListeVues();
 		int i = vues.size(); // Index pour l'ajout
 
 		/* Supression de la fenetre si fermé */
@@ -131,9 +129,11 @@ public class ControleurPrincipal implements Initializable {
 			alerte.showAndWait();
 
 		} else { /* Cas d'un ajout sur la fenetre principal */
+			Emplacement emplacement;
+			try {
 			if (i >= 2 ){
 //			new Alert(AlertType.WARNING, "TODO: Ouvrir deuxiéme fenetre", ButtonType.OK).showAndWait();
-
+				emplacement = new Emplacement(2,i%2+1);
 				// Creation de la fenétre si inexistante
 				if(fenDeux == null) {
 					fenDeux = new SplitPane();
@@ -144,10 +144,15 @@ public class ControleurPrincipal implements Initializable {
 					stage.show();
 				}
 
+			} else {
+
+				emplacement = new Emplacement(1,i%2+1);
+
 			}
 
 			// Ajout de la vue à la fenêtre actuelle ( maximum 2 vues par fenétre)
-			vues.add(new Vue());
+			new Vue(emplacement);
+			vues = Vue.getListeVues();
 			vues.get(i).getControleur().chargementFichier(fich);
 
 			// Ajout de l'AnchorPane au SplitPane ( Parent ) -> contiendra la vue
@@ -168,6 +173,10 @@ public class ControleurPrincipal implements Initializable {
 			newAnchor.getChildren().add(vues.get(i).getVue());
 
 			System.out.println(vues.toString());
+
+			} catch(EmplacementIncorrect e){
+				System.out.println("Franchement tes con !");
+			}
 		}
 	}
 
@@ -242,25 +251,17 @@ public class ControleurPrincipal implements Initializable {
 		}
 	}
 
-	/**
-	 * Permet de fermer proprement le fichier et la fenêtre
-	 * @param event
-	 */
-	@FXML
-	void fermetureFenetre(ActionEvent event) {
+    @FXML
+    void fermetureFenetre(ActionEvent event) {
+    	//TODO
+    }
 
-		// TODO : Faire pour plusieurs vues
-		try {
-			vues.get(0).fermetureVue();
-		} catch( NullPointerException e) {
-
-		}
-		Platform.exit();
-	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
+		
+		
 	}
 
 }

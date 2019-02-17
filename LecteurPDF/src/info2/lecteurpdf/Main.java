@@ -18,9 +18,6 @@ import javafx.scene.layout.VBox;
  */
 public class Main extends Application {
 
-	/** Liste toutes les vues existantes dans la fenêtre actuelle */
-	static LinkedList<Vue> vues = new LinkedList<Vue>();
-
     /** Le différents logs de l'apllication */
     public static Logger journaux = Logger.getLogger("Journaux de logs");
 
