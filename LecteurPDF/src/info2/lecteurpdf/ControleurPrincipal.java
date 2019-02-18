@@ -173,7 +173,8 @@ public class ControleurPrincipal implements Initializable {
 			newAnchor.getChildren().add(vues.get(i).getVue());
 
 			System.out.println(vues.toString());
-
+			} catch(EmplacementRedondant e) {
+				System.out.println(e);
 			} catch(EmplacementIncorrect e){
 				System.out.println("Franchement tes con !");
 			}
@@ -260,8 +261,8 @@ public class ControleurPrincipal implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		
-		
+
+
 	}
 
 }
