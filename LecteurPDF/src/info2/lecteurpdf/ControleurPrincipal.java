@@ -172,10 +172,14 @@ public class ControleurPrincipal implements Initializable {
 			AnchorPane.setBottomAnchor(vues.get(i).getVue(), 0.0);
 			newAnchor.getChildren().add(vues.get(i).getVue());
 
-			System.out.println(vues.toString());
-
+			for(Vue vue: vues) {
+				System.out.print("|" + vue.getEmplacement().toString() + "|");
+			}
+			System.out.println();
+			} catch(EmplacementRedondant e) {
+				System.out.println(e);
 			} catch(EmplacementIncorrect e){
-				System.out.println("Franchement tes con !");
+				System.out.println("Franchement tu n'est pas malin !");
 			}
 		}
 	}
@@ -260,8 +264,8 @@ public class ControleurPrincipal implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		
-		
+
+
 	}
 
 }

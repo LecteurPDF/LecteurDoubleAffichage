@@ -6,4 +6,8 @@ public class EmplacementIncorrect extends Exception {
 		super("Emplacement déja occupé ou erroné");
 	}
 
+	public EmplacementIncorrect(String texte) {
+		super(texte);
+	}
+
 }

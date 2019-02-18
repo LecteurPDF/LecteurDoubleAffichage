@@ -7,13 +7,6 @@ public class ControleurChangementDisposition {
 
     @FXML
     void ecranUnPositionUn(ActionEvent event) {
-    	try {
-			new Vue(new Emplacement(1, 1));
-
-		} catch (EmplacementIncorrect e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
     }
 
@@ -25,13 +18,7 @@ public class ControleurChangementDisposition {
 
     @FXML
     void ecranDeuxPositionUn(ActionEvent event) {
-    	try {
-			new Vue(new Emplacement(2, 1));
 
-		} catch (EmplacementIncorrect e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
 
     @FXML
