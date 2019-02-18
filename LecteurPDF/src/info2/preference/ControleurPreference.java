@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseDragEvent;
@@ -15,6 +17,7 @@ public class ControleurPreference {
 
     @FXML
     private ScrollPane affichageInfos;
+
 
     @FXML
     void optionsTouches(ActionEvent event) {
@@ -38,6 +41,7 @@ public class ControleurPreference {
 
     }
 
+
     @FXML
     void survolEntreeBouton(MouseEvent event) {
     	((Button)event.getSource()).setStyle("-fx-background-color:#f17d49;-fx-text-fill:white;");
@@ -47,4 +51,5 @@ public class ControleurPreference {
     void survolSortieBouton(MouseEvent event) {
     	((Button)event.getSource()).setStyle("-fx-background-color:#e16731;-fx-text-fill:white;");
     }
+
 }
