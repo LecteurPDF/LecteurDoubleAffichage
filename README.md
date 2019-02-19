@@ -62,7 +62,7 @@ Soit chacun affiche le même fichier, mais à la page numéro x pour la vue A et
 Soit A et B sont deux fichiers différents et chacun est indépendant l’un de l’autre.</p>
 
 
-<h4>Lecteur Double Affichage sur le premier écran et simple sur le deuxième<h4>
+<h4>Lecteur Double Affichage sur le premier écran et simple sur le deuxième</h4>
 
 <p>Dans le cas présent, nous avons deux écrans. L'écran 1 scindé en deux va permettre d’afficher les vues A et B et l'écran 2 affichera uniquement la vue B. 
 Soit les vues A et B sont celles d’un seul et même fichier, mais à la page numéro x pour A et la page x+n sur les parties B. Ce qui signifie que la partie B est affichée sur deux écrans différents.
