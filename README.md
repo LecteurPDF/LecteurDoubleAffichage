@@ -1,5 +1,5 @@
 # LecteurDoubleAffichage
-
+<img align="center" src="https://image.noelshack.com/fichiers/2019/08/2/1550583845-image5.png"/>
 <h2>Présentation du projet</h2>
 <p>
   Ce projet a pour but de développer un logiciel permettant de lire des fichiers au format PDF. La spécificité de ce logiciel est qu’il pourra lire les fichiers PDF en double affichage.
@@ -26,26 +26,33 @@ Les divers affichages seront visibles sur des écrans, un écran est représent�
 </i>
 <h4>Lecteur Simple Affichage</h4>
 
-
-
-<p>On parle ici d’une simple fenêtre dans laquelle le contenu d’un seul fichier PDF sera visible à l’intérieur.</p>
-
-
+<table>
+<tr>
+<td><img src="https://image.noelshack.com/fichiers/2019/08/2/1550584148-image3.png"/><td>
+<td><p>On parle ici d’une simple fenêtre dans laquelle le contenu d’un seul fichier PDF sera visible à l’intérieur.</p></td>
+</tr>
+</table>
 
 <h4>Lecteur Double Affichage, un seul écran avec séparation verticale</h4>
 
-
-<p>On parle ici d’un écran scindé horizontalement avec deux vues A et B, il y a deux cas possibles :
+<table>
+<tr>
+<td><img src="https://image.noelshack.com/fichiers/2019/08/2/1550584351-image2.png" width="1400"/><td>
+<td>On parle ici d’un écran scindé horizontalement avec deux vues A et B, il y a deux cas possibles :
 Soit chaque vue affiche le même fichier, à la page numéro x pour A et à la page x+n pour B.
-Soit A et B font parties de deux fichiers différents.</p>
-
+Soit A et B font parties de deux fichiers différents.</td>
+</tr>
+</table>
 
 
 <h4>Lecteur Double Affichage, un seul écran avec séparation horizontale</h4>
 
-
-<p>Cette fenêtre a les mêmes propriétés que la fenêtre précédente, mais est scindée verticalement au lieux de horizontalement.</p>
-
+<table>
+<tr>
+<td><img src="https://image.noelshack.com/fichiers/2019/08/2/1550584424-image1.png"/><td>
+<td>Cette fenêtre a les mêmes propriétés que la fenêtre précédente, mais est scindée verticalement au lieux de horizontalement.</td>
+</tr>
+</table>
 
 <h3>Deux Écrans</h3>
 
@@ -56,22 +63,34 @@ Soit A et B font parties de deux fichiers différents.</p>
 
 <h4>Lecteur Double Affichage avec deux écrans</h4>
 
-
-<p>On parle ici de deux écrans, il y a deux cas possibles :
+<table>
+<tr>
+<td><img src="https://image.noelshack.com/fichiers/2019/08/2/1550584548-image6.png"/><td>
+<td>On parle ici de deux écrans, il y a deux cas possibles :
 Soit chacun affiche le même fichier, mais à la page numéro x pour la vue A et la page x+n pour la vue B.
-Soit A et B sont deux fichiers différents et chacun est indépendant l’un de l’autre.</p>
-
+Soit A et B sont deux fichiers différents et chacun est indépendant l’un de l’autre.</td>
+</tr>
+</table>
 
 <h4>Lecteur Double Affichage sur le premier écran et simple sur le deuxième</h4>
 
-<p>Dans le cas présent, nous avons deux écrans. L'écran 1 scindé en deux va permettre d’afficher les vues A et B et l'écran 2 affichera uniquement la vue B. 
+<table>
+<tr>
+<td><img src="https://image.noelshack.com/fichiers/2019/08/2/1550584637-image7.png"/><td>
+<td>Dans le cas présent, nous avons deux écrans. L'écran 1 scindé en deux va permettre d’afficher les vues A et B et l'écran 2 affichera uniquement la vue B. 
 Soit les vues A et B sont celles d’un seul et même fichier, mais à la page numéro x pour A et la page x+n sur les parties B. Ce qui signifie que la partie B est affichée sur deux écrans différents.
-Soit A et B peuvent être deux fichiers différents.</p>
-
+Soit A et B peuvent être deux fichiers différents.</td>
+</tr>
+</table>
 
 <h4>Lecteur Double Affichage sur deux écrans</h4>
 
-<p>Ici, nous retrouvons les écrans 1 et 2. Chacun est scindé en deux, afin vont permettre d’afficher une paire A et B sur les deux écrans. 
+<table>
+<tr>
+<td><img src="https://image.noelshack.com/fichiers/2019/08/2/1550584719-image4.png"/><td>
+<td>Ici, nous retrouvons les écrans 1 et 2. Chacun est scindé en deux, afin vont permettre d’afficher une paire A et B sur les deux écrans. 
 Soit les vues A et B peuvent faire partie de fichiers identiques, réparties sur les deux écrans. Avec la page numéro x pour A et x+n pour B.
-Soit chaque A et B de chaque écran peuvent faire partie de fichiers différents. Donc un total de deux fichiers différents.</p>
+Soit chaque A et B de chaque écran peuvent faire partie de fichiers différents. Donc un total de deux fichiers différents.</td>
+</tr>
+</table>
 
