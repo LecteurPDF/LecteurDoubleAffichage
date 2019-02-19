@@ -32,7 +32,7 @@ Les divers affichages seront visibles sur des écrans, un écran est représent�
 
 
 
-<h4>Lecteur Double Affichage, un seul écran avec séparation verticale<h4>
+<h4>Lecteur Double Affichage, un seul écran avec séparation verticale</h4>
 
 
 <p>On parle ici d’un écran scindé horizontalement avec deux vues A et B, il y a deux cas possibles :
