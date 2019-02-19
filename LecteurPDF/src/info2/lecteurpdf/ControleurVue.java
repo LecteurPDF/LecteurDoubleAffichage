@@ -1,6 +1,7 @@
 package info2.lecteurpdf;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -9,6 +10,7 @@ import info2.util.Preferences;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,8 +20,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -53,8 +57,8 @@ public class ControleurVue implements Initializable {
 	@FXML
 	private TextField txbNbPage;
 	/** Texte qui représente le nombre de page en tout */
-    @FXML
-    private TextField txbNbPagesTotal;
+	@FXML
+	private TextField txbNbPagesTotal;
 
 	/** Bouton permettant de passer la vue en mode Plein Ecran ( Barre navigation & image du fichier pdf ) */
 	@FXML
@@ -237,6 +241,7 @@ public class ControleurVue implements Initializable {
 		/* Les différentes options du menu */
 		MenuItem item1 = new MenuItem("Changer fichier");
 		MenuItem item2 = new MenuItem("Fermer vue");
+		MenuItem item3 = new MenuItem("Changer disposition");
 
 		/* Evénements des différentes options */
 		item1.setOnAction(new EventHandler<ActionEvent>() {
@@ -269,8 +274,34 @@ public class ControleurVue implements Initializable {
 			}
 		});
 
+		item3.setOnAction(new EventHandler<ActionEvent>() {
+
+			public void handle(ActionEvent event) {
+				try {
+					/* Import FXML */
+					Stage stage = new Stage();
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangementDisposition.fxml"));
+					BorderPane root = (BorderPane) loader.load();
+
+					Scene scene = new Scene(root,559,274);
+
+					scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
+					stage.setTitle("Visio Reader - Lecteur PDF Double Affichage");
+					stage.getIcons().add(new Image("icone.png"));
+
+					stage.setScene(scene);
+					stage.show();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		});
+
 		/* Ajout des options */
-		contextMenu.getItems().addAll(item1,item2);
+		contextMenu.getItems().addAll(item1,item2, item3);
 		scrollPaneImg.setContextMenu(contextMenu);
 	}
 

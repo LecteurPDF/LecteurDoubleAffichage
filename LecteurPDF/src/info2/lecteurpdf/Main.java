@@ -44,6 +44,8 @@ public class Main extends Application {
 
             primaryStage.setScene(scene);
             primaryStage.show();
+            
+            
 
         } catch(Exception e) {
             journaux.severe("Problème au lancement de l'app graphique");

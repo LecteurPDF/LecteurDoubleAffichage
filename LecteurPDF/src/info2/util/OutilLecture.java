@@ -34,6 +34,9 @@ public class OutilLecture {
     /** Le document pdf sur lequel on va agir */
     private PDDocument document;
 
+    /** Chemin du fichier courant */
+    private String cheminFichier;
+
     /** La page que l'on est en train de lire, on commence � 0 */
     private int pageCour = 0;
 
@@ -73,6 +76,7 @@ public class OutilLecture {
     public OutilLecture(String nomFichier) {
 
         try {
+        	this.cheminFichier = nomFichier;
             document = PDDocument.load(new File(nomFichier));
             nbPages = document.getNumberOfPages();
         } catch (InvalidPasswordException e) {
@@ -196,7 +200,11 @@ public class OutilLecture {
         return getPagePdfToImg(pageCour);
     }
 
-    /**
+    public String getCheminFichier() {
+		return cheminFichier;
+	}
+
+	/**
      * Permet de d�finir si la pagecourante existe
      * @return true si elle existe, sinon false
      */

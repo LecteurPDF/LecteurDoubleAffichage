@@ -104,6 +104,8 @@ public class Vue {
 	public void setEmplacement(Emplacement emplacement) {
 		this.emplacement = emplacement;
 	}
+	
+	
 
 	/**
      * Ferme la vue
