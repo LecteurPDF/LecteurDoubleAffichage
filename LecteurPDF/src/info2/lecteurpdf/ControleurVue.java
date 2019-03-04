@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import info2.util.OutilLecture.PageInexistante;
 import info2.util.Preferences;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -27,6 +28,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -37,6 +41,9 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 public class ControleurVue implements Initializable {
+
+	/** Borne maximum du slider */
+	private static final double BORNE_MAX_ZOOM = 400;
 
 	/** Permet d'accéder aux préférences de l'utilisateurs ( écrites dans le registre ) */
 	private Preferences prefs = Preferences.getInstance();
@@ -67,10 +74,10 @@ public class ControleurVue implements Initializable {
 	@FXML
 	private Button btnPleinEcran;
 
+	/** Borne maximum en pixels qui correspond à 100% de l'image */
 	private double maxZoom;
 
-	private static final double BORNE_MAX_ZOOM = 400;
-
+	/** Slider pour choisir le pourcentage de zoom */
 	@FXML
 	private Slider sld_zoom;
 
@@ -150,10 +157,19 @@ public class ControleurVue implements Initializable {
 	 */
 	private void setImagePrefs() {
 
-		imageAfficher.setPreserveRatio(true);
+		StackPane conteneurImage = new StackPane(imageAfficher);
 
+		imageAfficher.setPreserveRatio(true);
 		scrollPaneImg.setContent(null);
-		scrollPaneImg.setContent(imageAfficher);
+
+		GridPane grid = new GridPane();
+
+		scrollPaneImg.setContent(conteneurImage);
+
+		conteneurImage.minWidthProperty().bind(Bindings.createDoubleBinding(() ->
+        scrollPaneImg.getViewportBounds().getWidth(), scrollPaneImg.viewportBoundsProperty()));
+
+		grid.getChildren().add(conteneurImage);
 	}
 
 	/**
