@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import info2.util.OutilLecture.PageInexistante;
 import info2.util.Preferences;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -64,6 +67,13 @@ public class ControleurVue implements Initializable {
 	@FXML
 	private Button btnPleinEcran;
 
+	private double maxZoom;
+
+	private static final double BORNE_MAX_ZOOM = 400;
+
+	@FXML
+	private Slider sld_zoom;
+
 	/** Permet de pouvoir scroll la page, sera inséré l'ImageView de la page du PDF */
 	@FXML
 	private ScrollPane scrollPaneImg;
@@ -109,6 +119,23 @@ public class ControleurVue implements Initializable {
 				txbNbPage.setText(Integer.toString(vue.getPdf().getPagesCour()));
 
 				txbNbPagesTotal.setText(Integer.toString(vue.getPdf().getNbPages()));
+
+				maxZoom = imageAfficher.getImage().getHeight();
+				System.out.println("Taille de l'image = " + maxZoom);
+
+				sld_zoom.setMax(BORNE_MAX_ZOOM);
+				sld_zoom.setMajorTickUnit(BORNE_MAX_ZOOM/4);
+				sld_zoom.setValue(100);
+
+				// Ecouteur lors du changement de valeur du slider
+				sld_zoom.valueProperty().addListener(new ChangeListener<Number>() {
+
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, //
+							Number oldValue, Number newValue) {
+						setZoom((newValue.doubleValue()/100) * maxZoom);
+					}
+				});
 
 			}
 		} catch (PageInexistante e) {
@@ -205,6 +232,13 @@ public class ControleurVue implements Initializable {
 
 	}
 
+	void setZoom(Double hauteur){
+		if(hauteur != 0) {
+			imageAfficher.setPreserveRatio(true);
+			imageAfficher.setFitHeight(hauteur);
+		}
+
+	}
 
 	/**
 	 * Permet de fermer proprement le fichier et la fenêtre
@@ -299,6 +333,7 @@ public class ControleurVue implements Initializable {
 
 			}
 		});
+
 
 		/* Ajout des options */
 		contextMenu.getItems().addAll(item1,item2, item3);

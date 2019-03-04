@@ -1,7 +1,11 @@
 package info2.lecteurpdf;
 
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -53,6 +57,7 @@ public class Vue {
             listeVues.add(this);
         } catch (IOException e) {
             Main.journaux.severe("Problème lors de la création de la vue");
+            e.printStackTrace();
         }
 
     }
@@ -104,8 +109,8 @@ public class Vue {
 	public void setEmplacement(Emplacement emplacement) {
 		this.emplacement = emplacement;
 	}
-	
-	
+
+
 
 	/**
      * Ferme la vue
