@@ -162,14 +162,11 @@ public class ControleurVue implements Initializable {
 		imageAfficher.setPreserveRatio(true);
 		scrollPaneImg.setContent(null);
 
-		GridPane grid = new GridPane();
-
 		scrollPaneImg.setContent(conteneurImage);
 
 		conteneurImage.minWidthProperty().bind(Bindings.createDoubleBinding(() ->
         scrollPaneImg.getViewportBounds().getWidth(), scrollPaneImg.viewportBoundsProperty()));
 
-		grid.getChildren().add(conteneurImage);
 	}
 
 	/**
