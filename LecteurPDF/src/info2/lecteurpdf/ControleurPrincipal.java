@@ -7,8 +7,13 @@ package info2.lecteurpdf;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
+import java.util.Comparator;
 
 import info2.util.Preferences;
 import javafx.application.Platform;
@@ -131,9 +136,63 @@ public class ControleurPrincipal implements Initializable {
 		} else { /* Cas d'un ajout sur la fenetre principal */
 			Emplacement emplacement;
 			try {
-			if (i >= 2 ){
-//			new Alert(AlertType.WARNING, "TODO: Ouvrir deuxiéme fenetre", ButtonType.OK).showAndWait();
-				emplacement = new Emplacement(2,i%2+1);
+				if (i >= 2 ){
+					emplacement = new Emplacement(2,i%2+1);
+					// Creation de la fenétre si inexistante
+					if(fenDeux == null) {
+						fenDeux = new SplitPane();
+
+						Stage stage = new Stage();
+						Scene scene = new Scene(fenDeux, 900, 600);
+						stage.setScene(scene);
+						stage.show();
+					}
+				} else {
+					emplacement = new Emplacement(1,i%2+1);
+				}
+
+				// Ajout de la vue à la fenêtre actuelle ( maximum 2 vues par fenétre)
+				new Vue(emplacement);
+				vues = Vue.getListeVues();
+
+				vues.get(i).getControleur().chargementFichier(fich);
+
+				for(Vue vue: vues) {
+					System.out.print("|" + vue.getEmplacement().toString() + "|");
+				}
+				System.out.println();
+			} catch(EmplacementRedondant e) {
+				System.out.println(e);
+			} catch(EmplacementIncorrect e){
+				System.out.println("Franchement tu n'est pas malin !");
+			}
+			reload();
+		}
+	}
+
+
+	void reload() {
+		LinkedList<Vue> vues = Vue.getListeVues();
+		TreeMap<Emplacement, VBox> emps = new TreeMap<>();
+
+		splitPanePdf.getItems().clear();
+		if(fenDeux != null)
+			fenDeux.getItems().clear();
+
+
+		for(Vue vue : vues) {
+			emps.put(vue.getEmplacement(), vue.getVue());
+		}
+
+
+		Entry<Emplacement, VBox> entree = null; // Couple courant
+		while((entree = emps.pollFirstEntry()) != null) {
+
+			Emplacement emplacement = entree.getKey();
+			// Ajout de l'AnchorPane au SplitPane ( Parent ) -> contiendra la vue
+			AnchorPane newAnchor = new AnchorPane();
+
+			if ( emplacement.getFenetre() >= 2 ){
 				// Creation de la fenétre si inexistante
 				if(fenDeux == null) {
 					fenDeux = new SplitPane();
@@ -142,23 +201,8 @@ public class ControleurPrincipal implements Initializable {
 					Scene scene = new Scene(fenDeux, 900, 600);
 					stage.setScene(scene);
 					stage.show();
+
 				}
-
-			} else {
-
-				emplacement = new Emplacement(1,i%2+1);
-
-			}
-
-			// Ajout de la vue à la fenêtre actuelle ( maximum 2 vues par fenétre)
-			new Vue(emplacement);
-			vues = Vue.getListeVues();
-			vues.get(i).getControleur().chargementFichier(fich);
-
-			// Ajout de l'AnchorPane au SplitPane ( Parent ) -> contiendra la vue
-			AnchorPane newAnchor = new AnchorPane();
-
-			if( i >= 2 ) {
 				fenDeux.getItems().add(newAnchor);
 			} else {
 				//On ajoute l'AnchorPane contenant la vue au SplitPane
@@ -166,24 +210,16 @@ public class ControleurPrincipal implements Initializable {
 			}
 
 			// On positionne et ajoute la vue dans l'AnchorPane
-			AnchorPane.setTopAnchor(vues.get(i).getVue(), 0.0);
-			AnchorPane.setLeftAnchor(vues.get(i).getVue(), 0.0);
-			AnchorPane.setRightAnchor(vues.get(i).getVue(), 0.0);
-			AnchorPane.setBottomAnchor(vues.get(i).getVue(), 0.0);
-			newAnchor.getChildren().add(vues.get(i).getVue());
+			AnchorPane.setTopAnchor(entree.getValue(), 0.0);
+			AnchorPane.setLeftAnchor(entree.getValue(), 0.0);
+			AnchorPane.setRightAnchor(entree.getValue(), 0.0);
+			AnchorPane.setBottomAnchor(entree.getValue(), 0.0);
+			newAnchor.getChildren().add(entree.getValue());
 
-			for(Vue vue: vues) {
-				System.out.print("|" + vue.getEmplacement().toString() + "|");
-			}
 			System.out.println();
-			} catch(EmplacementRedondant e) {
-				System.out.println(e);
-			} catch(EmplacementIncorrect e){
-				System.out.println("Franchement tu n'est pas malin !");
-			}
 		}
-	}
 
+	}
 
 
 	/**
@@ -233,6 +269,7 @@ public class ControleurPrincipal implements Initializable {
 	 */
 	@FXML
 	void ouvrirPref(ActionEvent event) {
+
 		try {
 			/* Chargement du fxml du menu préférence */
 			FXMLLoader fxmlLoader = new FXMLLoader();
@@ -255,10 +292,10 @@ public class ControleurPrincipal implements Initializable {
 		}
 	}
 
-    @FXML
-    void fermetureFenetre(ActionEvent event) {
-    	//TODO
-    }
+	@FXML
+	void fermetureFenetre(ActionEvent event) {
+		//TODO
+	}
 
 
 	@Override

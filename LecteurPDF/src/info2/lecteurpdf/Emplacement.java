@@ -2,7 +2,7 @@ package info2.lecteurpdf;
 
 import java.util.LinkedList;
 
-public class Emplacement {
+public class Emplacement implements Comparable<Emplacement>{
 
 	private static final int NB_MAX_FENETRE = 2;
 
@@ -92,6 +92,26 @@ public class Emplacement {
 	public String toString() {
 		return "Fenetre " + fenetre + ";Position " + position;
 
+	}
+
+	@Override
+	public int compareTo(Emplacement aComparer) {
+		int dif;
+		if( fenetre < aComparer.fenetre ) {
+			dif = -1;
+		} else if ( fenetre > aComparer.fenetre ) {
+			dif = 1;
+		} else { // fenetre == aComparer.fenetre
+			if (position < aComparer.position) {
+				dif = -1;
+			} else if (position > aComparer.position){
+				dif = 1;
+			} else { // position == aComparer.position
+				dif = 0;
+			}
+		}
+
+		return dif;
 	}
 
 
