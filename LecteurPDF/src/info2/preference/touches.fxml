@@ -9,16 +9,16 @@
 
 <!-- touches -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="info2.preference.ControleurTouches">
    <children>
       <Text layoutX="3.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Raccourci Clavier" textAlignment="CENTER" wrappingWidth="394.0">
          <font>
             <Font size="32.0" />
          </font>
       </Text>
-      <Button layoutX="135.0" layoutY="441.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="176.0" text="Sauvegarder" />
-      <TextField layoutX="176.0" layoutY="123.0" />
-      <TextField layoutX="176.0" layoutY="157.0" />
+      <Button fx:id="btn_sauver" layoutX="135.0" layoutY="441.0" mnemonicParsing="false" onAction="#changements" prefHeight="43.0" prefWidth="176.0" text="Sauvegarder" />
+      <TextField fx:id="txt_pageSuiv" layoutX="176.0" layoutY="123.0" onKeyPressed="#saveKeySuiv" prefHeight="25.0" prefWidth="157.0" />
+      <TextField fx:id="txt_pagePrec" layoutX="176.0" layoutY="157.0" onKeyPressed="#saveKeyPrec" prefHeight="25.0" prefWidth="157.0" />
       <Text layoutX="74.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Suivante" wrappingWidth="93.13671875" />
       <Text layoutX="70.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page Précedente" wrappingWidth="93.1367227435112" />
       <Line endX="710.5" layoutX="101.0" layoutY="63.0" startX="-100.0" />
@@ -28,7 +28,7 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField layoutX="202.0" layoutY="246.0" prefHeight="25.0" prefWidth="134.0" />
+      <TextField fx:id="txt_pleinEcran" layoutX="202.0" layoutY="246.0" onKeyPressed="#saveKeyFullScreen" prefHeight="25.0" prefWidth="134.0" />
       <Line endX="695.0" layoutX="105.0" layoutY="314.0" startX="-110.0" />
       <Text layoutX="174.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plein écran">
          <font>
@@ -36,9 +36,9 @@
          </font>
       </Text>
       <Text layoutX="67.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lancer plein écran" textAlignment="CENTER" wrappingWidth="121.99999978393316" />
-      <TextField layoutX="202.0" layoutY="278.0" prefHeight="25.0" prefWidth="134.0" />
+      <TextField fx:id="txt_PleinEcranOut" layoutX="202.0" layoutY="281.0" onKeyPressed="#saveKeyFullScreenOut" prefHeight="25.0" prefWidth="134.0" />
       <Text layoutX="65.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sortir du plein écran" textAlignment="CENTER" wrappingWidth="121.99999978393316" />
-      <TextField layoutX="204.0" layoutY="371.0" prefHeight="25.0" prefWidth="134.0" />
+      <TextField fx:id="txt_ouvertureFichier" layoutX="204.0" layoutY="371.0" onKeyPressed="#saveKeyOpen" prefHeight="25.0" prefWidth="134.0" />
       <Line endX="696.0" layoutX="104.0" layoutY="418.0" startX="-110.0" />
       <Text layoutX="164.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ouvrir fichier">
          <font>
