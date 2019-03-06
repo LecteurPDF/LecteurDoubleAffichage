@@ -1,12 +1,7 @@
 package info2.lecteurpdf;
 
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 import info2.util.OutilLecture;
@@ -28,6 +23,7 @@ public class Vue {
 	/** Liste toutes les vues existantes dans la fenêtre actuelle */
 	private static LinkedList<Vue> listeVues = new LinkedList<Vue>();
 
+	/** Emplacement courant définit par une fenêtre et une position */
 	private Emplacement emplacement;
 
     /** Elements du fichier pdf ouvert en cours ( fichier et page affich�e en ce moment ) */
@@ -41,7 +37,7 @@ public class Vue {
 
 
     /**
-     * Permet de créer à partir du controleur et du fichier fxml ( vue.fxml )
+     * Permet de créer à partir du contrôleur et du fichier fxml ( vue.fxml )
      * une nouvelle vue ( graphique )
      */
     public Vue (Emplacement emplacement) {
@@ -109,8 +105,6 @@ public class Vue {
 	public void setEmplacement(Emplacement emplacement) {
 		this.emplacement = emplacement;
 	}
-
-
 
 	/**
      * Ferme la vue

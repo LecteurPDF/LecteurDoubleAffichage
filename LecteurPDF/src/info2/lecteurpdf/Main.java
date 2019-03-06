@@ -1,7 +1,6 @@
 package info2.lecteurpdf;
 
 
-import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import info2.util.Preferences;
@@ -24,6 +23,8 @@ public class Main extends Application {
     /** Permet d'accéder aux préférences de l'utilisateurs ( écrites dans le registre ) */
     static Preferences prefs = Preferences.getInstance();
 
+    static ControleurPrincipal controller;
+
     @Override
     public void start(Stage primaryStage) {
 
@@ -36,6 +37,7 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("principal.fxml"));
             VBox root = (VBox) loader.load();
             Scene scene = new Scene(root,900,600);
+            controller = loader.getController();
 
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
@@ -44,8 +46,8 @@ public class Main extends Application {
 
             primaryStage.setScene(scene);
             primaryStage.show();
-            
-            
+
+
 
         } catch(Exception e) {
             journaux.severe("Problème au lancement de l'app graphique");

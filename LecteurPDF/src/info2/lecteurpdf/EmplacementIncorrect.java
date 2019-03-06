@@ -1,6 +1,15 @@
 package info2.lecteurpdf;
 
+/**
+ * Levé si emplacement incoherent
+ *
+ */
 public class EmplacementIncorrect extends Exception {
+
+	/**
+	 * ID de l'exception
+	 */
+	private static final long serialVersionUID = 5971289591606286175L;
 
 	public EmplacementIncorrect() {
 		super("Emplacement déja occupé ou erroné");

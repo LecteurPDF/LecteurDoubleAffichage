@@ -17,19 +17,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -66,6 +67,7 @@ public class ControleurVue implements Initializable {
 	/** Texte qui représente le numéro de page actuel */
 	@FXML
 	private TextField txbNbPage;
+
 	/** Texte qui représente le nombre de page en tout */
 	@FXML
 	private TextField txbNbPagesTotal;
@@ -223,28 +225,10 @@ public class ControleurVue implements Initializable {
 	}
 
 	/**
-	 * Permet de passer la vue en mode plein écran, en mode plein écran, le menu n'est plus affiché,
-	 * seule la vue ( Donc la page du fichier et sa barre denavigation le sont)
-	 * @param event inutilisé
+	 * Définit le zoom de l'image du pdf en court
+	 * Le ratio hauteur et largeur est gardé
+	 * @param hauteur souhaité
 	 */
-	@FXML
-	void switchPleinEcran(ActionEvent event) {
-
-		Stage primaryStage = (Stage) vboxVue.getScene().getWindow();
-
-		Stage stage = new Stage();
-
-		stage.setScene(new Scene(new VBox(vboxVue), 400, 400));
-
-		pleinecran  = !pleinecran ;
-
-		primaryStage.hide();
-		stage.show();
-
-		stage.setFullScreen(pleinecran);
-
-	}
-
 	void setZoom(Double hauteur){
 		if(hauteur != 0) {
 			imageAfficher.setPreserveRatio(true);
@@ -260,7 +244,7 @@ public class ControleurVue implements Initializable {
 
 		try {
 			Parent parent = vboxVue.getParent();
-			// Recueration du splitpane parent, celui qui contient les deux vue
+			// Récupération du splitpane parent, celui qui contient les deux vue
 			SplitPane splitPaneParent = (SplitPane) parent.getParent().getParent();
 			//Retrait de l'anchorpane ou est la vue actuelle
 			splitPaneParent.getItems().remove(parent);
@@ -280,18 +264,23 @@ public class ControleurVue implements Initializable {
 		contextMenu.show(scrollPaneImg, event.getScreenX(), event.getScreenY());
 	}
 
+	/**
+	 * Initialise les evenements
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// Create ContextMenu
+		// Création du ContextMenu
 		contextMenu = new ContextMenu();
 
 		/* Les différentes options du menu */
-		MenuItem item1 = new MenuItem("Changer fichier");
-		MenuItem item2 = new MenuItem("Fermer vue");
-		MenuItem item3 = new MenuItem("Changer disposition");
+		MenuItem changeDisp = new MenuItem("Changer disposition");
+		MenuItem changeEnPres = new MenuItem("Mettre en présentation");
+		MenuItem changeFich = new MenuItem("Changer fichier");
+		MenuItem fermVue = new MenuItem("Fermer vue");
 
 		/* Evénements des différentes options */
-		item1.setOnAction(new EventHandler<ActionEvent>() {
+		// Evenement lié au changement du fichier
+		changeFich.setOnAction(new EventHandler<ActionEvent>() {
 
 			public void handle(ActionEvent event) {
 				// TODO charger un fichier
@@ -313,7 +302,36 @@ public class ControleurVue implements Initializable {
 			}
 		});
 
-		item2.setOnAction(new EventHandler<ActionEvent>() {
+		// Evenment de changement de disposition à mettre a la fin
+		changeEnPres.setOnAction(new EventHandler<ActionEvent>() {
+
+			public void handle(ActionEvent event) {
+				Emplacement emp;
+
+				try {
+					 emp = new Emplacement(2, 1);
+					 vue.setEmplacement(emp);
+				} catch (EmplacementIncorrect e) {
+					Main.journaux.warning("Probléme, emplacement incoherent");
+				} catch (EmplacementRedondant e) {
+					try {
+						emp = new Emplacement(2, 2);
+						vue.setEmplacement(emp);
+					} catch (EmplacementIncorrect e1) {
+						Main.journaux.warning("Probléme, emplacement incoherent");
+					} catch (EmplacementRedondant e1) {
+						Main.journaux.warning("Aucun changement car fenetre 2 pleine");
+						Alert alerte = new Alert(AlertType.WARNING, "Aucun changement car fenetre 2 pleine", ButtonType.OK);
+						alerte.showAndWait();
+					}
+				} finally {
+					Main.controller.reload();
+				}
+			}
+		});
+
+		// Evenment de fermeture de la fenetre courante
+		fermVue.setOnAction(new EventHandler<ActionEvent>() {
 
 			public void handle(ActionEvent event) {
 				// TODO : suppression
@@ -321,7 +339,8 @@ public class ControleurVue implements Initializable {
 			}
 		});
 
-		item3.setOnAction(new EventHandler<ActionEvent>() {
+		// Evenement d'affichage de la popup de changement de disposition
+		changeDisp.setOnAction(new EventHandler<ActionEvent>() {
 
 			public void handle(ActionEvent event) {
 				try {
@@ -349,7 +368,7 @@ public class ControleurVue implements Initializable {
 
 
 		/* Ajout des options */
-		contextMenu.getItems().addAll(item1,item2, item3);
+		contextMenu.getItems().addAll(changeDisp, changeEnPres,changeFich, fermVue);
 		scrollPaneImg.setContextMenu(contextMenu);
 	}
 

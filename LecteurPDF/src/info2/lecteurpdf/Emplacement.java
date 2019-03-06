@@ -4,14 +4,27 @@ import java.util.LinkedList;
 
 public class Emplacement implements Comparable<Emplacement>{
 
+	/** Nombre maximum de fenetres */
 	private static final int NB_MAX_FENETRE = 2;
 
+	/** Nommbre maximum de position possible dans une fenetre */
 	private final static int NB_MAX_POSITION = 2;
 
+	/** Donne le numéro de la fenetre */
 	private int fenetre;
-
+	/** Donne le numéro de la position dans la fenetre */
 	private int position;
 
+	/**
+	 * Correspond à un emplacement définit par sa fenêtre
+	 * et sa position dans cette dernière
+	 * Un Emplacement ne peut déjà exister dans la liste des vues
+	 *
+	 * @param fen indice de la fenêtre
+	 * @param pos indice de la position dans la fenêtre
+	 * @throws EmplacementIncorrect emplacement impossible
+	 * @throws EmplacementRedondant emplacement déjà existant
+	 */
 	public Emplacement(int fen, int pos) throws EmplacementIncorrect, EmplacementRedondant {
 		/* Verifications si les valeurs de la fenetre et de la position
 		 * sont dans la bonne intervalle
@@ -31,6 +44,7 @@ public class Emplacement implements Comparable<Emplacement>{
 			throw new EmplacementRedondant();
 		}
 
+		// Définit les champs
 		this.fenetre = fen;
 		this.position = pos;
 	}

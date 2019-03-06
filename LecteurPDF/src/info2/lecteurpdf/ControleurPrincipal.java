@@ -119,6 +119,9 @@ public class ControleurPrincipal implements Initializable {
 	 * @param fich Le fichier que l'on souhaite afficher dans la vue
 	 */
 	private void chargementFichier(File fich) {
+
+		//TODO : integré la popup
+
 		LinkedList<Vue> vues = Vue.getListeVues();
 		int i = vues.size(); // Index pour l'ajout
 
@@ -127,7 +130,7 @@ public class ControleurPrincipal implements Initializable {
 			fenDeux = null;
 		}
 
-		if( i >= 4 ) { /* Trop de fenétre demandé */
+		if( i >= 4 ) { /* Trop de fenêtre demandé */
 			//TODO: demander à l'utilisateur quesqu'il veut changer
 			Main.journaux.info("Max de vue atteint : " + i);
 			Alert alerte = new Alert(AlertType.WARNING, "Vous ne pouvez pas ouvrir plus de 4 vues.", ButtonType.OK);
@@ -136,7 +139,7 @@ public class ControleurPrincipal implements Initializable {
 		} else { /* Cas d'un ajout sur la fenetre principal */
 			Emplacement emplacement;
 			try {
-				if (i >= 2 ){
+				if (i >= 2){
 					emplacement = new Emplacement(2,i%2+1);
 					// Creation de la fenétre si inexistante
 					if(fenDeux == null) {
@@ -157,9 +160,6 @@ public class ControleurPrincipal implements Initializable {
 
 				vues.get(i).getControleur().chargementFichier(fich);
 
-				for(Vue vue: vues) {
-					System.out.print("|" + vue.getEmplacement().toString() + "|");
-				}
 				System.out.println();
 			} catch(EmplacementRedondant e) {
 				System.out.println(e);
@@ -216,7 +216,12 @@ public class ControleurPrincipal implements Initializable {
 			AnchorPane.setBottomAnchor(entree.getValue(), 0.0);
 			newAnchor.getChildren().add(entree.getValue());
 
+			for(Vue vue: vues) {
+				System.out.print("|" + vue.getEmplacement().toString() + "|");
+			}
+
 			System.out.println();
+			System.out.println("------");
 		}
 
 	}
