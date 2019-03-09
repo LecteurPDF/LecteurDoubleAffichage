@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
  */
 public class Vue {
 
-	/** Liste toutes les vues existantes dans la fenêtre actuelle */
+	/** Liste toutes les vues existantes de l'application */
 	private static LinkedList<Vue> listeVues = new LinkedList<Vue>();
 
 	/** Emplacement courant définit par une fenêtre et une position */
@@ -61,6 +61,10 @@ public class Vue {
     public static LinkedList<Vue> getListeVues() {
 		return listeVues;
 	}
+
+    public static void setListeVues(LinkedList<Vue> nouvelleListeVues) {
+    	listeVues = nouvelleListeVues;
+    }
 
 	/**
      * @return valeur de controleur

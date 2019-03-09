@@ -34,6 +34,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -355,7 +356,7 @@ public class ControleurVue implements Initializable {
 
 					stage.setTitle("Visio Reader - Lecteur PDF Double Affichage");
 					stage.getIcons().add(new Image("icone.png"));
-
+					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.setScene(scene);
 					stage.show();
 				} catch (IOException e) {
