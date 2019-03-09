@@ -4,14 +4,17 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * Expéditeur : Celui qui va envoie la vue vers un nouvel AnchorPane
@@ -35,11 +38,16 @@ public class ControleurChangementDisposition implements Initializable{
 	@FXML
 	private AnchorPane supprimer;
 
+    @FXML
+    private Button valider;
+
+    @FXML
+    private Button retablir;
+
 	/** Liste toutes les vues existantes de l'application
 	 * au moment de l'ouverture de la fenêtre modale de changement de disposition
 	 */
-	private static LinkedList<Vue> listeVuesTmp = new LinkedList<Vue>();
-
+	private static LinkedList<Vue> listeVuesTmp;
 
 	/* Le label que l'on échange(drop) avec le drag */
 	private Label buffer;
@@ -50,6 +58,7 @@ public class ControleurChangementDisposition implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		AnchorPane position;
+		listeVuesTmp = Vue.getListeVues();
 
 		for(Vue vue: listeVuesTmp) {
 			Label nomFich = new Label(vue.getPdf().getCheminFichier());
@@ -86,19 +95,17 @@ public class ControleurChangementDisposition implements Initializable{
 
 	private AnchorPane determinePosition(Emplacement emplacement) {
 
+
 		AnchorPane[][] tabPositions = {
 				{posA,posB},
 				{posC,posD},
 		};
-		System.out.println("Fenetre " + (emplacement.getFenetre()-1));
-		System.out.println("Position " + (emplacement.getPosition()-1));
-		return tabPositions[emplacement.getFenetre()-1][emplacement.getPosition()-1];
 
+		return tabPositions[emplacement.getFenetre()-1][emplacement.getPosition()-1];
 	}
 
 	private void dragDetected(Label nomFich) {
 		nomFich.setOnDragDetected(mouseEvent -> {
-			System.out.println("DnD detecté.");
 			final Dragboard dragBroard = nomFich.startDragAndDrop(TransferMode.MOVE);
 			// Remlissage du contenu.
 			ClipboardContent content = new ClipboardContent();
@@ -109,7 +116,6 @@ public class ControleurChangementDisposition implements Initializable{
 			for(Vue vue: listeVuesTmp) {
 				if(vue.getPdf().getCheminFichier().equals(nomFich.getText())) {
 					emplacementTmp = vue.getEmplacement();
-					System.out.println("Emplacement du DnD" + emplacementTmp);
 				}
 			}
 
@@ -189,15 +195,10 @@ public class ControleurChangementDisposition implements Initializable{
 					}
 				}
 
-				System.out.println(indexExpediteur);
-				System.out.println(indexDestinataire);
-
 				/* On échange les emplacements */
 
 				if (indexDestinataire != -1) {
 					listeVuesTmp.get(indexExpediteur).setEmplacement(listeVuesTmp.get(indexDestinataire).getEmplacement()); // On place l'expediteur dans le destinataire
-					System.out.println("1 " + listeVuesTmp.get(indexDestinataire).getEmplacement());
-					System.out.println("2 " + listeVuesTmp.get(indexExpediteur).getEmplacement());
 
 				} else {
 					try {
@@ -213,7 +214,6 @@ public class ControleurChangementDisposition implements Initializable{
 						}
 
 						listeVuesTmp.get(indexExpediteur).setEmplacement(emplacementDestinataire);
-						System.out.println("3 " + listeVuesTmp.get(indexExpediteur).getEmplacement());
 					} catch (Exception e) {
 						System.out.println("Erreur avec emplacement");
 					}
@@ -221,7 +221,6 @@ public class ControleurChangementDisposition implements Initializable{
 
 				if (nomFich2.getText().length() > 0) { // Si le destinataire est une vue existante, on le place dans l'expéditeur
 					listeVuesTmp.get(indexDestinataire).setEmplacement(emplacementTmp);
-					System.out.println("4 " + emplacementTmp);
 				}
 
 				/* On recharge les différents événements sur la page */
@@ -230,7 +229,6 @@ public class ControleurChangementDisposition implements Initializable{
 				success = true;
 
 			}
-			Main.controller.reload();
 
 			/* let the source know whether the string was successfully
 			 * transferred and used  TODO Français */
@@ -239,6 +237,18 @@ public class ControleurChangementDisposition implements Initializable{
 			dragEvent.consume();
 		});
 	}
+
+    @FXML
+    void actionValider(ActionEvent event) {
+    	Vue.setListeVues(listeVuesTmp);
+		Main.controller.reload();
+		((Stage)posA.getScene().getWindow()).close();
+    }
+
+    @FXML
+    void actionRetablir(ActionEvent event) {
+
+    }
 
 
 	private void reloadDaD(Label nomFich) {

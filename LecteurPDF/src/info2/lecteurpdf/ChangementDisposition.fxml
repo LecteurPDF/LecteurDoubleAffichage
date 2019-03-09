@@ -32,8 +32,8 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="559.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="VALIDER" />
-            <Button mnemonicParsing="false" text="RETABLIR" />
+            <Button fx:id="valider" mnemonicParsing="false" onAction="#actionValider" text="VALIDER" />
+            <Button fx:id="retablir" mnemonicParsing="false" onAction="#actionRetablir" text="RETABLIR" />
          </children>
       </HBox>
    </bottom>
