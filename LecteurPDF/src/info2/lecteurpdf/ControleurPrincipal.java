@@ -174,6 +174,7 @@ public class ControleurPrincipal implements Initializable {
 	void reload() {
 		LinkedList<Vue> vues = Vue.getListeVues();
 		TreeMap<Emplacement, VBox> emps = new TreeMap<>();
+		boolean presenceFenDeux = false;
 
 		splitPanePdf.getItems().clear();
 		if(fenDeux != null)
@@ -193,6 +194,7 @@ public class ControleurPrincipal implements Initializable {
 			AnchorPane newAnchor = new AnchorPane();
 
 			if ( emplacement.getFenetre() >= 2 ){
+				presenceFenDeux = true;
 				// Creation de la fenétre si inexistante
 				if(fenDeux == null) {
 					fenDeux = new SplitPane();
@@ -216,14 +218,11 @@ public class ControleurPrincipal implements Initializable {
 			AnchorPane.setBottomAnchor(entree.getValue(), 0.0);
 			newAnchor.getChildren().add(entree.getValue());
 
-			for(Vue vue: vues) {
-				System.out.print("|" + vue.getEmplacement().toString() + "|");
-			}
-
-			System.out.println();
-			System.out.println("------");
 		}
-
+		if(!presenceFenDeux && fenDeux != null) {
+			((Stage) fenDeux.getScene().getWindow()).close();
+			fenDeux = null;
+		}
 	}
 
 
@@ -274,6 +273,8 @@ public class ControleurPrincipal implements Initializable {
 	 */
 	@FXML
 	void ouvrirPref(ActionEvent event) {
+
+		reload();
 
 		try {
 			/* Chargement du fxml du menu préférence */

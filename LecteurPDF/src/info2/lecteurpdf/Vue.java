@@ -118,6 +118,7 @@ public class Vue {
 
 		//Retrait dans la liste des vues
 		listeVues.remove(this);
+		Main.controller.reload();
 
     }
 
