@@ -29,6 +29,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -63,30 +67,59 @@ public class ControleurPrincipal implements Initializable {
 	 *
 	 * @param event
 	 */
-	//	@FXML
-	//	void entreeClavier(KeyEvent event) {
-	//
-	//		KeyCode entreeClavier = event.getCode();
-	//
-	//		if (entreeClavier == KeyCode.getKeyCode(prefs.get("TOUCHE_PAGE_SUIVANTE", KeyCode.CHANNEL_DOWN.toString() ))) {
-	//
-	//			try {
-	//				imageAfficher.setImage(pdf.getNextPage().getImage());
-	//				/* On met l'ImageView � la bonne �chelle */
-	//				setImagePrefs();
-	//				txbNbPage.setText(Integer.toString(pdf.getPagesCour()));
-	//			} catch (PageInexistante e) {
-	//				System.out.println( e.getMessage() );
-	//			}
-	//
-	//		} else if(entreeClavier == KeyCode.getKeyCode(prefs.get("TOUCHE_PAGE_PRECEDENTE", KeyCode.CHANNEL_UP.toString() ))){
-	//			//TODO
-	//		} else {
-	//			System.out.println("Pas de preferences");
-	//
-	//		}
-	//
-	//	}
+	@FXML
+	void entreeClavier(KeyEvent event) {
+
+		/* Permet de determiner l'action à réalisé */
+		boolean pgSuivante = false;
+		boolean pgPrecedente = false;
+
+		/* Temporaire */
+		KeyCode entreeTouche;
+		KeyCombination entreeCombi;
+
+			/* Definit les combinaisons de toute les action*/
+		String touchePageSuivantes = prefs.get("TOUCHE_PAGE_SUIVANTE", "").toUpperCase();
+		String touchePagePrecedente = prefs.get("TOUCHE_PAGE_PRECEDENTE", "").toUpperCase();
+
+
+
+
+		/* Definit si la touche ou la combinaison entree correspond
+		 * a un element definit dans les preferences
+		 */
+		if(!touchePageSuivantes.equals("")) {
+			if(touchePageSuivantes.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(touchePageSuivantes);
+				pgSuivante = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(touchePageSuivantes);
+				pgSuivante = event.getCode() == entreeTouche;
+			}
+		}
+		if(!touchePagePrecedente.equals("")) {
+			if(touchePagePrecedente.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(touchePagePrecedente);
+				pgPrecedente = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(touchePagePrecedente);
+				pgPrecedente = event.getCode() == entreeTouche;
+			}
+		}
+
+		/* Definit les actions à réalisé lié a une combinaison de touches */
+		if(pgSuivante) {
+			for(Vue vue: Vue.getListeVues()) {
+				vue.getControleur().prochainePage(null);
+			}
+		}
+		if(pgPrecedente) {
+			for(Vue vue: Vue.getListeVues()) {
+				vue.getControleur().precedentePage(null);
+			}
+		}
+
+	}
 
 	/**
 	 * Permet de d�finir le fichier que l'on va afficher

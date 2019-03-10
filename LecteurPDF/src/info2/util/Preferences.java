@@ -3,6 +3,11 @@ package info2.util;
 import java.util.LinkedList;
 
 import info2.lecteurpdf.Main;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyCombination.Modifier;
+import javafx.scene.input.KeyEvent;
 
 /**
  * Classe préférence sous forme de Singleton
@@ -76,5 +81,29 @@ public class Preferences {
 			fichiers.add(prefs.get("DERNIER_FICHIER_" + i, null));
 		}
 		return fichiers;
+	}
+
+	public static String keyToString(KeyEvent event) {
+
+		KeyCombination keyCombi;
+		Modifier modif;
+
+		if (event.isShiftDown() && !(event.getCode() == KeyCode.SHIFT)) {
+			modif = KeyCombination.SHIFT_DOWN;
+		} else if(event.isAltDown() && !(event.getCode() == KeyCode.ALT)) {
+			modif = KeyCombination.ALT_DOWN;
+		} else if (event.isControlDown() && !(event.getCode() == KeyCode.CONTROL)) {
+			modif = KeyCombination.CONTROL_DOWN;
+		} else if(event.isMetaDown() && !(event.getCode() == KeyCode.META)) {
+			modif = KeyCombination.META_DOWN;
+		} else if( event.isShortcutDown() && !(event.getCode() == KeyCode.SHORTCUT)) {
+			modif = KeyCombination.SHORTCUT_DOWN;
+		} else {
+			return event.getCode().getName();
+		}
+
+		keyCombi = new KeyCodeCombination(event.getCode(), modif);
+		return keyCombi.getName();
+
 	}
 }
