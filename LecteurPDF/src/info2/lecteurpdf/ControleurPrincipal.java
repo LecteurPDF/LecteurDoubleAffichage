@@ -72,10 +72,13 @@ public class ControleurPrincipal implements Initializable {
 	@FXML
 	void entreeClavier(KeyEvent event) {
 
+		//TODO Le faire detecter par la fenetre secondaire aussi
+
 		/* Permet de determiner l'action à réalisé */
 		boolean pgSuivante = false;
 		boolean pgPrecedente = false;
-
+		boolean tchPleinEcran1 = false;
+		boolean tchPleinEcran2 = false;
 		boolean ouvFichier = false;
 
 		/* Temporaire */
@@ -85,7 +88,8 @@ public class ControleurPrincipal implements Initializable {
 		/* Definit les combinaisons de toute les action*/
 		String touchePageSuivantes = prefs.get("TOUCHE_PAGE_SUIVANTE", "").toUpperCase();
 		String touchePagePrecedente = prefs.get("TOUCHE_PAGE_PRECEDENTE", "").toUpperCase();
-
+		String touchePleinEcran1 = prefs.get("TOUCHE_PLEIN_ECRAN_1", "").toUpperCase();
+		String touchePleinEcran2 = prefs.get("TOUCHE_PLEIN_ECRAN_2", "").toUpperCase();
 		String toucheOuvrirFichier = prefs.get("TOUCHE_PAGE_OUVRIR_FICHIER", "").toUpperCase();
 
 
@@ -121,6 +125,26 @@ public class ControleurPrincipal implements Initializable {
 			}
 		}
 
+		if (!touchePleinEcran1.equals("")) {
+			if (touchePleinEcran1.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(touchePleinEcran1);
+				tchPleinEcran1 = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(touchePleinEcran1);
+				tchPleinEcran1 = event.getCode() == entreeTouche;
+			}
+		}
+
+		if (!touchePleinEcran2.equals("")) {
+			if (touchePleinEcran2.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(touchePleinEcran2);
+				tchPleinEcran2 = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(touchePleinEcran2);
+				tchPleinEcran2 = event.getCode() == entreeTouche;
+			}
+		}
+
 		/* Definit les actions à réalisé lié a une combinaison de touches */
 		if(pgSuivante) {
 			for(Vue vue: Vue.getListeVues()) {
@@ -134,6 +158,16 @@ public class ControleurPrincipal implements Initializable {
 		}
 		if(ouvFichier) {
 			changerFichier();
+		}
+
+		if(tchPleinEcran1) {
+				((Stage)parentVBox.getScene().getWindow()).setFullScreen(true);
+		}
+
+		if(tchPleinEcran2) {
+			if(fenDeux != null) {
+				((Stage)fenDeux.getScene().getWindow()).setFullScreen(true);
+			}
 		}
 
 

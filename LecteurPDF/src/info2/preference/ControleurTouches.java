@@ -16,8 +16,8 @@ public class ControleurTouches implements Initializable{
 
 	String pageSuiv,
 	pagePrec,
-	pleinEcran,
-	pleinEcranOut,
+	pleinEcran1,
+	pleinEcran2,
 	ouvertureFichier = "";
 
 	@FXML
@@ -53,8 +53,8 @@ public class ControleurTouches implements Initializable{
 		prefs.put("TOUCHE_PAGE_SUIVANTE", pageSuiv); //Entre dans le registre l'element
 		prefs.put("TOUCHE_PAGE_PRECEDENTE", pagePrec);
 		prefs.put("TOUCHE_PAGE_OUVRIR_FICHIER", ouvertureFichier);
-		prefs.put("TOUCHE_PLEIN_ECRAN", pleinEcran);
-		prefs.put("TOUCHE_PLEIN_ECRAN_OUT", pleinEcranOut);
+		prefs.put("TOUCHE_PLEIN_ECRAN_1", pleinEcran1);
+		prefs.put("TOUCHE_PLEIN_ECRAN_2", pleinEcran2);
 
 
 	}
@@ -62,9 +62,9 @@ public class ControleurTouches implements Initializable{
 	@FXML
 	void saveKeyFullScreen(KeyEvent event) {
 		try {
-			pleinEcran = Preferences.keyToString(event);
+			pleinEcran1 = Preferences.keyToString(event);
 			txt_pleinEcran.setEditable(false);
-			txt_pleinEcran.setText(pleinEcran);
+			txt_pleinEcran.setText(pleinEcran1);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
@@ -73,9 +73,9 @@ public class ControleurTouches implements Initializable{
 	@FXML
 	void saveKeyFullScreenOut(KeyEvent event) {
 		try {
-			pleinEcranOut = Preferences.keyToString(event);
+			pleinEcran2 = Preferences.keyToString(event);
 			txt_PleinEcranOut.setEditable(false);
-			txt_PleinEcranOut.setText(pleinEcranOut);
+			txt_PleinEcranOut.setText(pleinEcran2);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
@@ -135,15 +135,15 @@ public class ControleurTouches implements Initializable{
 		if(ouvertureFichier != null)
 			txt_ouvertureFichier.setText(ouvertureFichier);
 
-		pleinEcran = prefs.get("TOUCHE_PLEIN_ECRAN", "");
+		pleinEcran1 = prefs.get("TOUCHE_PLEIN_ECRAN", "");
 		txt_pleinEcran.setEditable(false);
-		if(pleinEcran != null)
-			txt_pleinEcran.setText(pleinEcran);
+		if(pleinEcran1 != null)
+			txt_pleinEcran.setText(pleinEcran1);
 
-		pleinEcranOut = prefs.get("TOUCHE_PLEIN_ECRAN_OUT", "");
+		pleinEcran2 = prefs.get("TOUCHE_PLEIN_ECRAN_OUT", "");
 		txt_PleinEcranOut.setEditable(false);
-		if(ouvertureFichier != null)
-			txt_PleinEcranOut.setText(pleinEcranOut);
+		if(pleinEcran2 != null)
+			txt_PleinEcranOut.setText(pleinEcran2);
 
 	}
 }
