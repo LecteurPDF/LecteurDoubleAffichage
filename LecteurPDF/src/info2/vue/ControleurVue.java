@@ -1,4 +1,4 @@
-package info2.lecteurpdf;
+package info2.vue;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import info2.util.OutilLecture.PageInexistante;
-import info2.vue.Vue;
+import info2.lecteurpdf.Main;
 import info2.util.Emplacement;
 import info2.util.EmplacementIncorrect;
 import info2.util.EmplacementRedondant;
@@ -34,6 +34,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -181,7 +182,7 @@ public class ControleurVue implements Initializable {
 	 * @param event btnPrecPage
 	 */
 	@FXML
-	void precedentePage(ActionEvent event) {
+	public void precedentePage(ActionEvent event) {
 		try {
 			imageAfficher.setImage(vue.getPdf().getPrecPage().getImage());
 			/* On met l'ImageView � la bonne �chelle */
@@ -198,7 +199,7 @@ public class ControleurVue implements Initializable {
 	 * @param event btnNextPage
 	 */
 	@FXML
-	void prochainePage(ActionEvent event) {
+	public void prochainePage(ActionEvent event) {
 		try {
 			imageAfficher.setImage(vue.getPdf().getNextPage().getImage());
 			/* On met l'ImageView � la bonne �chelle */
@@ -215,7 +216,7 @@ public class ControleurVue implements Initializable {
 	 * @param event txbNbPage
 	 */
 	@FXML
-	void nbPage(ActionEvent event) {
+	public void nbPage(ActionEvent event) {
 		try {
 			imageAfficher.setImage(vue.getPdf().getPagePdfToImg(Integer.parseInt(txbNbPage.getText()) - 1).getImage());
 			/* On met l'ImageView � la bonne �chelle */
@@ -234,7 +235,7 @@ public class ControleurVue implements Initializable {
 	 * Le ratio hauteur et largeur est gardé
 	 * @param hauteur souhaité
 	 */
-	void setZoom(Double hauteur){
+	public void setZoom(Double hauteur){
 		if(hauteur != 0) {
 			imageAfficher.setPreserveRatio(true);
 			imageAfficher.setFitHeight(hauteur);
@@ -245,7 +246,7 @@ public class ControleurVue implements Initializable {
 	/**
 	 * Permet de fermer proprement le fichier et la fenêtre
 	 */
-	void fermetureVue() {
+	public void fermetureVue() {
 
 		try {
 			Parent parent = vboxVue.getParent();

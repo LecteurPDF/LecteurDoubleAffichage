@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
-import info2.lecteurpdf.ControleurVue;
 import info2.lecteurpdf.Main;
 import info2.util.Emplacement;
 import info2.util.OutilLecture;

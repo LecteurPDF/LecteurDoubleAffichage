@@ -22,6 +22,7 @@ import info2.util.Preferences;
 import info2.vue.Vue;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -74,7 +75,7 @@ public class ControleurPrincipal implements Initializable {
 	 * @param event
 	 */
 	@FXML
-	void entreeClavier(KeyEvent event) {
+	public void entreeClavier(KeyEvent event) {
 
 		//TODO Le faire detecter par la fenetre secondaire aussi
 
@@ -250,6 +251,10 @@ public class ControleurPrincipal implements Initializable {
 						//set Stage boundaries to visible bounds of the main screen
 						stage.setX(primaryScreenBounds.getMinX());
 						stage.setY(primaryScreenBounds.getMinY());
+
+						fenDeux.setOnKeyPressed(e -> {
+							entreeClavier(e);
+						});
 					}
 				} else {
 					emplacement = new Emplacement(1,i%2+1);
@@ -318,6 +323,8 @@ public class ControleurPrincipal implements Initializable {
 					//Set le stage sur l'ecran de presentation
 					stage.setX(primaryScreenBounds.getMinX());
 					stage.setY(primaryScreenBounds.getMinY());
+
+
 
 				}
 				fenDeux.getItems().add(newAnchor);
