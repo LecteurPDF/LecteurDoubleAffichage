@@ -74,6 +74,8 @@ public class ControleurPrincipal implements Initializable {
 		boolean pgSuivante = false;
 		boolean pgPrecedente = false;
 
+		boolean ouvFichier = false;
+
 		/* Temporaire */
 		KeyCode entreeTouche;
 		KeyCombination entreeCombi;
@@ -82,7 +84,7 @@ public class ControleurPrincipal implements Initializable {
 		String touchePageSuivantes = prefs.get("TOUCHE_PAGE_SUIVANTE", "").toUpperCase();
 		String touchePagePrecedente = prefs.get("TOUCHE_PAGE_PRECEDENTE", "").toUpperCase();
 
-
+		String toucheOuvrirFichier = prefs.get("TOUCHE_PAGE_OUVRIR_FICHIER", "").toUpperCase();
 
 
 		/* Definit si la touche ou la combinaison entree correspond
@@ -107,6 +109,16 @@ public class ControleurPrincipal implements Initializable {
 			}
 		}
 
+		if (!toucheOuvrirFichier.equals("")) {
+			if (toucheOuvrirFichier.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(toucheOuvrirFichier);
+				ouvFichier = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(toucheOuvrirFichier);
+				ouvFichier = event.getCode() == entreeTouche;
+			}
+		}
+
 		/* Definit les actions à réalisé lié a une combinaison de touches */
 		if(pgSuivante) {
 			for(Vue vue: Vue.getListeVues()) {
@@ -118,6 +130,10 @@ public class ControleurPrincipal implements Initializable {
 				vue.getControleur().precedentePage(null);
 			}
 		}
+		if(ouvFichier) {
+			changerFichier();
+		}
+
 
 	}
 
