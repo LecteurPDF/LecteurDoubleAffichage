@@ -39,7 +39,7 @@
                   <MenuItem disable="true" mnemonicParsing="false" text="Permuter vue" />
                   <MenuItem disable="true" mnemonicParsing="false" text="Permuter écran" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem disable="true" mnemonicParsing="false" text="Mode présentation" />
+                        <MenuItem mnemonicParsing="false" onAction="#modePresentation" text="Mode présentation" />
                 </items>
               </Menu>
               <Menu mnemonicParsing="false" text="Aide">

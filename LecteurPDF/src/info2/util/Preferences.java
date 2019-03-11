@@ -62,13 +62,10 @@ public class Preferences {
 
 	public void putDernierFichier(String def) {
 		int i;
-		for(i = 0; prefs.get("DERNIER_FICHIER_" + i, null) != null && i <= NB_HISTORIQUE_MAX ; i++ );
+		for(i = 0; prefs.get("DERNIER_FICHIER_" + i, null) != null && i < NB_HISTORIQUE_MAX ; i++ );
 
-		if(i >= NB_HISTORIQUE_MAX) {
-			for(int j = i ; j > 0 ; j-- ) {
-				prefs.put("DERNIER_FICHIER_" + j, prefs.get("DERNIER_FICHIER_" + (j-1), null));
-				System.out.println("--->" + j);
-			}
+		for(int j = i ; j > 0 ; j-- ) {
+			prefs.put("DERNIER_FICHIER_" + j, prefs.get("DERNIER_FICHIER_" + (j-1), null));
 		}
 
 		prefs.put("DERNIER_FICHIER_" + 0, def);

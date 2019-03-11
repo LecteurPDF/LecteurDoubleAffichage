@@ -307,8 +307,6 @@ public class ControleurPrincipal implements Initializable {
 	@FXML
 	void ouvrirPref(ActionEvent event) {
 
-		reload();
-
 		try {
 			/* Chargement du fxml du menu préférence */
 			FXMLLoader fxmlLoader = new FXMLLoader();
@@ -336,6 +334,13 @@ public class ControleurPrincipal implements Initializable {
 		//TODO
 	}
 
+
+    @FXML
+    void modePresentation(ActionEvent event) {
+    	if(fenDeux != null) {
+    		((Stage)fenDeux.getScene().getWindow()).setFullScreen(true);
+    	}
+    }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
