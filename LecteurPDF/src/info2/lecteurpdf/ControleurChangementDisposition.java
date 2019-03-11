@@ -112,7 +112,7 @@ public class ControleurChangementDisposition implements Initializable{
 			// Remlissage du contenu.
 			ClipboardContent content = new ClipboardContent();
 			content.putString(nomFich.getText());
-			DataFormat data = new DataFormat("Vue");
+			//DataFormat data = new DataFormat("Vue");
 			//content.put(data, vue)
 			dragBroard.setContent(content);
 
