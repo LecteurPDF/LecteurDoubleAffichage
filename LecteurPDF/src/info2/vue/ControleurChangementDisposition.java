@@ -1,12 +1,12 @@
-package info2.lecteurpdf;
+package info2.vue;
 
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
+import info2.lecteurpdf.Main;
 import info2.util.Emplacement;
-import info2.vue.Vue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

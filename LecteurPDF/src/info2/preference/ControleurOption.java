@@ -20,9 +20,9 @@ public class ControleurOption implements Initializable{
 
 	private final float QUALITE_FAIBLE = 100;
 
-	private final float QUALITE_MOYENNE = 130;
+	private final float QUALITE_MOYENNE = 150;
 
-	private final float QUALITE_HAUTE = 200;
+	private final float QUALITE_HAUTE = 300;
 
 	@FXML
 	private Button btn_sauver;

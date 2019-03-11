@@ -357,7 +357,7 @@ public class ControleurVue implements Initializable {
 
 					Scene scene = new Scene(root,559,274);
 
-					scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+					scene.getStylesheets().add(getClass().getResource("../lecteurpdf/application.css").toExternalForm());
 
 					stage.setTitle("Visio Reader - Lecteur PDF Double Affichage");
 					stage.getIcons().add(new Image("icone.png"));
