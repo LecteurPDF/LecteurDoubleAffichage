@@ -1,16 +1,19 @@
 package info2.lecteurpdf;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
@@ -47,10 +50,7 @@ public class ControleurChangementDisposition implements Initializable{
 	/** Liste toutes les vues existantes de l'application
 	 * au moment de l'ouverture de la fenêtre modale de changement de disposition
 	 */
-	private static LinkedList<Vue> listeVuesTmp;
-
-	/* Le label que l'on échange(drop) avec le drag */
-	private Label buffer;
+	private static HashMap<String,Vue> listeVuesTmp = new HashMap<>();
 
 	/* La fenêtre que l'on bouge actuelelment */
 	private Emplacement emplacementTmp;
@@ -58,10 +58,11 @@ public class ControleurChangementDisposition implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		AnchorPane position;
-		listeVuesTmp = Vue.getListeVues();
 
-		for(Vue vue: listeVuesTmp) {
-			Label nomFich = new Label(vue.getPdf().getCheminFichier());
+		for(Vue vue: Vue.getListeVues()) {
+			System.out.println(vue);
+			listeVuesTmp.put(vue.toString(), vue);
+			Label nomFich = new Label(vue.toString());
 			nomFich.setWrapText(true);
 
 			position = determinePosition(vue.getEmplacement());
@@ -84,7 +85,8 @@ public class ControleurChangementDisposition implements Initializable{
 				posD
 		};
 
-		for(AnchorPane anchor:tabAnchor) {
+		for(AnchorPane anchor : tabAnchor) {
+
 			dragOver(anchor);
 
 			dragDropped(anchor);
@@ -110,14 +112,12 @@ public class ControleurChangementDisposition implements Initializable{
 			// Remlissage du contenu.
 			ClipboardContent content = new ClipboardContent();
 			content.putString(nomFich.getText());
+			DataFormat data = new DataFormat("Vue");
+			//content.put(data, vue)
 			dragBroard.setContent(content);
 
 			/* On récupéère l'emplacement de la vue que l'on déplace */
-			for(Vue vue: listeVuesTmp) {
-				if(vue.getPdf().getCheminFichier().equals(nomFich.getText())) {
-					emplacementTmp = vue.getEmplacement();
-				}
-			}
+			emplacementTmp = ((Vue)listeVuesTmp.get(nomFich.getText())).getEmplacement();
 
 			mouseEvent.consume();
 		});
@@ -179,26 +179,10 @@ public class ControleurChangementDisposition implements Initializable{
 				AnchorPane.setBottomAnchor(nomFich, 0.0);
 				anchor.getChildren().add(nomFich);
 
-
-
-				/* On échange les vues dans la liste */
-				int indexExpediteur = -1;
-				int indexDestinataire =  -1;
-
-				/* On récupéère l'emplacement de la vue que l'on déplace */
-				for(int i = 0 ; i < listeVuesTmp.size() ; i++) {
-					if(listeVuesTmp.get(i).getPdf().getCheminFichier().equals(nomFich.getText())) {
-						indexExpediteur =  i;
-					}
-					if(listeVuesTmp.get(i).getPdf().getCheminFichier().equals(nomFich2.getText())) {
-						indexDestinataire =  i;
-					}
-				}
-
 				/* On échange les emplacements */
 
-				if (indexDestinataire != -1) {
-					listeVuesTmp.get(indexExpediteur).setEmplacement(listeVuesTmp.get(indexDestinataire).getEmplacement()); // On place l'expediteur dans le destinataire
+				if (nomFich2.getText().length() > 0) {
+					listeVuesTmp.get(nomFich.getText()).setEmplacement(listeVuesTmp.get(nomFich2.getText()).getEmplacement()); // On place l'expediteur dans le destinataire
 
 				} else {
 					try {
@@ -213,14 +197,15 @@ public class ControleurChangementDisposition implements Initializable{
 							emplacementDestinataire = new Emplacement(2,2);
 						}
 
-						listeVuesTmp.get(indexExpediteur).setEmplacement(emplacementDestinataire);
+						listeVuesTmp.get(nomFich.getText()).setEmplacement(emplacementDestinataire);
 					} catch (Exception e) {
 						System.out.println("Erreur avec emplacement");
+						e.printStackTrace();
 					}
 				}
 
 				if (nomFich2.getText().length() > 0) { // Si le destinataire est une vue existante, on le place dans l'expéditeur
-					listeVuesTmp.get(indexDestinataire).setEmplacement(emplacementTmp);
+					listeVuesTmp.get(nomFich2.getText()).setEmplacement(emplacementTmp);
 				}
 
 				/* On recharge les différents événements sur la page */
@@ -240,7 +225,7 @@ public class ControleurChangementDisposition implements Initializable{
 
     @FXML
     void actionValider(ActionEvent event) {
-    	Vue.setListeVues(listeVuesTmp);
+    	//Vue.setListeVues(listeVuesTmp);
 		Main.controller.reload();
 		((Stage)posA.getScene().getWindow()).close();
     }
@@ -249,11 +234,4 @@ public class ControleurChangementDisposition implements Initializable{
     void actionRetablir(ActionEvent event) {
 
     }
-
-
-	private void reloadDaD(Label nomFich) {
-
-	}
-
-
 }
