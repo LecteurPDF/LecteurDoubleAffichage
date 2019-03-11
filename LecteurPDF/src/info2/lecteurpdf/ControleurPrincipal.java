@@ -22,6 +22,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -37,6 +38,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -80,7 +82,7 @@ public class ControleurPrincipal implements Initializable {
 		KeyCode entreeTouche;
 		KeyCombination entreeCombi;
 
-			/* Definit les combinaisons de toute les action*/
+		/* Definit les combinaisons de toute les action*/
 		String touchePageSuivantes = prefs.get("TOUCHE_PAGE_SUIVANTE", "").toUpperCase();
 		String touchePagePrecedente = prefs.get("TOUCHE_PAGE_PRECEDENTE", "").toUpperCase();
 
@@ -192,12 +194,24 @@ public class ControleurPrincipal implements Initializable {
 					emplacement = new Emplacement(2,i%2+1);
 					// Creation de la fenétre si inexistante
 					if(fenDeux == null) {
+
+						int nbScreen = 0;
+						for (Screen screen : Screen.getScreens()) {
+							nbScreen++;
+						}
+
+						System.out.println(nbScreen);
+						Rectangle2D primaryScreenBounds = Screen.getScreens().get(nbScreen-1).getVisualBounds();
+
 						fenDeux = new SplitPane();
 
 						Stage stage = new Stage();
 						Scene scene = new Scene(fenDeux, 900, 600);
 						stage.setScene(scene);
 						stage.show();
+						//set Stage boundaries to visible bounds of the main screen
+						stage.setX(primaryScreenBounds.getMinX());
+						stage.setY(primaryScreenBounds.getMinY());
 					}
 				} else {
 					emplacement = new Emplacement(1,i%2+1);
@@ -243,15 +257,29 @@ public class ControleurPrincipal implements Initializable {
 			AnchorPane newAnchor = new AnchorPane();
 
 			if ( emplacement.getFenetre() >= 2 ){
+
 				presenceFenDeux = true;
 				// Creation de la fenétre si inexistante
 				if(fenDeux == null) {
+					/* Detecte l'ecran secondaire pour la presentation */
+					int i = 0;
+					for (Screen screen : Screen.getScreens()) {
+						i++;
+					}
+
+					System.out.println(i);
+					Rectangle2D primaryScreenBounds = Screen.getScreens().get(i-1).getVisualBounds();
+
 					fenDeux = new SplitPane();
 
 					Stage stage = new Stage();
 					Scene scene = new Scene(fenDeux, 900, 600);
 					stage.setScene(scene);
+
 					stage.show();
+					//Set le stage sur l'ecran de presentation
+					stage.setX(primaryScreenBounds.getMinX());
+					stage.setY(primaryScreenBounds.getMinY());
 
 				}
 				fenDeux.getItems().add(newAnchor);
@@ -351,12 +379,12 @@ public class ControleurPrincipal implements Initializable {
 	}
 
 
-    @FXML
-    void modePresentation(ActionEvent event) {
-    	if(fenDeux != null) {
-    		((Stage)fenDeux.getScene().getWindow()).setFullScreen(true);
-    	}
-    }
+	@FXML
+	void modePresentation(ActionEvent event) {
+		if(fenDeux != null) {
+			((Stage)fenDeux.getScene().getWindow()).setFullScreen(true);
+		}
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
