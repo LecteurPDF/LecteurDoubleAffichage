@@ -23,7 +23,7 @@ public class Main extends Application {
     /** Permet d'accéder aux préférences de l'utilisateurs ( écrites dans le registre ) */
     static Preferences prefs = Preferences.getInstance();
 
-    static ControleurPrincipal controller;
+    public static ControleurPrincipal controller;
 
     @Override
     public void start(Stage primaryStage) {

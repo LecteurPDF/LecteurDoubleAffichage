@@ -15,7 +15,11 @@ import java.util.ResourceBundle;
 import java.util.TreeMap;
 import java.util.Comparator;
 
+import info2.util.Emplacement;
+import info2.util.EmplacementIncorrect;
+import info2.util.EmplacementRedondant;
 import info2.util.Preferences;
+import info2.vue.Vue;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -268,7 +272,7 @@ public class ControleurPrincipal implements Initializable {
 	}
 
 
-	void reload() {
+	public void reload() {
 		LinkedList<Vue> vues = Vue.getListeVues();
 		TreeMap<Emplacement, VBox> emps = new TreeMap<>();
 		boolean presenceFenDeux = false;

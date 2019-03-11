@@ -1,4 +1,4 @@
-package info2.lecteurpdf;
+package info2.util;
 
 /**
  * Levé si l'emplacement existe déjà

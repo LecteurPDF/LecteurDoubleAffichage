@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
+import info2.util.Emplacement;
+import info2.vue.Vue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

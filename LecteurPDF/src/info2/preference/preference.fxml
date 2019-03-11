@@ -20,6 +20,7 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></Button>
+                  <Button mnemonicParsing="false" onAction="#optionOption" onMouseEntered="#survolEntreeBouton" onMouseExited="#survolSortieBouton" prefHeight="50.0" prefWidth="2500.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Options" />
                </children>
             </VBox>
             <ScrollPane fx:id="affichageInfos" prefHeight="200.0" prefWidth="200.0">

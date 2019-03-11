@@ -6,6 +6,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import info2.util.OutilLecture.PageInexistante;
+import info2.vue.Vue;
+import info2.util.Emplacement;
+import info2.util.EmplacementIncorrect;
+import info2.util.EmplacementRedondant;
 import info2.util.Preferences;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;

@@ -1,9 +1,12 @@
-package info2.lecteurpdf;
+package info2.vue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import info2.lecteurpdf.ControleurVue;
+import info2.lecteurpdf.Main;
+import info2.util.Emplacement;
 import info2.util.OutilLecture;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
@@ -45,7 +48,7 @@ public class Vue {
     	this.emplacement = emplacement;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("vue.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Vue.fxml"));
             vue = (VBox) loader.load();
             controleur = loader.getController();
             controleur.setVue(this);

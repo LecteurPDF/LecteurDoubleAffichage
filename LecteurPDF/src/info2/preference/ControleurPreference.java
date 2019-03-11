@@ -42,7 +42,19 @@ public class ControleurPreference implements Initializable{
 			e.printStackTrace();
 		}
 
+    }    @FXML
+    void optionOption(ActionEvent event) {
+
+    	try {
+    		affichageInfos.setContent(FXMLLoader.load(getClass().getResource("Option.fxml")));
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
+
+
 
 
     @FXML

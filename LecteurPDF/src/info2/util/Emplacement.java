@@ -1,6 +1,8 @@
-package info2.lecteurpdf;
+package info2.util;
 
 import java.util.LinkedList;
+
+import info2.vue.Vue;
 
 public class Emplacement implements Comparable<Emplacement>{
 
