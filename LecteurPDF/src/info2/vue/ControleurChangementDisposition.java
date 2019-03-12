@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 
 import info2.lecteurpdf.Main;
 import info2.util.Emplacement;
+import info2.util.EmplacementIncorrect;
+import info2.util.EmplacementRedondant;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -43,16 +45,16 @@ public class ControleurChangementDisposition implements Initializable{
 	@FXML
 	private AnchorPane supprimer;
 
-    @FXML
-    private Button valider;
+	@FXML
+	private Button valider;
 
-    @FXML
-    private Button retablir;
+	@FXML
+	private Button retablir;
 
 	/** Liste toutes les vues existantes de l'application
 	 * au moment de l'ouverture de la fenêtre modale de changement de disposition
 	 */
-	private static HashMap<String,Vue> listeVuesTmp = new HashMap<>();
+	private static HashMap<String,Emplacement> listeVuesTmp = new HashMap<>();
 
 	/* La fenêtre que l'on bouge actuelelment */
 	private Emplacement emplacementTmp;
@@ -62,21 +64,30 @@ public class ControleurChangementDisposition implements Initializable{
 		AnchorPane position;
 
 		for(Vue vue: Vue.getListeVues()) {
-			System.out.println(vue);
-			listeVuesTmp.put(vue.toString(), vue);
-			Label nomFich = new Label(vue.toString());
-			nomFich.setWrapText(true);
+			try {
+				System.out.println(vue);
+				listeVuesTmp.put(vue.toString(), new Emplacement(vue.getEmplacement().getFenetre(),vue.getEmplacement().getPosition()));
 
-			position = determinePosition(vue.getEmplacement());
+				Label nomFich = new Label(vue.toString());
+				nomFich.setWrapText(true);
 
-			// On positionne et ajoute la vue dans l'AnchorPane
-			AnchorPane.setTopAnchor(nomFich, 0.0);
-			AnchorPane.setLeftAnchor(nomFich, 0.0);
-			AnchorPane.setRightAnchor(nomFich, 0.0);
-			AnchorPane.setBottomAnchor(nomFich, 0.0);
-			position.getChildren().add(nomFich);
+				position = determinePosition(vue.getEmplacement());
 
-			dragDetected(nomFich);
+				// On positionne et ajoute la vue dans l'AnchorPane
+				AnchorPane.setTopAnchor(nomFich, 0.0);
+				AnchorPane.setLeftAnchor(nomFich, 0.0);
+				AnchorPane.setRightAnchor(nomFich, 0.0);
+				AnchorPane.setBottomAnchor(nomFich, 0.0);
+				position.getChildren().add(nomFich);
+
+				dragDetected(nomFich);
+			} catch (EmplacementIncorrect e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (EmplacementRedondant e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 
@@ -119,7 +130,16 @@ public class ControleurChangementDisposition implements Initializable{
 			dragBroard.setContent(content);
 
 			/* On récupéère l'emplacement de la vue que l'on déplace */
-			emplacementTmp = ((Vue)listeVuesTmp.get(nomFich.getText())).getEmplacement();
+			try {
+				emplacementTmp = new Emplacement(listeVuesTmp.get(nomFich.getText()).getFenetre(),listeVuesTmp.get(nomFich.getText()).getPosition());
+			} catch (EmplacementIncorrect e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (EmplacementRedondant e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(emplacementTmp);
 
 			mouseEvent.consume();
 		});
@@ -153,9 +173,10 @@ public class ControleurChangementDisposition implements Initializable{
 
 
 				// TODO PB ICI
-				AnchorPane expediteur = determinePosition(emplacementTmp); // On récupère l'emplacement de l'expediteur
-																		   // afin de l'échanger ( swap ) avec le destinataire.
 
+				AnchorPane expediteur = determinePosition(emplacementTmp); // On récupère l'emplacement de l'expediteur
+				// afin de l'échanger ( swap ) avec le destinataire.
+				System.out.println(" 2 " + emplacementTmp);
 				/* On retire le label destintaire du destinataire si il existe */
 				if (expediteur.getChildren().size() > 0) {
 					expediteur.getChildren().remove(0);
@@ -182,9 +203,9 @@ public class ControleurChangementDisposition implements Initializable{
 				anchor.getChildren().add(nomFich);
 
 				/* On échange les emplacements */
-
+				System.out.println(" 3 " + emplacementTmp);
 				if (nomFich2.getText().length() > 0) {
-					listeVuesTmp.get(nomFich.getText()).setEmplacement(listeVuesTmp.get(nomFich2.getText()).getEmplacement()); // On place l'expediteur dans le destinataire
+					listeVuesTmp.get(nomFich.getText()).setEmplacement(listeVuesTmp.get(nomFich2.getText())); // On place l'expediteur dans le destinataire
 
 				} else {
 					try {
@@ -205,9 +226,10 @@ public class ControleurChangementDisposition implements Initializable{
 						e.printStackTrace();
 					}
 				}
-
+				System.out.println(" 4 " + emplacementTmp);
 				if (nomFich2.getText().length() > 0) { // Si le destinataire est une vue existante, on le place dans l'expéditeur
 					listeVuesTmp.get(nomFich2.getText()).setEmplacement(emplacementTmp);
+					System.out.println(emplacementTmp);
 				}
 
 				/* On recharge les différents événements sur la page */
@@ -225,15 +247,18 @@ public class ControleurChangementDisposition implements Initializable{
 		});
 	}
 
-    @FXML
-    void actionValider(ActionEvent event) {
-    	//Vue.setListeVues(listeVuesTmp);
+	@FXML
+	void actionValider(ActionEvent event) {
+		for (Vue vue : Vue.getListeVues()) {
+			vue.setEmplacement(listeVuesTmp.get(vue.toString()));
+			System.out.println(vue.getPdf().getCheminFichier() + " " + listeVuesTmp.get(vue.toString()));
+		}
 		Main.controller.reload();
 		((Stage)posA.getScene().getWindow()).close();
-    }
+	}
 
-    @FXML
-    void actionRetablir(ActionEvent event) {
+	@FXML
+	void actionRetablir(ActionEvent event) {
 
-    }
+	}
 }

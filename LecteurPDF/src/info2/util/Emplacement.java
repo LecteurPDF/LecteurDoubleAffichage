@@ -49,13 +49,13 @@ public class Emplacement implements Comparable<Emplacement>{
 		// Définit les champs
 		this.fenetre = fen;
 		this.position = pos;
-		
+
 		// Regarde si il est seul sur la fenetre
 		//TODO: a decommenter et tester
 //		try {
 //			this = new Emplacement(fen, pos-1);
 //		} catch(EmplacementRedondant | EmplacementIncorrect e){}
-		
+
 	}
 
 	public int getFenetre() {
@@ -135,6 +135,12 @@ public class Emplacement implements Comparable<Emplacement>{
 		}
 
 		return dif;
+	}
+
+	public void setEmplacement(Emplacement emplacement) {
+		fenetre = emplacement.getFenetre();
+		position = emplacement.getPosition();
+
 	}
 
 
