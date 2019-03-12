@@ -413,6 +413,7 @@ public class ControleurPrincipal implements Initializable {
 			stage.initOwner( parentVBox.getScene().getWindow() );
 			stage.initModality( Modality.APPLICATION_MODAL );
 			stage.showAndWait();
+			reload();
 		} catch (IOException e) {
 			Main.journaux.severe("Problème de lancement de la fenetre préférence");
 		}
