@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="433.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="visioreader.preference.ControleurDisposition">
+   <content>
+      <VBox prefHeight="427.0" prefWidth="582.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="584.0" text="Disposition">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Pane onMouseClicked="#inversion" prefHeight="451.0" prefWidth="582.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="40.0" layoutX="139.0" layoutY="32.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="40.0" layoutX="339.0" layoutY="32.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                  <Label fx:id="lab1DG" alignment="CENTER" layoutX="139.0" layoutY="32.0" prefHeight="39.0" prefWidth="200.0" text="1" textFill="#da7a20">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lab2DG" alignment="CENTER" layoutX="339.0" layoutY="32.0" prefHeight="39.0" prefWidth="200.0" text="2" textFill="#405eb9">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btn_inverserDG" layoutX="313.0" layoutY="89.0" mnemonicParsing="false" onAction="#inversionDG" text="Inverser" />
+                  <Line endX="481.0" layoutX="101.0" layoutY="134.0" startX="-100.0" />
+                  <Button fx:id="btn_inverserHB" layoutX="314.0" layoutY="242.0" mnemonicParsing="false" onAction="#inversionHB" text="Inverser" />
+                  <Line endX="481.0" layoutX="102.0" layoutY="287.0" startX="-100.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="40.0" layoutX="201.0" layoutY="149.0" stroke="BLACK" strokeType="INSIDE" width="277.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="40.0" layoutX="201.0" layoutY="189.0" stroke="BLACK" strokeType="INSIDE" width="277.0" />
+                  <Label fx:id="lab1HB" alignment="CENTER" layoutX="201.0" layoutY="150.0" prefHeight="39.0" prefWidth="276.0" text="1" textFill="#da7a20">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lab2HB" alignment="CENTER" layoutX="201.0" layoutY="190.0" prefHeight="39.0" prefWidth="277.0" text="2" textFill="#405eb9">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btn_valider" layoutX="328.0" layoutY="327.0" mnemonicParsing="false" onAction="#valider" prefHeight="40.0" prefWidth="133.0" text=" VALIDER" />
+                  <Button fx:id="btn_annuler" layoutX="165.0" layoutY="327.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="133.0" text="ANNULER" />
+                  <RadioButton fx:id="horizontal" layoutX="77.0" layoutY="44.0" mnemonicParsing="false">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="choix" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="vertical" layoutX="77.0" layoutY="188.0" mnemonicParsing="false" toggleGroup="$choix" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>
