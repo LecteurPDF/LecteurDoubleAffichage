@@ -1,5 +1,7 @@
 package visioreader.util;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import javafx.scene.input.KeyCode;
@@ -25,11 +27,18 @@ public class Preferences {
 
 	private java.util.prefs.Preferences prefs;
 
+	private LinkedList<Boolean> liaisonVue;
+
 	/**
 	 * Singleton
 	 */
 	private Preferences() {
 		prefs = java.util.prefs.Preferences.userNodeForPackage(Main.class);
+		liaisonVue = new LinkedList<>();
+		liaisonVue.add(true);
+		liaisonVue.add(true);
+		liaisonVue.add(true);
+		liaisonVue.add(true);
 	}
 
 	/**
@@ -67,21 +76,21 @@ public class Preferences {
     	if((get("TOUCHE_PAGE_SUIVANTE", "")).equals("")) {
     		put("TOUCHE_PAGE_SUIVANTE", "Ctrl+Right");
     	}
-		
+
     	if((get("TOUCHE_PAGE_PRECEDENTE", "")).equals("")) {
     		put("TOUCHE_PAGE_PRECEDENTE", "Ctrl+Left");
     	}
-    	
+
     	if((get("TOUCHE_PLEIN_ECRAN_1", "")).equals("")) {
     		put("TOUCHE_PLEIN_ECRAN_1", "Ctrl+F5");
     	}
-    	
+
     	if((get("TOUCHE_PLEIN_ECRAN_2", "")).equals("")) {
     		put("TOUCHE_PLEIN_ECRAN_2", "F5");
     	}
-    	
+
 	}
-	
+
 	public void putDernierFichier(String def) {
 		int i;
 		for(i = 0; prefs.get("DERNIER_FICHIER_" + i, null) != null && i < NB_HISTORIQUE_MAX ; i++ );
@@ -124,5 +133,13 @@ public class Preferences {
 		keyCombi = new KeyCodeCombination(event.getCode(), modif);
 		return keyCombi.getName();
 
+	}
+
+	public LinkedList<Boolean> getVueLiee() {
+		return liaisonVue;
+	}
+
+	public void setVueLiee(int indice, boolean vue) {
+		liaisonVue.add(indice, vue);
 	}
 }

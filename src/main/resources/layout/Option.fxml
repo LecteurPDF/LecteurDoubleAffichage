@@ -12,14 +12,14 @@
 
 <!-- touches -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.preference.ControleurOption">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.preference.ControleurOption">
    <children>
       <Text layoutX="3.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Options avancée" textAlignment="CENTER" wrappingWidth="394.0">
          <font>
             <Font size="32.0" />
          </font>
       </Text>
-      <Button fx:id="btn_sauver" layoutX="135.0" layoutY="441.0" mnemonicParsing="false" onAction="#changements" prefHeight="43.0" prefWidth="176.0" text="Sauvegarder" />
+      <Button fx:id="btn_sauver" layoutX="133.0" layoutY="469.0" mnemonicParsing="false" onAction="#changements" prefHeight="43.0" prefWidth="176.0" text="Sauvegarder" />
       <Line endX="710.5" layoutX="101.0" layoutY="63.0" startX="-100.0" />
       <Line endX="705.5" layoutX="104.0" layoutY="190.0" startX="-110.0" />
       <Text layoutX="135.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qualité de l'image" textAlignment="CENTER">
@@ -27,13 +27,13 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Line endX="695.0" layoutX="105.0" layoutY="351.0" startX="-110.0" />
+      <Line endX="695.0" layoutX="104.0" layoutY="363.0" startX="-110.0" />
       <Text layoutX="169.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vues liées TODO">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <Line endX="696.0" layoutX="104.0" layoutY="418.0" startX="-110.0" />
+      <Line endX="696.0" layoutX="104.0" layoutY="448.0" startX="-110.0" />
       <RadioButton fx:id="rbtn_qualFaible" layoutX="25.0" layoutY="137.0" mnemonicParsing="false" text="Qualité basse">
          <font>
             <Font size="12.0" />
@@ -52,13 +52,14 @@
             <Font size="12.0" />
          </font>
       </RadioButton>
-      <CheckBox layoutX="51.0" layoutY="280.0" mnemonicParsing="false" text="Vue A" />
-      <CheckBox layoutX="51.0" layoutY="309.0" mnemonicParsing="false" text="Vue B" />
-      <CheckBox layoutX="222.0" layoutY="280.0" mnemonicParsing="false" text="Vue C" />
-      <CheckBox layoutX="223.0" layoutY="309.0" mnemonicParsing="false" text="Vue D" />
-      <Label layoutX="18.0" layoutY="229.0" text="Lié grace a la combinaison de touches" />
-      <Label layoutX="367.0" layoutY="229.0" text="et" />
-      <Label fx:id="lbl_combiSuiv" layoutX="294.0" layoutY="207.0" text="combi suiv" />
-      <Label fx:id="lbl_combiPrec" layoutX="294.0" layoutY="250.0" text="combi prec" />
+      <CheckBox fx:id="vueA" layoutX="192.0" layoutY="283.0" mnemonicParsing="false" text="Vue A" />
+      <CheckBox fx:id="vueB" layoutX="192.0" layoutY="322.0" mnemonicParsing="false" text="Vue B" />
+      <CheckBox fx:id="vueC" layoutX="299.0" layoutY="283.0" mnemonicParsing="false" text="Vue C" />
+      <CheckBox fx:id="vueD" layoutX="298.0" layoutY="322.0" mnemonicParsing="false" text="Vue D" />
+      <Label layoutX="18.0" layoutY="217.0" prefHeight="33.0" prefWidth="303.0" text="Vues liées grâce aux combinaisons de touches suivantes : " />
+      <Label fx:id="lbl_combiSuiv" layoutX="141.0" layoutY="251.0" text="combi suiv" />
+      <Label fx:id="lbl_combiPrec" layoutX="408.0" layoutY="251.0" text="combi prec" />
+      <Label layoutX="48.0" layoutY="243.0" prefHeight="33.0" prefWidth="93.0" text="Page suivante : " underline="true" />
+      <Label layoutX="305.0" layoutY="243.0" prefHeight="33.0" prefWidth="103.0" text="Page précédente : " underline="true" />
    </children>
 </AnchorPane>

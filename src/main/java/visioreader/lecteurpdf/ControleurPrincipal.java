@@ -146,9 +146,14 @@ public class ControleurPrincipal implements Initializable {
 
 		/* Definit les actions à réalisé lié a une combinaison de touches */
 		if(pgSuivante) {
-			for(Vue vue: Vue.getListeVues()) {
-				vue.getControleur().prochainePage(null);
+			for (int i=0; i < Vue.getListeVues().size() ; i++) {
+				if (Preferences.getInstance().getVueLiee().get(i)) {
+					Vue.getListeVues().get(i).getControleur().prochainePage(null);
+				}
 			}
+//			for(Vue vue: Vue.getListeVues()) {
+//				vue.getControleur().prochainePage(null);
+//			}
 		}
 		if(pgPrecedente) {
 			for(Vue vue: Vue.getListeVues()) {
