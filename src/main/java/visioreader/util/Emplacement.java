@@ -20,14 +20,14 @@ public class Emplacement implements Comparable<Emplacement>{
 	/**
 	 * Correspond à un emplacement définit par sa fenêtre
 	 * et sa position dans cette dernière
-	 * Un Emplacement ne peut déjà exister dans la liste des vues
+	 * Un Emplacement peut déjà exister dans la liste des vues
 	 *
 	 * @param fen indice de la fenêtre
 	 * @param pos indice de la position dans la fenêtre
 	 * @throws EmplacementIncorrect emplacement impossible
-	 * @throws EmplacementRedondant emplacement déjà existant
 	 */
-	public Emplacement(int fen, int pos) throws EmplacementIncorrect, EmplacementRedondant {
+	public Emplacement(int fen, int pos) throws EmplacementIncorrect {
+
 		/* Verifications si les valeurs de la fenetre et de la position
 		 * sont dans la bonne intervalle
 		 */
@@ -42,21 +42,11 @@ public class Emplacement implements Comparable<Emplacement>{
 					+ NB_MAX_POSITION);
 		}
 
-		if(this.existe(Vue.getListeVues())) {
-			throw new EmplacementRedondant();
-		}
-
 		// Définit les champs
 		this.fenetre = fen;
 		this.position = pos;
-
-		// Regarde si il est seul sur la fenetre
-		//TODO: a decommenter et tester
-//		try {
-//			this = new Emplacement(fen, pos-1);
-//		} catch(EmplacementRedondant | EmplacementIncorrect e){}
-
 	}
+
 
 	public int getFenetre() {
 		return fenetre;
@@ -84,7 +74,7 @@ public class Emplacement implements Comparable<Emplacement>{
 	public boolean existe(LinkedList<Vue> liste) {
 
 		for(Vue vue: liste) {
-			if(equals(vue.getEmplacement())) {
+			if(this.equals(vue.getEmplacement())) {
 				return true;
 			}
 		}

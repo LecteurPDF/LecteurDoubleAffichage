@@ -373,8 +373,6 @@ public class ControleurPrincipal implements Initializable {
 				vues.get(i).getControleur().chargementFichier(fich);
 
 				System.out.println();
-			} catch(EmplacementRedondant e) {
-				System.out.println(e);
 			} catch(EmplacementIncorrect e){
 				System.out.println("Franchement tu n'est pas malin !");
 			}
