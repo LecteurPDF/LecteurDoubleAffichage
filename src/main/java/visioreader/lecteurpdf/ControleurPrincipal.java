@@ -79,7 +79,7 @@ public class ControleurPrincipal implements Initializable {
 		boolean tchPleinEcran1 = false;
 		boolean tchPleinEcran2 = false;
 		boolean ouvFichier = false;
-		
+
 		/* Gestion pages Vue A */
 		boolean pgSuivanteVueA = false;
 		boolean pgPrecendenteVueA = false;
@@ -103,19 +103,19 @@ public class ControleurPrincipal implements Initializable {
 		String touchePleinEcran1 = prefs.get("TOUCHE_PLEIN_ECRAN_1", "").toUpperCase();
 		String touchePleinEcran2 = prefs.get("TOUCHE_PLEIN_ECRAN_2", "").toUpperCase();
 		String toucheOuvrirFichier = prefs.get("TOUCHE_PAGE_OUVRIR_FICHIER", "").toUpperCase();
-		
+
 		String touchePgSuivanteVueA = prefs.get("TOUCHE_PAGE_SUIVANTE_A", "").toUpperCase();
 		String touchePgPrecedenteVueA = prefs.get("TOUCHE_PAGE_PRECEDENTE_A", "").toUpperCase();
-		
+
 		String touchePgSuivanteVueB = prefs.get("TOUCHE_PAGE_SUIVANTE_B", "").toUpperCase();
 		String touchePgPrecedenteVueB = prefs.get("TOUCHE_PAGE_PRECEDENTE_B", "").toUpperCase();
-		
+
 		String touchePgSuivanteVueC = prefs.get("TOUCHE_PAGE_SUIVANTE_C", "").toUpperCase();
 		String touchePgPrecedenteVueC = prefs.get("TOUCHE_PAGE_PRECEDENTE_C", "").toUpperCase();
-		
+
 		String touchePgSuivanteVueD = prefs.get("TOUCHE_PAGE_SUIVANTE_D", "").toUpperCase();
 		String touchePgPrecedenteVueD = prefs.get("TOUCHE_PAGE_PRECEDENTE_D", "").toUpperCase();
-		
+
 
 		/* Definit si la touche ou la combinaison entree correspond
 		 * a un element definit dans les preferences
@@ -168,9 +168,9 @@ public class ControleurPrincipal implements Initializable {
 				tchPleinEcran2 = event.getCode() == entreeTouche;
 			}
 		}
-		
-		
-		
+
+
+
 		if (!touchePgSuivanteVueA.equals("")) {
 			if (touchePgSuivanteVueA.contains("+")) {
 				entreeCombi = KeyCombination.valueOf(touchePgSuivanteVueA);
@@ -180,7 +180,7 @@ public class ControleurPrincipal implements Initializable {
 				pgSuivanteVueA = event.getCode() == entreeTouche;
 			}
 		}
-		
+
 		if (!touchePgPrecedenteVueA.equals("")) {
 			if (touchePgPrecedenteVueA.contains("+")) {
 				entreeCombi = KeyCombination.valueOf(touchePgPrecedenteVueA);
@@ -190,7 +190,7 @@ public class ControleurPrincipal implements Initializable {
 				pgPrecendenteVueA = event.getCode() == entreeTouche;
 			}
 		}
-		
+
 		if (!touchePgSuivanteVueB.equals("")) {
 			if (touchePgSuivanteVueB.contains("+")) {
 				entreeCombi = KeyCombination.valueOf(touchePgSuivanteVueB);
@@ -200,7 +200,7 @@ public class ControleurPrincipal implements Initializable {
 				pgSuivanteVueB = event.getCode() == entreeTouche;
 			}
 		}
-		
+
 		if (!touchePgPrecedenteVueB.equals("")) {
 			if (touchePgPrecedenteVueB.contains("+")) {
 				entreeCombi = KeyCombination.valueOf(touchePgPrecedenteVueB);
@@ -210,7 +210,7 @@ public class ControleurPrincipal implements Initializable {
 				pgPrecendenteVueB = event.getCode() == entreeTouche;
 			}
 		}
-		
+
 		if (!touchePgSuivanteVueC.equals("")) {
 			if (touchePgSuivanteVueC.contains("+")) {
 				entreeCombi = KeyCombination.valueOf(touchePgSuivanteVueC);
@@ -220,7 +220,7 @@ public class ControleurPrincipal implements Initializable {
 				pgSuivanteVueC = event.getCode() == entreeTouche;
 			}
 		}
-		
+
 		if (!touchePgPrecedenteVueC.equals("")) {
 			if (touchePgPrecedenteVueC.contains("+")) {
 				entreeCombi = KeyCombination.valueOf(touchePgPrecedenteVueC);
@@ -230,7 +230,7 @@ public class ControleurPrincipal implements Initializable {
 				pgPrecendenteVueC = event.getCode() == entreeTouche;
 			}
 		}
-		
+
 		if (!touchePgSuivanteVueD.equals("")) {
 			if (touchePgSuivanteVueD.contains("+")) {
 				entreeCombi = KeyCombination.valueOf(touchePgSuivanteVueD);
@@ -240,7 +240,7 @@ public class ControleurPrincipal implements Initializable {
 				pgSuivanteVueD = event.getCode() == entreeTouche;
 			}
 		}
-		
+
 		if (!touchePgPrecedenteVueD.equals("")) {
 			if (touchePgPrecedenteVueD.contains("+")) {
 				entreeCombi = KeyCombination.valueOf(touchePgPrecedenteVueD);
@@ -250,7 +250,7 @@ public class ControleurPrincipal implements Initializable {
 				pgPrecendenteVueD = event.getCode() == entreeTouche;
 			}
 		}
-		
+
 
 		/* Definit les actions à réalisé lié a une combinaison de touches */
 		if(pgSuivante) {
@@ -259,13 +259,12 @@ public class ControleurPrincipal implements Initializable {
 					Vue.getListeVues().get(i).getControleur().prochainePage(null);
 				}
 			}
-//			for(Vue vue: Vue.getListeVues()) {
-//				vue.getControleur().prochainePage(null);
-//			}
 		}
 		if(pgPrecedente) {
-			for(Vue vue: Vue.getListeVues()) {
-				vue.getControleur().precedentePage(null);
+			for (int i=0; i < Vue.getListeVues().size() ; i++) {
+				if (Preferences.getInstance().getVueLiee().get(i)) {
+					Vue.getListeVues().get(i).getControleur().precedentePage(null);
+				}
 			}
 		}
 		if(ouvFichier) {
