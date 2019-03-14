@@ -79,6 +79,19 @@ public class ControleurPrincipal implements Initializable {
 		boolean tchPleinEcran1 = false;
 		boolean tchPleinEcran2 = false;
 		boolean ouvFichier = false;
+		
+		/* Gestion pages Vue A */
+		boolean pgSuivanteVueA = false;
+		boolean pgPrecendenteVueA = false;
+		/* Gestion pages Vue B */
+		boolean pgSuivanteVueB = false;
+		boolean pgPrecendenteVueB = false;
+		/* Gestion pages Vue C */
+		boolean pgSuivanteVueC = false;
+		boolean pgPrecendenteVueC = false;
+		/* Gestion pages Vue D */
+		boolean pgSuivanteVueD = false;
+		boolean pgPrecendenteVueD = false;
 
 		/* Temporaire */
 		KeyCode entreeTouche;
@@ -90,7 +103,19 @@ public class ControleurPrincipal implements Initializable {
 		String touchePleinEcran1 = prefs.get("TOUCHE_PLEIN_ECRAN_1", "").toUpperCase();
 		String touchePleinEcran2 = prefs.get("TOUCHE_PLEIN_ECRAN_2", "").toUpperCase();
 		String toucheOuvrirFichier = prefs.get("TOUCHE_PAGE_OUVRIR_FICHIER", "").toUpperCase();
-
+		
+		String touchePgSuivanteVueA = prefs.get("TOUCHE_PAGE_SUIVANTE_A", "").toUpperCase();
+		String touchePgPrecedenteVueA = prefs.get("TOUCHE_PAGE_PRECEDENTE_A", "").toUpperCase();
+		
+		String touchePgSuivanteVueB = prefs.get("TOUCHE_PAGE_SUIVANTE_B", "").toUpperCase();
+		String touchePgPrecedenteVueB = prefs.get("TOUCHE_PAGE_PRECEDENTE_B", "").toUpperCase();
+		
+		String touchePgSuivanteVueC = prefs.get("TOUCHE_PAGE_SUIVANTE_C", "").toUpperCase();
+		String touchePgPrecedenteVueC = prefs.get("TOUCHE_PAGE_PRECEDENTE_C", "").toUpperCase();
+		
+		String touchePgSuivanteVueD = prefs.get("TOUCHE_PAGE_SUIVANTE_D", "").toUpperCase();
+		String touchePgPrecedenteVueD = prefs.get("TOUCHE_PAGE_PRECEDENTE_D", "").toUpperCase();
+		
 
 		/* Definit si la touche ou la combinaison entree correspond
 		 * a un element definit dans les preferences
@@ -143,6 +168,89 @@ public class ControleurPrincipal implements Initializable {
 				tchPleinEcran2 = event.getCode() == entreeTouche;
 			}
 		}
+		
+		
+		
+		if (!touchePgSuivanteVueA.equals("")) {
+			if (touchePgSuivanteVueA.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(touchePgSuivanteVueA);
+				pgSuivanteVueA = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(touchePgSuivanteVueA);
+				pgSuivanteVueA = event.getCode() == entreeTouche;
+			}
+		}
+		
+		if (!touchePgPrecedenteVueA.equals("")) {
+			if (touchePgPrecedenteVueA.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(touchePgPrecedenteVueA);
+				pgPrecendenteVueA = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(touchePgPrecedenteVueA);
+				pgPrecendenteVueA = event.getCode() == entreeTouche;
+			}
+		}
+		
+		if (!touchePgSuivanteVueB.equals("")) {
+			if (touchePgSuivanteVueB.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(touchePgSuivanteVueB);
+				pgSuivanteVueB = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(touchePgSuivanteVueB);
+				pgSuivanteVueB = event.getCode() == entreeTouche;
+			}
+		}
+		
+		if (!touchePgPrecedenteVueB.equals("")) {
+			if (touchePgPrecedenteVueB.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(touchePgPrecedenteVueB);
+				pgPrecendenteVueB = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(touchePgPrecedenteVueB);
+				pgPrecendenteVueB = event.getCode() == entreeTouche;
+			}
+		}
+		
+		if (!touchePgSuivanteVueC.equals("")) {
+			if (touchePgSuivanteVueC.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(touchePgSuivanteVueC);
+				pgSuivanteVueC = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(touchePgSuivanteVueC);
+				pgSuivanteVueC = event.getCode() == entreeTouche;
+			}
+		}
+		
+		if (!touchePgPrecedenteVueC.equals("")) {
+			if (touchePgPrecedenteVueC.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(touchePgPrecedenteVueC);
+				pgPrecendenteVueC = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(touchePgPrecedenteVueC);
+				pgPrecendenteVueC = event.getCode() == entreeTouche;
+			}
+		}
+		
+		if (!touchePgSuivanteVueD.equals("")) {
+			if (touchePgSuivanteVueD.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(touchePgSuivanteVueD);
+				pgSuivanteVueD = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(touchePgSuivanteVueD);
+				pgSuivanteVueD = event.getCode() == entreeTouche;
+			}
+		}
+		
+		if (!touchePgPrecedenteVueD.equals("")) {
+			if (touchePgPrecedenteVueD.contains("+")) {
+				entreeCombi = KeyCombination.valueOf(touchePgPrecedenteVueD);
+				pgPrecendenteVueD = entreeCombi.match(event);
+			} else {
+				entreeTouche = KeyCode.valueOf(touchePgPrecedenteVueD);
+				pgPrecendenteVueD = event.getCode() == entreeTouche;
+			}
+		}
+		
 
 		/* Definit les actions à réalisé lié a une combinaison de touches */
 		if(pgSuivante) {
