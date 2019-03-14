@@ -60,6 +60,28 @@ public class Preferences {
 		return prefs.get(cle, def);
 	}
 
+	/**
+	 * Initialise le registre avec des valeurs par defaut
+	 */
+	public void initialiserRegistre() {
+    	if((get("TOUCHE_PAGE_SUIVANTE", "")).equals("")) {
+    		put("TOUCHE_PAGE_SUIVANTE", "Ctrl+Right");
+    	}
+		
+    	if((get("TOUCHE_PAGE_PRECEDENTE", "")).equals("")) {
+    		put("TOUCHE_PAGE_PRECEDENTE", "Ctrl+Left");
+    	}
+    	
+    	if((get("TOUCHE_PLEIN_ECRAN_1", "")).equals("")) {
+    		put("TOUCHE_PLEIN_ECRAN_1", "Ctrl+F5");
+    	}
+    	
+    	if((get("TOUCHE_PLEIN_ECRAN_2", "")).equals("")) {
+    		put("TOUCHE_PLEIN_ECRAN_2", "F5");
+    	}
+    	
+	}
+	
 	public void putDernierFichier(String def) {
 		int i;
 		for(i = 0; prefs.get("DERNIER_FICHIER_" + i, null) != null && i < NB_HISTORIQUE_MAX ; i++ );

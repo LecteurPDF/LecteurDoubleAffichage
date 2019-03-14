@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import visioreader.lecteurpdf.Main;
 import visioreader.util.Preferences;
 
 public class ControleurTouches implements Initializable{
@@ -57,6 +59,18 @@ public class ControleurTouches implements Initializable{
 		prefs.put("TOUCHE_PLEIN_ECRAN_2", pleinEcran2);
 
 
+		((Stage)btn_sauver.getScene().getWindow()).close();
+		
+	}
+
+	/**
+	 * Restauration des combinaisons de touches par 
+	 * défaut definit dans le Main
+	 * @param event
+	 */
+	@FXML
+	void restauration(ActionEvent event) {
+		prefs.initialiserRegistre();
 	}
 
 	@FXML
@@ -135,12 +149,12 @@ public class ControleurTouches implements Initializable{
 		if(ouvertureFichier != null)
 			txt_ouvertureFichier.setText(ouvertureFichier);
 
-		pleinEcran1 = prefs.get("TOUCHE_PLEIN_ECRAN", "");
+		pleinEcran1 = prefs.get("TOUCHE_PLEIN_ECRAN_1", "");
 		txt_pleinEcran.setEditable(false);
 		if(pleinEcran1 != null)
 			txt_pleinEcran.setText(pleinEcran1);
 
-		pleinEcran2 = prefs.get("TOUCHE_PLEIN_ECRAN_OUT", "");
+		pleinEcran2 = prefs.get("TOUCHE_PLEIN_ECRAN_2", "");
 		txt_PleinEcranOut.setEditable(false);
 		if(pleinEcran2 != null)
 			txt_PleinEcranOut.setText(pleinEcran2);

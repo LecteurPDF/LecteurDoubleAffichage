@@ -30,7 +30,7 @@ public class Main extends Application {
 
         try {
         	
-        	initialiserRegistre();
+        	prefs.initialiserRegistre();
 
             /* PdfRenderer -> Plus rapide -> java 8 ou +*/
             System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
@@ -56,11 +56,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
-    private void initialiserRegistre() {
-		
-		
-	}
 
 	/**
      * Lancement de l'application graphique
