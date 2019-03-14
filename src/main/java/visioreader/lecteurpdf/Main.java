@@ -34,15 +34,15 @@ public class Main extends Application {
             System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
 
             /* Import FXML */
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Principal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/Principal.fxml"));
             VBox root = (VBox) loader.load();
             Scene scene = new Scene(root,900,600);
             controller = loader.getController();
 
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 
             primaryStage.setTitle("Visio Reader - Lecteur PDF Double Affichage");
-            primaryStage.getIcons().add(new Image("icone.png"));
+            primaryStage.getIcons().add(new Image("/image/icone.png"));
 
             primaryStage.setScene(scene);
             primaryStage.show();

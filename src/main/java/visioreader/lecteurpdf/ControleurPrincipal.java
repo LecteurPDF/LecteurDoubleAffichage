@@ -393,7 +393,7 @@ public class ControleurPrincipal implements Initializable {
 		try {
 			/* Chargement du fxml du menu préférence */
 			FXMLLoader fxmlLoader = new FXMLLoader();
-			fxmlLoader.setLocation(getClass().getResource("../preference/preference.fxml"));
+			fxmlLoader.setLocation(getClass().getResource("/layout/Preference.fxml"));
 
 			/* On prépare le théatre ( stage ) et la scene */
 			Stage stage = new Stage();

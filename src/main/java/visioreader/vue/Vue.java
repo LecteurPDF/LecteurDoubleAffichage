@@ -47,7 +47,7 @@ public class Vue {
     	this.emplacement = emplacement;
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Vue.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/Vue.fxml"));
             vue = (VBox) loader.load();
             controleur = loader.getController();
             controleur.setVue(this);

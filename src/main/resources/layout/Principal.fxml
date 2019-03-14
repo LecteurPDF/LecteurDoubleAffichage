@@ -55,7 +55,7 @@
           </MenuBar>
             <ImageView fitHeight="38.0" fitWidth="37.0" layoutX="5.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../icone.png" />
+                  <Image url="/image/icone.png" />
                </image>
             </ImageView>
          </children>

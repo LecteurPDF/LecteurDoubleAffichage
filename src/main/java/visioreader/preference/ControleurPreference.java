@@ -25,7 +25,7 @@ public class ControleurPreference implements Initializable{
     @FXML
     void optionsTouches(ActionEvent event) {
     	try {
-    		affichageInfos.setContent(FXMLLoader.load(getClass().getResource("touches.fxml")));
+    		affichageInfos.setContent(FXMLLoader.load(getClass().getResource("/layout/Touches.fxml")));
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -35,7 +35,7 @@ public class ControleurPreference implements Initializable{
     @FXML
     void optionDisposition(ActionEvent event) {
     	try {
-    		affichageInfos.setContent(FXMLLoader.load(getClass().getResource("disposition.fxml")));
+    		affichageInfos.setContent(FXMLLoader.load(getClass().getResource("/layout/Disposition.fxml")));
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -46,7 +46,7 @@ public class ControleurPreference implements Initializable{
     void optionOption(ActionEvent event) {
 
     	try {
-    		affichageInfos.setContent(FXMLLoader.load(getClass().getResource("Option.fxml")));
+    		affichageInfos.setContent(FXMLLoader.load(getClass().getResource("/layout/Option.fxml")));
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -352,15 +352,15 @@ public class ControleurVue implements Initializable {
 				try {
 					/* Import FXML */
 					Stage stage = new Stage();
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangementDisposition.fxml"));
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/ChangementDisposition.fxml"));
 					BorderPane root = (BorderPane) loader.load();
 
 					Scene scene = new Scene(root,559,274);
 
-					scene.getStylesheets().add(getClass().getResource("../lecteurpdf/application.css").toExternalForm());
+					scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 
 					stage.setTitle("Visio Reader - Lecteur PDF Double Affichage");
-					stage.getIcons().add(new Image("icone.png"));
+					stage.getIcons().add(new Image("/image/icone.png"));
 					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.setScene(scene);
 					stage.show();
