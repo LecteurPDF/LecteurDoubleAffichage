@@ -366,6 +366,7 @@ public class ControleurVue implements Initializable {
 					stage.setResizable(false);
 					stage.setScene(scene);
 					stage.show();
+					Main.controller.reload();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
