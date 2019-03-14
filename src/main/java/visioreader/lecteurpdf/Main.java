@@ -29,6 +29,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 
         try {
+        	
+        	initialiserRegistre();
 
             /* PdfRenderer -> Plus rapide -> java 8 ou +*/
             System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
@@ -55,7 +57,12 @@ public class Main extends Application {
         }
     }
 
-    /**
+    private void initialiserRegistre() {
+		
+		
+	}
+
+	/**
      * Lancement de l'application graphique
      * @param args inutilisé
      */
