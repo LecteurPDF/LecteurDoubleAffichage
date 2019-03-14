@@ -365,7 +365,7 @@ public class ControleurVue implements Initializable {
 					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.setResizable(false);
 					stage.setScene(scene);
-					stage.show();
+					stage.showAndWait();
 					Main.controller.reload();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
