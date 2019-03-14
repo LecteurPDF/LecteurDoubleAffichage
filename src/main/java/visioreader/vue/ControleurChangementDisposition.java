@@ -14,6 +14,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import visioreader.lecteurpdf.Main;
 import visioreader.util.Emplacement;
 import visioreader.util.EmplacementIncorrect;
 import visioreader.util.EmplacementRedondant;
@@ -49,8 +50,14 @@ public class ControleurChangementDisposition implements Initializable{
     @FXML
     private Label labelD;
 
-	@FXML
-	private AnchorPane supprimer;
+    @FXML
+    private AnchorPane posSuppr;
+
+    @FXML
+    private Label labelSuppr;
+
+    @FXML
+    private AnchorPane supprimer;
 
 	@FXML
 	private Button valider;
@@ -58,48 +65,54 @@ public class ControleurChangementDisposition implements Initializable{
 	@FXML
 	private Button retablir;
 
-	/** Liste toutes les vues existantes de l'application
+	/** 
+	 * Liste toutes les vues existantes de l'application
 	 * au moment de l'ouverture de la fenêtre modale de changement de disposition
+	 * String -> Le nom de l'objet vue
+	 * Emplacement -> L'emplacement de la vue
 	 */
 	private static HashMap<String,Emplacement> listeVuesTmp = new HashMap<>();
 
-	/** La fenêtre que l'on bouge actuelelment */
+	/** L'emplacement de la fenêtre expéditeur */
 	private Emplacement emplacementTmp;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		/* On place toutes les vues dans l'AnchorPane correspondant à leur emplacement */
 		for(Vue vue: Vue.getListeVues()) {
 			try {
-				AnchorPane position;
+				AnchorPane position; // L'anchorPane qui correspond à l'emplacement de la vue
 
+				/* On ajoute à la liste des vues la vue */
 				listeVuesTmp.put(vue.toString(), new Emplacement(vue.getEmplacement().getFenetre(),vue.getEmplacement().getPosition()));
 
-				Label nomFich = new Label(vue.toString());
-				nomFich.setWrapText(true);
-
+				/* On détermine l'anchorPane correspondant à la vue */
 				position = determinePosition(vue.getEmplacement());
 
+				/* On change le label de la vue ( contient le nom de la vue )
+				 * Permet de savoir quelle vue se trouve sur quel anchorpane
+				 */
 				((Label)position.getChildren().get(0)).setText(vue.toString());
 				
 				dragDetected(position);
 			} catch (EmplacementIncorrect e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (EmplacementRedondant e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Main.journaux.severe("L'emplacement spécifié est incorrect");
 			}
 
 		}
 
+		/* Tous les anchorPane qui peuvent recevoir un vue */
 		AnchorPane[] tabAnchor = {
 				posA,
 				posB,
 				posC,
-				posD
+				posD,
+				
+					
 		};
 
+		/* On donne à chaque AnchorPane le pouvoir de recevoir une nouvelle vue */
 		for(AnchorPane anchor : tabAnchor) {
 
 			dragOver(anchor);
@@ -110,6 +123,15 @@ public class ControleurChangementDisposition implements Initializable{
 
 	}
 
+	/**
+	 * Permet à partir d'un emplacement de connaître son AnchorPane lié
+	 * @param emplacement L'emplacement de la vue pour lequel on souhaite connaître l'anchorPane
+	 * @return L'AnchorPane lié à l'emplacement
+	 * 			Emplacement(1,1) -> posA
+	 * 			Emplacement(1,2) -> posB
+	 * 			Emplacement(2,1) -> posC
+	 * 			Emplacement(2,2) -> posD
+	 */
 	private AnchorPane determinePosition(Emplacement emplacement) {
 
 
@@ -121,6 +143,15 @@ public class ControleurChangementDisposition implements Initializable{
 		return tabPositions[emplacement.getFenetre()-1][emplacement.getPosition()-1];
 	}
 
+	/**
+	 * Permet à partir d'un emplacement de connaître son Label lié
+	 * @param emplacement L'emplacement de la vue pour lequel on souhaite connaître le Label
+	 * @return L'AnchorPane lié à l'emplacement
+	 * 			Emplacement(1,1) -> labelA
+	 * 			Emplacement(1,2) -> labelB
+	 * 			Emplacement(2,1) -> labelC
+	 * 			Emplacement(2,2) -> labelD
+	 */
 	private Label determinePositionLabel(Emplacement emplacement) {
 
 
@@ -132,31 +163,37 @@ public class ControleurChangementDisposition implements Initializable{
 		return tabPositions[emplacement.getFenetre()-1][emplacement.getPosition()-1];
 	}
 
+	/**
+	 * Lorsque qu'un drag est detecté ( déplacement de la source ), 
+	 * 'emplacementTmp' est mis à jour par l'emplacement de la vue contenue dans 'anchor'
+	 * @param anchor L'anchorPane sur lequel on detectera le drag ('posA','posB','posC' ou 'posD')
+	 */
 	private void dragDetected(AnchorPane anchor) {
 		anchor.setOnDragDetected(mouseEvent -> {
 			final Dragboard dragBroard = anchor.startDragAndDrop(TransferMode.MOVE);
+			
 			// Remlissage du contenu.
-
 			ClipboardContent content = new ClipboardContent();
 			content.putString(((Label)anchor.getChildren().get(0)).getText());
 			dragBroard.setContent(content);
 
-			/* On récupéère l'emplacement de la vue que l'on déplace */
+			/* On récupéère l'emplacement de la vue que l'on place dans emplacementTmp */
 			try {
 				emplacementTmp = new Emplacement(listeVuesTmp.get(((Label)anchor.getChildren().get(0)).getText()).getFenetre(),listeVuesTmp.get(((Label)anchor.getChildren().get(0)).getText()).getPosition());
 			} catch (EmplacementIncorrect e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (EmplacementRedondant e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			
-			mouseEvent.consume();
+			mouseEvent.consume(); // Fin du dragDetected
 		});
 	}
 
-
+	/**
+	 * Lorsque qu'un drag est detecté ( survol de la destination ), 
+	 * Accepte le transfert
+	 * @param anchor L'anchorPane sur lequel on detectera le drag ('posA','posB','posC' ou 'posD')
+	 */
 	private void dragOver(AnchorPane anchor) {
 		anchor.setOnDragOver(dragEvent -> {
 			final Dragboard dragBroard = dragEvent.getDragboard();
@@ -171,6 +208,12 @@ public class ControleurChangementDisposition implements Initializable{
 	}
 
 
+	/**
+	 * Lorsque qu'un drag est detecté ( reception de l'expditeur sur la sources ), 
+	 * On récupère le contenu des labels concernés ( expditeurs et destinataires )
+	 * A partir de ces labels, 
+	 * @param anchor L'anchorPane sur lequel on detectera le drag ('posA','posB','posC' ou 'posD')
+	 */
 	private void dragDropped(AnchorPane anchor) {
 		anchor.setOnDragDropped(dragEvent -> {
 			final Dragboard dragBroard = dragEvent.getDragboard();
@@ -247,10 +290,10 @@ public class ControleurChangementDisposition implements Initializable{
 
 	@FXML
 	void actionValider(ActionEvent event) {
+		/* Mise à jour de la liste des vues */
 		for (Vue vue : Vue.getListeVues()) {
 			vue.setEmplacement(listeVuesTmp.get(vue.toString()));
 		}
-		visioreader.lecteurpdf.Main.controller.reload();
 		((Stage)posA.getScene().getWindow()).close();
 	}
 

@@ -320,17 +320,6 @@ public class ControleurVue implements Initializable {
 					 vue.setEmplacement(emp);
 				} catch (EmplacementIncorrect e) {
 					Main.journaux.warning("Probléme, emplacement incoherent");
-				} catch (EmplacementRedondant e) {
-					try {
-						emp = new Emplacement(2, 2);
-						vue.setEmplacement(emp);
-					} catch (EmplacementIncorrect e1) {
-						Main.journaux.warning("Probléme, emplacement incoherent");
-					} catch (EmplacementRedondant e1) {
-						Main.journaux.warning("Aucun changement car fenetre 2 pleine");
-						Alert alerte = new Alert(AlertType.WARNING, "Aucun changement car fenetre 2 pleine", ButtonType.OK);
-						alerte.showAndWait();
-					}
 				} finally {
 					Main.controller.reload();
 				}
@@ -374,6 +363,8 @@ public class ControleurVue implements Initializable {
 
 			}
 		});
+		
+		
 
 
 		/* Ajout des options */
