@@ -17,16 +17,18 @@ import visioreader.util.OutilLecture;
  * Dans cette vue on retrouve différents éléments :
  *   - Le fichier PDF lui-même
  *   - La barre de navigation : page précédente / suivante + bouton plein écran + page actuelle
+ *   - L'emplacement de la vue
+ *   - Sa représentation graphique (VBox)
  * @author kevin.sannac
  *
  */
 public class Vue {
 
-	/** Liste toutes les vues existantes de l'application */
-	private static LinkedList<Vue> listeVues = new LinkedList<Vue>();
+    /** Liste toutes les vues existantes de l'application */
+    private static LinkedList<Vue> listeVues = new LinkedList<Vue>();
 
-	/** Emplacement courant définit par une fenêtre et une position */
-	private Emplacement emplacement;
+    /** Emplacement courant définit par une fenêtre et une position */
+    private Emplacement emplacement;
 
     /** Elements du fichier pdf ouvert en cours ( fichier et page affich�e en ce moment ) */
     private OutilLecture pdf = new OutilLecture();
@@ -41,10 +43,11 @@ public class Vue {
     /**
      * Permet de créer à partir du contrôleur et du fichier fxml ( vue.fxml )
      * une nouvelle vue ( graphique )
+     * @param emplacement L'emplacement qu'aura la vue
      */
     public Vue (Emplacement emplacement) {
 
-    	this.emplacement = emplacement;
+        this.emplacement = emplacement;
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/Vue.fxml"));
@@ -60,15 +63,23 @@ public class Vue {
 
     }
 
+    /**
+     * valeur de listeVues
+     * @return listeVues
+     */
     public static LinkedList<Vue> getListeVues() {
-		return listeVues;
-	}
-
-    public static void setListeVues(LinkedList<Vue> nouvelleListeVues) {
-    	listeVues = nouvelleListeVues;
+        return listeVues;
     }
 
-	/**
+    /**
+     * Change la valeur de listeVues
+     * @param nouvelleListeVues Nouvelle valeur de listeVues
+     */
+    public static void setListeVues(LinkedList<Vue> nouvelleListeVues) {
+        listeVues = nouvelleListeVues;
+    }
+
+    /**
      * @return valeur de controleur
      */
     public ControleurVue getControleur() {
@@ -98,29 +109,36 @@ public class Vue {
 
     /**
      * Donne une nouvelle valeur à pdf
-     * @param fich La nouvelle valeur de pdf
+     * @param fich La nouvelle valeur de this.pdf
      */
     public void setPdf(File fich) {
         pdf = new OutilLecture(fich.getAbsolutePath());
     }
 
+    /**
+     * valeur de emplacement
+     * @return emplacement
+     */
     public Emplacement getEmplacement() {
-		return emplacement;
-	}
+        return emplacement;
+    }
 
-	public void setEmplacement(Emplacement emplacement) {
-		this.emplacement = emplacement;
-	}
+    /**
+     * @param emplacement Nouvelle valeur de this.emplacement
+     */
+    public void setEmplacement(Emplacement emplacement) {
+        this.emplacement = emplacement;
+    }
 
-	/**
+    /**
      * Ferme la vue
      */
     public void fermetureVue() {
         pdf.close();
 
-		//Retrait dans la liste des vues
-		listeVues.remove(this);
-		Main.controller.reload();
+        //Retrait dans la liste des vues
+        listeVues.remove(this);
+        Main.controller.reload();
 
     }
 

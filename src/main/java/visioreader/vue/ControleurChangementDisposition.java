@@ -17,288 +17,314 @@ import javafx.stage.Stage;
 import visioreader.lecteurpdf.Main;
 import visioreader.util.Emplacement;
 import visioreader.util.EmplacementIncorrect;
-import visioreader.util.EmplacementRedondant;
 
 /**
- * Expéditeur : Celui qui va envoie la vue vers un nouvel AnchorPane
+ * Fenêtre pop-up permettant de modifier la position des vues ouvertes, d'ajouter une nouvelle vue, d'en fermer une
+ * Pour Supprimer une vue, l'utilisateur sélectionne une vue ( Drag And Drop ) présente dans l'un des AnchorPane ( posA,posB,posC,posD )
+ *   et le déplace dans l'AnchorPane TODO
+ * Pour modifier la position d'une vue, l'utilisateur sélectionne une vue ( Drag And Drop ) présente dans l'un
+ *   des AnchorPane ( posA,posB,posC,posD ) et le déplace dans un de ces AnchorPane ( posA,posB,posC,posD ), si il y a déjà une vue
+ *   les des vues échanges leurs positions
+ * Pour ajouter une vue : à l'ouverture d'une vue, la vue se place automatiquement dans la première place disponible TODO
+ *
+ * Le vocabulaire associé à cette classe :
+ * Expéditeur : Celui qui va envoyer la vue vers un nouvel AnchorPane
  * Destinataire : Celui qui recevra la nouvelle vue
+ *
  * @author sannac, vivier, pouzelgues, renoleau
  */
-public class ControleurChangementDisposition implements Initializable{
+public class ControleurChangementDisposition implements Initializable {
 
-	@FXML
+    /** L'anchorPane sur lequel on déposera une vue ( Emplacement(1,1) ) */
+    @FXML
     private AnchorPane posA;
 
+    /** Le label sur lequel est donné le nom de la vue se trouvant à cet emplacement ( Emplacement(1,1) ) */
     @FXML
     private Label labelA;
 
+    /** L'anchorPane sur lequel on déposera une vue ( Emplacement(1,2) ) */
     @FXML
     private AnchorPane posB;
 
+    /** Le label sur lequel est donné le nom de la vue se trouvant à cet emplacement ( Emplacement(1,2) ) */
     @FXML
     private Label labelB;
 
+    /** L'anchorPane sur lequel on déposera une vue ( Emplacement(2,1) ) */
     @FXML
     private AnchorPane posC;
 
+    /** Le label sur lequel est donné le nom de la vue se trouvant à cet emplacement ( Emplacement(2,1) ) */
     @FXML
     private Label labelC;
 
+    /** L'anchorPane sur lequel on déposera une vue ( Emplacement(2,2) ) */
     @FXML
     private AnchorPane posD;
 
+    /** Le label sur lequel est donné le nom de la vue se trouvant à cet emplacement ( Emplacement(2,2) ) */
     @FXML
     private Label labelD;
 
+    /** L'anchorPane sur lequel on dépose une vue pour la supprimer */
     @FXML
     private AnchorPane posSuppr;
 
+    /** TODO  */
     @FXML
     private Label labelSuppr;
 
+    /** TODO  */
     @FXML
     private AnchorPane supprimer;
 
-	@FXML
-	private Button valider;
+    /** Permet de valider les changements quant aux emplacement des vues ( disposition ) */
+    @FXML
+    private Button valider;
 
-	@FXML
-	private Button retablir;
+    /** Permet de retablir sur la pop-up l'emplacement des vues */
+    @FXML
+    private Button retablir;
 
-	/** 
-	 * Liste toutes les vues existantes de l'application
-	 * au moment de l'ouverture de la fenêtre modale de changement de disposition
-	 * String -> Le nom de l'objet vue
-	 * Emplacement -> L'emplacement de la vue
-	 */
-	private static HashMap<String,Emplacement> listeVuesTmp = new HashMap<>();
+    /**
+     * Liste toutes les vues existantes de l'application
+     * au moment de l'ouverture de la fenêtre modale de changement de disposition
+     * String -> Le nom de l'objet vue
+     * Emplacement -> L'emplacement de la vue
+     */
+    private static HashMap<String,Emplacement> listeVuesTmp = new HashMap<>();
 
-	/** L'emplacement de la fenêtre expéditeur */
-	private Emplacement emplacementTmp;
+    /** L'emplacement de la fenêtre expéditeur */
+    private Emplacement emplacementTmp;
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
-		/* On place toutes les vues dans l'AnchorPane correspondant à leur emplacement */
-		for(Vue vue: Vue.getListeVues()) {
-			try {
-				AnchorPane position; // L'anchorPane qui correspond à l'emplacement de la vue
+        /* On place toutes les vues dans l'AnchorPane correspondant à leur emplacement */
+        for(Vue vue: Vue.getListeVues()) {
+            try {
+                AnchorPane position; // L'anchorPane qui correspond à l'emplacement de la vue
 
-				/* On ajoute à la liste des vues la vue */
-				listeVuesTmp.put(vue.toString(), new Emplacement(vue.getEmplacement().getFenetre(),vue.getEmplacement().getPosition()));
+                /* On ajoute à la liste des vues la vue */
+                listeVuesTmp.put(vue.toString(), new Emplacement(vue.getEmplacement().getFenetre(),vue.getEmplacement().getPosition()));
 
-				/* On détermine l'anchorPane correspondant à la vue */
-				position = determinePosition(vue.getEmplacement());
+                /* On détermine l'anchorPane correspondant à la vue */
+                position = determinePosition(vue.getEmplacement());
 
-				/* On change le label de la vue ( contient le nom de la vue )
-				 * Permet de savoir quelle vue se trouve sur quel anchorpane
-				 */
-				((Label)position.getChildren().get(0)).setText(vue.toString());
-				
-				dragDetected(position);
-			} catch (EmplacementIncorrect e) {
-				Main.journaux.severe("L'emplacement spécifié est incorrect");
-			}
+                /* On change le label de la vue ( contient le nom de la vue )
+                 * Permet de savoir quelle vue se trouve sur quel anchorpane
+                 */
+                ((Label)position.getChildren().get(0)).setText(vue.toString());
 
-		}
+                dragDetected(position);
+            } catch (EmplacementIncorrect e) {
+                Main.journaux.severe("L'emplacement spécifié est incorrect");
+            }
 
-		/* Tous les anchorPane qui peuvent recevoir un vue */
-		AnchorPane[] tabAnchor = {
-				posA,
-				posB,
-				posC,
-				posD,
-				
-					
-		};
+        }
 
-		/* On donne à chaque AnchorPane le pouvoir de recevoir une nouvelle vue */
-		for(AnchorPane anchor : tabAnchor) {
-
-			dragOver(anchor);
-
-			dragDropped(anchor);
-
-		}
-
-	}
-
-	/**
-	 * Permet à partir d'un emplacement de connaître son AnchorPane lié
-	 * @param emplacement L'emplacement de la vue pour lequel on souhaite connaître l'anchorPane
-	 * @return L'AnchorPane lié à l'emplacement
-	 * 			Emplacement(1,1) -> posA
-	 * 			Emplacement(1,2) -> posB
-	 * 			Emplacement(2,1) -> posC
-	 * 			Emplacement(2,2) -> posD
-	 */
-	private AnchorPane determinePosition(Emplacement emplacement) {
+        /* Tous les anchorPane qui peuvent recevoir un vue */
+        AnchorPane[] tabAnchor = {
+                posA,
+                posB,
+                posC,
+                posD,
 
 
-		AnchorPane[][] tabPositions = {
-				{posA,posB},
-				{posC,posD},
-		};
+        };
 
-		return tabPositions[emplacement.getFenetre()-1][emplacement.getPosition()-1];
-	}
+        /* On donne à chaque AnchorPane le pouvoir de recevoir une nouvelle vue */
+        for(AnchorPane anchor : tabAnchor) {
 
-	/**
-	 * Permet à partir d'un emplacement de connaître son Label lié
-	 * @param emplacement L'emplacement de la vue pour lequel on souhaite connaître le Label
-	 * @return L'AnchorPane lié à l'emplacement
-	 * 			Emplacement(1,1) -> labelA
-	 * 			Emplacement(1,2) -> labelB
-	 * 			Emplacement(2,1) -> labelC
-	 * 			Emplacement(2,2) -> labelD
-	 */
-	private Label determinePositionLabel(Emplacement emplacement) {
+            dragOver(anchor);
 
+            dragDropped(anchor);
 
-		Label[][] tabPositions = {
-				{labelA,labelB},
-				{labelC,labelD},
-		};
+        }
 
-		return tabPositions[emplacement.getFenetre()-1][emplacement.getPosition()-1];
-	}
+    }
 
-	/**
-	 * Lorsque qu'un drag est detecté ( déplacement de la source ), 
-	 * 'emplacementTmp' est mis à jour par l'emplacement de la vue contenue dans 'anchor'
-	 * @param anchor L'anchorPane sur lequel on detectera le drag ('posA','posB','posC' ou 'posD')
-	 */
-	private void dragDetected(AnchorPane anchor) {
-		anchor.setOnDragDetected(mouseEvent -> {
-			final Dragboard dragBroard = anchor.startDragAndDrop(TransferMode.MOVE);
-			
-			// Remlissage du contenu.
-			ClipboardContent content = new ClipboardContent();
-			content.putString(((Label)anchor.getChildren().get(0)).getText());
-			dragBroard.setContent(content);
-
-			/* On récupéère l'emplacement de la vue que l'on place dans emplacementTmp */
-			try {
-				emplacementTmp = new Emplacement(listeVuesTmp.get(((Label)anchor.getChildren().get(0)).getText()).getFenetre(),listeVuesTmp.get(((Label)anchor.getChildren().get(0)).getText()).getPosition());
-			} catch (EmplacementIncorrect e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			mouseEvent.consume(); // Fin du dragDetected
-		});
-	}
-
-	/**
-	 * Lorsque qu'un drag est detecté ( survol de la destination ), 
-	 * Accepte le transfert
-	 * @param anchor L'anchorPane sur lequel on detectera le drag ('posA','posB','posC' ou 'posD')
-	 */
-	private void dragOver(AnchorPane anchor) {
-		anchor.setOnDragOver(dragEvent -> {
-			final Dragboard dragBroard = dragEvent.getDragboard();
-
-			if (dragEvent.getGestureSource() != anchor && dragBroard.hasString()) {
-				// Indique les modes de transfert autorisés sur cette destination.
-				dragEvent.acceptTransferModes(TransferMode.MOVE);
-			}
-			dragEvent.consume();
-
-		});
-	}
+    /**
+     * Permet à partir d'un emplacement de connaître son AnchorPane lié
+     * @param emplacement L'emplacement de la vue pour lequel on souhaite connaître l'anchorPane
+     * @return L'AnchorPane lié à l'emplacement
+     * 			Emplacement(1,1) -> posA
+     * 			Emplacement(1,2) -> posB
+     * 			Emplacement(2,1) -> posC
+     * 			Emplacement(2,2) -> posD
+     */
+    private AnchorPane determinePosition(Emplacement emplacement) {
 
 
-	/**
-	 * Lorsque qu'un drag est detecté ( reception de l'expditeur sur la sources ), 
-	 * On récupère le contenu des labels concernés ( expditeurs et destinataires )
-	 * A partir de ces labels, 
-	 * @param anchor L'anchorPane sur lequel on detectera le drag ('posA','posB','posC' ou 'posD')
-	 */
-	private void dragDropped(AnchorPane anchor) {
-		anchor.setOnDragDropped(dragEvent -> {
-			final Dragboard dragBroard = dragEvent.getDragboard();
-			boolean success = false;
-			if (dragBroard.hasString()) {
+        AnchorPane[][] tabPositions = {
+                {posA,posB},
+                {posC,posD},
+        };
 
-				//Label nomFich = new Label(dragBroard.getString()); // Label qui contiendra l'expediteur
-				String nomFich = "";
-				nomFich = dragBroard.getString();
-				determinePositionLabel(emplacementTmp).setText(nomFich);
+        return tabPositions[emplacement.getFenetre()-1][emplacement.getPosition()-1];
+    }
 
-				/* On prépare à la réception de l'expéditeur */
-				// TODO PB ICI
+    /**
+     * Permet à partir d'un emplacement de connaître son Label lié
+     * @param emplacement L'emplacement de la vue pour lequel on souhaite connaître le Label
+     * @return L'AnchorPane lié à l'emplacement
+     * 			Emplacement(1,1) -> labelA
+     * 			Emplacement(1,2) -> labelB
+     * 			Emplacement(2,1) -> labelC
+     * 			Emplacement(2,2) -> labelD
+     */
+    private Label determinePositionLabel(Emplacement emplacement) {
 
-				AnchorPane expediteur = determinePosition(emplacementTmp); // On récupère l'emplacement de l'expediteur
 
-				/* On place le label destinataire dans l'expéditeur */
-				String nomFich2 = "";
-				if (!((Label)anchor.getChildren().get(0)).getText().equals("Label")) {
+        Label[][] tabPositions = {
+                {labelA,labelB},
+                {labelC,labelD},
+        };
 
-					nomFich2 = ((Label)anchor.getChildren().get(0)).getText();
-					determinePositionLabel(emplacementTmp).setText(nomFich2);
-				}
+        return tabPositions[emplacement.getFenetre()-1][emplacement.getPosition()-1];
+    }
 
-				/* On échange les emplacements */
-				Emplacement emplacementDestinataire;
-				if (nomFich2.length() > 0) {
-					emplacementDestinataire = listeVuesTmp.get(nomFich2);
-					listeVuesTmp.get(nomFich).setEmplacement(emplacementDestinataire); // On place l'expediteur dans le destinataire
+    /**
+     * Lorsque qu'un drag est detecté ( déplacement de la source ),
+     * 'emplacementTmp' est mis à jour par l'emplacement de la vue contenue dans 'anchor'
+     * @param anchor L'anchorPane sur lequel on detectera le drag ('posA','posB','posC' ou 'posD')
+     */
+    private void dragDetected(AnchorPane anchor) {
+        anchor.setOnDragDetected(mouseEvent -> {
+            final Dragboard dragBroard = anchor.startDragAndDrop(TransferMode.MOVE);
 
-				} else {
-					try {
+            // Remlissage du contenu.
+            ClipboardContent content = new ClipboardContent();
+            content.putString(((Label)anchor.getChildren().get(0)).getText());
+            dragBroard.setContent(content);
 
-						if (anchor.equals(posA)) {
-							emplacementDestinataire = new Emplacement(1,1);
-						} else if (anchor.equals(posB)) {
-							emplacementDestinataire = new Emplacement(1,2);
-						} else if (anchor.equals(posC)) {
-							emplacementDestinataire = new Emplacement(2,1);
-						} else {
-							emplacementDestinataire = new Emplacement(2,2);
-						}
+            /* On récupéère l'emplacement de la vue que l'on place dans emplacementTmp */
+            try {
+                emplacementTmp = new Emplacement(listeVuesTmp.get(((Label)anchor.getChildren().get(0)).getText()).getFenetre(),listeVuesTmp.get(((Label)anchor.getChildren().get(0)).getText()).getPosition());
+            } catch (EmplacementIncorrect e) {
+                Main.journaux.severe("L'emplacement spécifié est incorrect");
+            }
 
-						listeVuesTmp.get(nomFich).setEmplacement(emplacementDestinataire);
-						((Label)determinePosition(emplacementDestinataire).getChildren().get(0)).setText(nomFich);
-						
-						if (nomFich2.length() > 0) {
-							dragDetected(determinePosition(emplacementTmp));
-						} else {
-							determinePosition(emplacementTmp).setOnDragDetected(null);
-						}
-						dragDetected(determinePosition(emplacementDestinataire));
-					} catch (Exception e) {
-						System.out.println("Erreur avec emplacement");
-						e.printStackTrace();
-					}
-				}
+            mouseEvent.consume(); // Fin du dragDetected
+        });
+    }
 
-				if (nomFich2.length() > 0) { // Si le destin ataire est une vue existante, on le place dans l'expéditeur
-					listeVuesTmp.get(nomFich2).setEmplacement(emplacementTmp);
-				}
+    /**
+     * Lorsque qu'un drag est detecté ( survol de la destination ),
+     * Accepte le transfert
+     * @param anchor L'anchorPane sur lequel on detectera le drag ('posA','posB','posC' ou 'posD')
+     */
+    private void dragOver(AnchorPane anchor) {
+        anchor.setOnDragOver(dragEvent -> {
+            final Dragboard dragBroard = dragEvent.getDragboard();
 
-				success = true;
+            if (dragEvent.getGestureSource() != anchor && dragBroard.hasString()) {
+                // Indique les modes de transfert autorisés sur cette destination.
+                dragEvent.acceptTransferModes(TransferMode.MOVE);
+            }
+            dragEvent.consume();
 
-			}
+        });
+    }
 
-			/* let the source know whether the string was successfully
-			 * transferred and used  TODO Français */
-			dragEvent.setDropCompleted(success);
 
-			dragEvent.consume();
-		});
-	}
+    /**
+     * Lorsque qu'un drag est detecté ( reception de l'expditeur sur la sources ),
+     * On récupère le contenu des labels concernés ( expditeurs et destinataires )
+     * A partir de ces labels,
+     * @param anchor L'anchorPane sur lequel on detectera le drag ('posA','posB','posC' ou 'posD')
+     */
+    private void dragDropped(AnchorPane anchor) {
+        anchor.setOnDragDropped(dragEvent -> {
+            final Dragboard dragBroard = dragEvent.getDragboard();
+            boolean success = false;
+            if (dragBroard.hasString()) {
 
-	@FXML
-	void actionValider(ActionEvent event) {
-		/* Mise à jour de la liste des vues */
-		for (Vue vue : Vue.getListeVues()) {
-			vue.setEmplacement(listeVuesTmp.get(vue.toString()));
-		}
-		((Stage)posA.getScene().getWindow()).close();
-	}
+                //Label nomFich = new Label(dragBroard.getString()); // Label qui contiendra l'expediteur
+                String nomFich = "";
+                nomFich = dragBroard.getString();
+                determinePositionLabel(emplacementTmp).setText(nomFich);
 
-	@FXML
-	void actionRetablir(ActionEvent event) {
+                /* On prépare à la réception de l'expéditeur */
 
-	}
+                AnchorPane expediteur = determinePosition(emplacementTmp); // On récupère l'emplacement de l'expediteur
+
+                /* On place le label destinataire dans l'expéditeur */
+                String nomFich2 = "";
+                if (!((Label)anchor.getChildren().get(0)).getText().equals("Label")) {
+
+                    nomFich2 = ((Label)anchor.getChildren().get(0)).getText();
+                    determinePositionLabel(emplacementTmp).setText(nomFich2);
+                }
+
+                /* On échange les emplacements */
+                Emplacement emplacementDestinataire;
+                if (nomFich2.length() > 0) {
+                    emplacementDestinataire = listeVuesTmp.get(nomFich2);
+                    listeVuesTmp.get(nomFich).setEmplacement(emplacementDestinataire); // On place l'expediteur dans le destinataire
+
+                } else {
+                    try {
+
+                        if (anchor.equals(posA)) {
+                            emplacementDestinataire = new Emplacement(1,1);
+                        } else if (anchor.equals(posB)) {
+                            emplacementDestinataire = new Emplacement(1,2);
+                        } else if (anchor.equals(posC)) {
+                            emplacementDestinataire = new Emplacement(2,1);
+                        } else {
+                            emplacementDestinataire = new Emplacement(2,2);
+                        }
+
+                        listeVuesTmp.get(nomFich).setEmplacement(emplacementDestinataire);
+                        ((Label)determinePosition(emplacementDestinataire).getChildren().get(0)).setText(nomFich);
+
+                        if (nomFich2.length() > 0) {
+                            dragDetected(determinePosition(emplacementTmp));
+                        } else {
+                            determinePosition(emplacementTmp).setOnDragDetected(null);
+                        }
+                        dragDetected(determinePosition(emplacementDestinataire));
+                    } catch (EmplacementIncorrect e) {
+                        Main.journaux.severe("L'emplacement spécifié est incorrect");
+                    }
+                }
+
+                if (nomFich2.length() > 0) { // Si le destin ataire est une vue existante, on le place dans l'expéditeur
+                    listeVuesTmp.get(nomFich2).setEmplacement(emplacementTmp);
+                }
+
+                success = true;
+
+            }
+
+            /* Termine le DragAndDrop*/
+            dragEvent.setDropCompleted(success);
+
+            dragEvent.consume();
+        });
+    }
+
+    /**
+     * Applique les nouvelles dispositions à la liste des vues 'Vue.getListeVues()'
+     * @param event
+     */
+    @FXML
+    void actionValider(ActionEvent event) {
+        /* Mise à jour de la liste des vues */
+        for (Vue vue : Vue.getListeVues()) {
+            vue.setEmplacement(listeVuesTmp.get(vue.toString()));
+        }
+        ((Stage)posA.getScene().getWindow()).close();
+    }
+
+    /**
+     * Rétablis la configurtion des vues à l'ouverture de la pop-up
+     * @param event
+     */
+    @FXML
+    void actionRetablir(ActionEvent event) {
+
+    }
 }
