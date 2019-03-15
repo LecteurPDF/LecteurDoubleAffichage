@@ -1,5 +1,5 @@
 /*
- * ControleurPrincipal.java                            22/11/2018
+ * ControleurPrincipal.java                                                                             22/11/2018
  */
 
 package visioreader.lecteurpdf;
@@ -36,12 +36,16 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import visioreader.util.Emplacement;
 import visioreader.util.EmplacementIncorrect;
-import visioreader.util.EmplacementRedondant;
 import visioreader.util.Preferences;
 import visioreader.vue.Vue;
 
 /**
- * Permet de controler les différents objets de SceneBuilder -> fichier "principal.fxml"
+ * Représente la fenêtre de l'application, elle permet  à la fois :
+ *   - D'accéder aux différents menus : préférence, ouverture d'un fichier, aide, mode plein écran, présentation
+ *   - Afficher les différentes vues
+ *   - Ouvrir des vues
+ *   - Gérer ses vues
+ *
  * @author sannac, vivier, pouzelgues, renoleau
  * @version 1.0
  */
@@ -233,7 +237,7 @@ public class ControleurPrincipal implements Initializable {
                     if(fenDeux == null) {
 
                         int nbScreen = 0;
-                        for (Screen screen : Screen.getScreens()) {
+                        for (@SuppressWarnings("unused") Screen screen : Screen.getScreens()) {
                             nbScreen++;
                         }
 
@@ -306,7 +310,7 @@ public class ControleurPrincipal implements Initializable {
                 if(fenDeux == null) {
                     /* Detecte l'ecran secondaire pour la presentation */
                     int i = 0;
-                    for (Screen screen : Screen.getScreens()) {
+                    for (@SuppressWarnings("unused") Screen screen : Screen.getScreens()) {
                         i++;
                     }
                     Rectangle2D primaryScreenBounds = Screen.getScreens().get(i-1).getVisualBounds();

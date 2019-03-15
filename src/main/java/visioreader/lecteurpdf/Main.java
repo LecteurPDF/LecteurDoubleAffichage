@@ -13,7 +13,13 @@ import javafx.scene.layout.VBox;
 
 
 /**
- * Ouverture de la fenêtre principal
+ * Permet de lancer de logiciel,
+ *   -  Initialise les préférences de l'utilisateur,
+ *   -  Initialisation des logger 'journaux'
+ *   -  Ouverture de la fenêtre 'ControleurPrincipal.fxml' ainsi que de son controleur 'controller'
+ *
+ * @author sannac, vivier, pouzelgues, renoleau
+ * @version 1.0
  */
 public class Main extends Application {
 

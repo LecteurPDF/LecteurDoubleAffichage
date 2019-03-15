@@ -10,7 +10,7 @@
 
 <!-- touches -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.preference.ControleurTouches">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.preference.ControleurTouches">
    <children>
       <Text layoutX="3.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Raccourci Clavier" textAlignment="CENTER" wrappingWidth="394.0">
          <font>
@@ -29,7 +29,7 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="txt_pleinEcran" layoutX="202.0" layoutY="246.0" onKeyPressed="#saveKeyFullScreen" prefHeight="25.0" prefWidth="134.0" />
+      <TextField fx:id="txt_pleinEcran1" layoutX="202.0" layoutY="246.0" onKeyPressed="#saveKeyFullScreenUn" prefHeight="25.0" prefWidth="134.0" />
       <Line endX="695.0" layoutX="105.0" layoutY="314.0" startX="-110.0" />
       <Text layoutX="174.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plein écran">
          <font>
@@ -37,7 +37,7 @@
          </font>
       </Text>
       <Text layoutX="67.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plein ecran ecran principal" textAlignment="CENTER" wrappingWidth="121.99999978393316" />
-      <TextField fx:id="txt_PleinEcranOut" layoutX="202.0" layoutY="281.0" onKeyPressed="#saveKeyFullScreenOut" prefHeight="25.0" prefWidth="134.0" />
+      <TextField fx:id="txt_pleinEcran2" layoutX="202.0" layoutY="281.0" onKeyPressed="#saveKeyFullScreenDeux" prefHeight="25.0" prefWidth="134.0" />
       <Text layoutX="65.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plein ecran ecran secondaire" textAlignment="CENTER" wrappingWidth="121.99999978393316" />
       <TextField fx:id="txt_ouvertureFichier" layoutX="204.0" layoutY="371.0" onKeyPressed="#saveKeyOpen" prefHeight="25.0" prefWidth="134.0" />
       <Line endX="696.0" layoutX="104.0" layoutY="418.0" startX="-110.0" />

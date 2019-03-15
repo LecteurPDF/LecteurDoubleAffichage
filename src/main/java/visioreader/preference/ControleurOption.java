@@ -14,95 +14,124 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import visioreader.util.Preferences;
 
+/**
+ * Controleur qui permet de gérer la fenêtre des options avancées présentes dans le menu préférence
+ * La fenêtre permet de choisir :
+ *   - La qualité du fichier à ouvrir
+ *   - Quelles sont les vues liées entre elles
+ *
+ * @author sannac, vivier, pouzelgues, renoleau
+ * @version 1.0
+ */
 public class ControleurOption implements Initializable{
 
-	/** Permet d'accéder aux préférences de l'utilisateurs ( écrites dans le registre ) */
-	private Preferences prefs = Preferences.getInstance();
+    /** Permet d'accéder aux préférences de l'utilisateurs ( écrites dans le registre ) */
+    private Preferences prefs = Preferences.getInstance();
 
-	private final float QUALITE_FAIBLE = 100;
+    /** Représente en DPI ( faible, 100 ) la qualité de l'image qui sera affichée ( page pdf ) */
+    private final float QUALITE_FAIBLE = 100;
 
-	private final float QUALITE_MOYENNE = 150;
+    /** Représente en DPI ( moyenne, 150 ) la qualité de l'image qui sera affichée ( page pdf ) */
+    private final float QUALITE_MOYENNE = 150;
 
-	private final float QUALITE_HAUTE = 300;
+    /** Représente en DPI ( haute, 300 ) la qualité de l'image qui sera affichée ( page pdf ) */
+    private final float QUALITE_HAUTE = 300;
 
-	@FXML
-	private Button btn_sauver;
+    /** Valide les changements des options */
+    @FXML
+    private Button btn_sauver;
 
-	@FXML
-	private RadioButton rbtn_qualFaible;
+    /** Permet de sélectionner la qualité faible */
+    @FXML
+    private RadioButton rbtn_qualFaible;
 
-	@FXML
-	private ToggleGroup qualite;
+    /** Permet de sélectionner la qualité moyenne */
+    @FXML
+    private RadioButton rbtn_qualMoy;
 
-	@FXML
-	private RadioButton rbtn_qualHaute;
+    /** Permet de sélectionner la qualité haute */
+    @FXML
+    private RadioButton rbtn_qualHaute;
 
-	@FXML
-	private RadioButton rbtn_qualMoy;
+    /** Regroupe les différents RadioButton concernant la qualité ( rbtn_qualFaible, rbtn_qualMoy, rbtn_qualHaute )  */
+    @FXML
+    private ToggleGroup qualite;
 
-	@FXML
-	private Label lbl_combiSuiv;
+    /** TODO */
+    @FXML
+    private Label lbl_combiSuiv;
 
-	@FXML
-	private Label lbl_combiPrec;
+    /** TODO */
+    @FXML
+    private Label lbl_combiPrec;
 
+    /** Sélectionne la vue A */
     @FXML
     private CheckBox vueA;
 
+    /** Sélectionne la vue B */
     @FXML
     private CheckBox vueB;
 
+    /** Sélectionne la vue C */
     @FXML
     private CheckBox vueC;
 
+    /** Sélectionne la vue D */
     @FXML
     private CheckBox vueD;
 
-	@FXML
-	void changements(ActionEvent event) {
+    /**
+     * Permet de sauvegarder les changements effectués 'btn_sauver'
+     * @param event
+     */
+    @FXML
+    void changements(ActionEvent event) {
 
-		String valQual = qualite.getSelectedToggle().getUserData().toString();
+        /* Modification de la qualité */
+        String valQual = qualite.getSelectedToggle().getUserData().toString();
 
-		prefs.setVueLiee(0, vueA.isSelected());
-		prefs.setVueLiee(1, vueB.isSelected());
-		prefs.setVueLiee(2, vueC.isSelected());
-		prefs.setVueLiee(3, vueD.isSelected());
+        if(valQual.equals("faible")) {
+            valQual = Float.toString(QUALITE_FAIBLE);
+        } else if(valQual.equals("moyen")) {
+            valQual = Float.toString(QUALITE_MOYENNE);
+        } else if(valQual.equals("haute")) {
+            valQual = Float.toString(QUALITE_HAUTE);
+        }
+        prefs.put("QUALITE", valQual);
 
-		if(valQual.equals("faible")) {
-			valQual = Float.toString(QUALITE_FAIBLE);
-		} else if(valQual.equals("moyen")) {
-			valQual = Float.toString(QUALITE_MOYENNE);
-		} else if(valQual.equals("haute")) {
-			valQual = Float.toString(QUALITE_HAUTE);
-		}
-		prefs.put("QUALITE", valQual);
+        /* Permet de lier les vues dont la checkbow à été cochée */
+        prefs.setVueLiee(0, vueA.isSelected());
+        prefs.setVueLiee(1, vueB.isSelected());
+        prefs.setVueLiee(2, vueC.isSelected());
+        prefs.setVueLiee(3, vueD.isSelected());
 
-		((Stage) btn_sauver.getScene().getWindow()).close();
-	}
+        ((Stage) btn_sauver.getScene().getWindow()).close(); // fermeture fenêtre préférence
+    }
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
 
-		rbtn_qualFaible.setUserData("faible");
-		rbtn_qualMoy.setUserData("moyen");
-		rbtn_qualHaute.setUserData("haute");
+        rbtn_qualFaible.setUserData("faible");
+        rbtn_qualMoy.setUserData("moyen");
+        rbtn_qualHaute.setUserData("haute");
 
-		if(prefs.get("QUALITE", "").equals(Float.toString(QUALITE_FAIBLE))) {
-			rbtn_qualFaible.setSelected(true);
-		} else if(prefs.get("QUALITE", "").equals(Float.toString(QUALITE_HAUTE))){
-			rbtn_qualHaute.setSelected(true);
-		} else {
-			rbtn_qualMoy.setSelected(true);
-		}
+        if(prefs.get("QUALITE", "").equals(Float.toString(QUALITE_FAIBLE))) {
+            rbtn_qualFaible.setSelected(true);
+        } else if(prefs.get("QUALITE", "").equals(Float.toString(QUALITE_HAUTE))){
+            rbtn_qualHaute.setSelected(true);
+        } else {
+            rbtn_qualMoy.setSelected(true);
+        }
 
-		vueA.setSelected(prefs.getVueLiee().get(0));
-		vueB.setSelected(prefs.getVueLiee().get(1));
-		vueC.setSelected(prefs.getVueLiee().get(2));
-		vueD.setSelected(prefs.getVueLiee().get(3));
+        vueA.setSelected(prefs.getVueLiee().get(0));
+        vueB.setSelected(prefs.getVueLiee().get(1));
+        vueC.setSelected(prefs.getVueLiee().get(2));
+        vueD.setSelected(prefs.getVueLiee().get(3));
 
 
-		lbl_combiSuiv.setText( prefs.get("TOUCHE_PAGE_SUIVANTE", ""));
-		lbl_combiPrec.setText( prefs.get("TOUCHE_PAGE_PRECEDENTE", ""));
-	}
+        lbl_combiSuiv.setText( prefs.get("TOUCHE_PAGE_SUIVANTE", ""));
+        lbl_combiPrec.setText( prefs.get("TOUCHE_PAGE_PRECEDENTE", ""));
+    }
 
 }

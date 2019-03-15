@@ -11,38 +11,62 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import visioreader.lecteurpdf.Main;
 import visioreader.util.Preferences;
 
+/**
+ * Controleur qui permet de gérer la fenêtre de raccourcis clavier de l'application dans le menu préférence
+ * La fenêtre permet de choisir les différents raccours claviers de l'application
+ * Un raccourci peut avoir la forme suivant" :
+ *   - N'importe quelle touche, exemple 'K','P','5', ..
+ *   - Une combinaison commancant par 'CTRL', 'SHIFT' OU 'CAPS LOCK' + N'importe quelle touche différente
+ *
+ * @author sannac, vivier, pouzelgues, renoleau
+ * @version 1.0
+ */
 public class ControleurTouches implements Initializable{
 
-	String pageSuiv,
-	pagePrec,
-	pleinEcran1,
-	pleinEcran2,
-	ouvertureFichier = "";
+	/** Le Keycode de la page suivante */
+	String pageSuiv;
 
+	/** Le Keycode de la page précédente */
+	String pagePrec;
+
+	/** Le Keycode du plein écran de la fenêtre principale */
+	String pleinEcran1;
+
+	/** Le Keycode du plein écran de la fenêtre secondaire */
+	String pleinEcran2;
+
+	/** Le Keycode qui permet d'ouvrir un nouveau fichier */
+	String ouvertureFichier = "";
+
+	/** Sauvegarde les raccours claviers affectés */
 	@FXML
 	private Button btn_sauver;
 
+	/** Affiche le raccourci clavier pour : page suivante*/
 	@FXML
 	private TextField txt_pageSuiv;
 
+	/** Affiche le raccourci clavier pour : page précédente */
 	@FXML
 	private TextField txt_pagePrec;
 
+	/** Affiche le raccourci clavier pour : plein ecran principal */
 	@FXML
-	private TextField txt_pleinEcran;
+	private TextField txt_pleinEcran1;
 
+	/** Affiche le raccourci clavier pour : plein ecran secondaire */
 	@FXML
-	private TextField txt_PleinEcranOut;
+	private TextField txt_pleinEcran2;
 
+	/** Affiche le raccourci clavier pour : ouverture fichier */
 	@FXML
 	private TextField txt_ouvertureFichier;
 
 	// private KeyCodeCombination combineSuiv = new KeyCodeCombination(key_pageSuiv, KeyCombination.CONTROL_DOWN);
 
-
+	/** Stocke les préférences actuelles */
 	Preferences prefs = Preferences.getInstance();
 
 	/**
@@ -51,7 +75,6 @@ public class ControleurTouches implements Initializable{
 	 */
 	@FXML
 	void changements(ActionEvent event) {
-		//TODO: Effectuer les changements
 		prefs.put("TOUCHE_PAGE_SUIVANTE", pageSuiv); //Entre dans le registre l'element
 		prefs.put("TOUCHE_PAGE_PRECEDENTE", pagePrec);
 		prefs.put("TOUCHE_PAGE_OUVRIR_FICHIER", ouvertureFichier);
@@ -60,12 +83,12 @@ public class ControleurTouches implements Initializable{
 
 
 		((Stage)btn_sauver.getScene().getWindow()).close();
-		
+
 	}
 
 	/**
-	 * Restauration des combinaisons de touches par 
-	 * défaut definit dans le Main
+	 * Restauration des combinaisons de touches par
+	 * défaut definit dans le Main ( au lancement de l'application )
 	 * @param event
 	 */
 	@FXML
@@ -73,28 +96,40 @@ public class ControleurTouches implements Initializable{
 		prefs.initialiserRegistre();
 	}
 
+	/**
+	 * Sauvegarde la combinaison de touche pour :  le plein Ecran de la fenêtre principale
+	 * @param event
+	 */
 	@FXML
-	void saveKeyFullScreen(KeyEvent event) {
+	void saveKeyFullScreenUn(KeyEvent event) {
 		try {
 			pleinEcran1 = Preferences.keyToString(event);
-			txt_pleinEcran.setEditable(false);
-			txt_pleinEcran.setText(pleinEcran1);
+			txt_pleinEcran1.setEditable(false);
+			txt_pleinEcran1.setText(pleinEcran1);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
 	}
 
+        /**
+         * Sauvegarde la combinaison de touche pour : le plein Ecran de la fenêtre secondaire
+         * @param event
+         */
 	@FXML
-	void saveKeyFullScreenOut(KeyEvent event) {
+	void saveKeyFullScreenDeux(KeyEvent event) {
 		try {
 			pleinEcran2 = Preferences.keyToString(event);
-			txt_PleinEcranOut.setEditable(false);
-			txt_PleinEcranOut.setText(pleinEcran2);
+			txt_pleinEcran2.setEditable(false);
+			txt_pleinEcran2.setText(pleinEcran2);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
 	}
 
+        /**
+         * Sauvegarde la combinaison de touche pour : l'ouverture de fichier
+         * @param event
+         */
 	@FXML
 	void saveKeyOpen(KeyEvent event) {
 		try {
@@ -106,6 +141,10 @@ public class ControleurTouches implements Initializable{
 		}
 	}
 
+        /**
+         * Sauvegarde la combinaison de touche pour : la page précédente
+         * @param event
+         */
 	@FXML
 	void saveKeyPrec(KeyEvent event) {
 		try {
@@ -117,6 +156,10 @@ public class ControleurTouches implements Initializable{
 		}
 	}
 
+        /**
+         * Sauvegarde la combinaison de touche pour : la page suivante
+         * @param event
+         */
 	@FXML
 	void saveKeySuiv(KeyEvent event) {
 
@@ -150,14 +193,14 @@ public class ControleurTouches implements Initializable{
 			txt_ouvertureFichier.setText(ouvertureFichier);
 
 		pleinEcran1 = prefs.get("TOUCHE_PLEIN_ECRAN_1", "");
-		txt_pleinEcran.setEditable(false);
+		txt_pleinEcran1.setEditable(false);
 		if(pleinEcran1 != null)
-			txt_pleinEcran.setText(pleinEcran1);
+			txt_pleinEcran1.setText(pleinEcran1);
 
 		pleinEcran2 = prefs.get("TOUCHE_PLEIN_ECRAN_2", "");
-		txt_PleinEcranOut.setEditable(false);
+		txt_pleinEcran2.setEditable(false);
 		if(pleinEcran2 != null)
-			txt_PleinEcranOut.setText(pleinEcran2);
+			txt_pleinEcran2.setText(pleinEcran2);
 
 	}
 }
