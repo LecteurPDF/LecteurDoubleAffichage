@@ -23,13 +23,14 @@ public class Main extends Application {
     /** Permet d'accéder aux préférences de l'utilisateurs ( écrites dans le registre ) */
     static Preferences prefs = Preferences.getInstance();
 
+    /** Le controleur de la fenêtre de l'application */
     public static ControleurPrincipal controller;
 
     @Override
     public void start(Stage primaryStage) {
 
         try {
-        	
+
         	prefs.initialiserRegistre();
 
             /* PdfRenderer -> Plus rapide -> java 8 ou +*/
