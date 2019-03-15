@@ -18,7 +18,7 @@ import visioreader.util.Preferences;
  * La fenêtre permet de choisir les différents raccours claviers de l'application
  * Un raccourci peut avoir la forme suivant" :
  *   - N'importe quelle touche, exemple 'K','P','5', ..
- *   - Une combinaison commancant par 'CTRL', 'SHIFT' OU 'CAPS LOCK' + N'importe quelle touche différente
+ *   - Une combinaison commancant par 'CTRL', 'SHIFT', 'ALT', 'SHORTCUT' OU 'CAPS LOCK' + N'importe quelle touche différente
  *
  * @author sannac, vivier, pouzelgues, renoleau
  * @version 1.0

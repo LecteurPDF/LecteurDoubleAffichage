@@ -48,20 +48,20 @@ public class OutilLecture {
      *
      */
     public class PageInexistante extends Exception{
-    	/** Serial ID */
-		private static final long serialVersionUID = -2265324792417891853L;
+        /** Serial ID */
+        private static final long serialVersionUID = -2265324792417891853L;
 
-		/**
-    	 * Construit l'exception quand la page n'existe pas,
-    	 * qu'il y a depassement par exemple
-    	 * @param nbPage nombre de la page concern�
-    	 */
-    	public PageInexistante(int nbPage) {
-    		super("Page " + nbPage + " inexistante");
-    	}
+        /**
+         * Construit l'exception quand la page n'existe pas,
+         * qu'il y a depassement par exemple
+         * @param nbPage nombre de la page concern�
+         */
+        public PageInexistante(int nbPage) {
+            super("Page " + nbPage + " inexistante");
+        }
     }
 
-	/**
+    /**
      * Constructeur par d�faut, sans argument
      */
     public OutilLecture() {
@@ -76,12 +76,12 @@ public class OutilLecture {
     public OutilLecture(String nomFichier) {
 
         try {
-        	this.cheminFichier = nomFichier;
+            this.cheminFichier = nomFichier;
             document = PDDocument.load(new File(nomFichier));
             nbPages = document.getNumberOfPages();
         } catch (InvalidPasswordException e) {
             // Prot�g�
-        	Main.journaux.warning("FIchier prot�g� d'un mot de passe");
+            Main.journaux.warning("FIchier prot�g� d'un mot de passe");
         } catch (IOException e) {
             // Fichier non trouvé
             Main.journaux.warning("FIchier non trouv�");
@@ -94,8 +94,8 @@ public class OutilLecture {
      * @return nombre de pages du pdf
      */
     public int getNbPages() {
-		return nbPages;
-	}
+        return nbPages;
+    }
 
     /**
      * Permet de transformer une page pdf en image ImageView
@@ -105,12 +105,12 @@ public class OutilLecture {
      */
     public ImageView getPagePdfToImg( int page ) throws PageInexistante {
 
-    	float qualite = Float.parseFloat(Preferences.getInstance().get("QUALITE", Float.toString((122))));
+        float qualite = Float.parseFloat(Preferences.getInstance().get("QUALITE", Float.toString((122))));
 
         ImageView imageCentrale = new ImageView(); // L'image de la page pdf convertie
 
         if(!pageCorrecte(pageCour)) {
-        	throw new PageInexistante(pageCour+1);
+            throw new PageInexistante(pageCour+1);
         }
 
         /* Rendu de l'image */
@@ -200,12 +200,17 @@ public class OutilLecture {
         return getPagePdfToImg(pageCour);
     }
 
+    /**
+     * valeur de cheminFichier
+     * @return cheminFichier
+     */
     public String getCheminFichier() {
-		return cheminFichier;
-	}
+        return cheminFichier;
+    }
 
-	/**
-     * Permet de d�finir si la pagecourante existe
+    /**
+     * Permet de définir si la pagecourante existe
+     * @param page La page que l'on veut tester
      * @return true si elle existe, sinon false
      */
     public boolean pageCorrecte(int page) {

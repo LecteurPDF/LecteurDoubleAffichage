@@ -1,7 +1,5 @@
 package visioreader.util;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 
 import javafx.scene.input.KeyCode;
@@ -21,12 +19,16 @@ import javafx.scene.input.KeyEvent;
  */
 public class Preferences {
 
+	/** Le nombre maximal d'éléments dans l'historique */
 	private static final int NB_HISTORIQUE_MAX = 5;
 
+	/** Les préférences actuelles -> Singleton */
 	private static Preferences instance;
 
+	/** Lien avec classe préférence de java */
 	private java.util.prefs.Preferences prefs;
 
+	/** Liaison vue  TODO COMMENTER */
 	private LinkedList<Boolean> liaisonVue;
 
 	/**
@@ -43,7 +45,7 @@ public class Preferences {
 
 	/**
 	 * Recupére l'unique instance de l'application
-	 * @return
+	 * @return Le singleton ( instance ) des préférences
 	 */
 	public static synchronized Preferences getInstance() {
 		if(instance == null) {
@@ -52,6 +54,10 @@ public class Preferences {
 		return instance;
 	}
 
+	/**
+	 * valeur de prefs
+	 * @return prefs
+	 */
 	public java.util.prefs.Preferences getPrefs() {
 		return prefs;
 	}
@@ -65,6 +71,11 @@ public class Preferences {
 		prefs.put(cle, valeur);
 	}
 
+	/** TODO JE COMPRENDS R FAUT COMMENTER
+	 * @param cle la preference que l'on souhaite obtenir
+	 * @param def la définition de la clef
+	 * @return La préférence en lien avec cle et def
+	 */
 	public String get(String cle, String def) {
 		return prefs.get(cle, def);
 	}
@@ -91,6 +102,10 @@ public class Preferences {
 
 	}
 
+	/** TODO PARAM
+	 * Ajoute le dernier fichier ouvert
+	 * @param def
+	 */
 	public void putDernierFichier(String def) {
 		int i;
 		for(i = 0; prefs.get("DERNIER_FICHIER_" + i, null) != null && i < NB_HISTORIQUE_MAX ; i++ );
@@ -103,6 +118,10 @@ public class Preferences {
 		System.out.println(i);
 	}
 
+	/**
+	 * Renvoie les 5 derniers fichiers ouverts et présents dans le registre
+	 * @return les derniers fichiers ouverts
+	 */
 	public LinkedList<String> getDerniersFichiers() {
 		LinkedList<String> fichiers = new LinkedList<String>();
 		for(int i = 0; i < NB_HISTORIQUE_MAX && prefs.get("DERNIER_FICHIER_" + i, null) != null ; i++) {
@@ -111,6 +130,11 @@ public class Preferences {
 		return fichiers;
 	}
 
+	/**
+	 * Fonctionnements combinaissons raccourci des touches
+	 * @param event
+	 * @return le keycode lié à cet combinaison
+	 */
 	public static String keyToString(KeyEvent event) {
 
 		KeyCombination keyCombi;
@@ -135,10 +159,19 @@ public class Preferences {
 
 	}
 
+	/**
+	 * valeur de liaisonVue
+	 * @return liaisonVue
+	 */
 	public LinkedList<Boolean> getVueLiee() {
 		return liaisonVue;
 	}
 
+	/** TODO CEST QUOI CA
+	 * Nouvelle valeur de liaisonVue
+	 * @param indice
+	 * @param vue
+	 */
 	public void setVueLiee(int indice, boolean vue) {
 		liaisonVue.add(indice, vue);
 	}
