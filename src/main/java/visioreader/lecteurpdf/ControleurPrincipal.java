@@ -135,7 +135,6 @@ public class ControleurPrincipal implements Initializable {
                 } else {
                     entreeTouche = KeyCode.valueOf(touche[i]);
                     action[i] = event.getCode() == entreeTouche;
-                    System.out.println(" ok " + action[i]);
                 }
             }
         }
@@ -144,7 +143,6 @@ public class ControleurPrincipal implements Initializable {
 
         /* touchePageSuivante */
         if(action[0]) {
-            System.out.println("ok");
             for (int i=0; i < Vue.getListeVues().size() ; i++) {
                 if (Preferences.getInstance().getVueLiee().get(i)) {
                     Vue.getListeVues().get(i).getControleur().prochainePage(null);
