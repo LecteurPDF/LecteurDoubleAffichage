@@ -21,6 +21,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -29,6 +30,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -212,15 +214,8 @@ public class ControleurPrincipal implements Initializable {
      */
     private void chargementFichier(File fich) {
 
-        //TODO : integré la popup
-
         LinkedList<Vue> vues = Vue.getListeVues();
         int i = vues.size(); // Index pour l'ajout
-
-        /* Supression de la fenetre si fermé */
-        if( i <= 2) {
-            fenDeux = null;
-        }
 
         if( i >= 4 ) { /* Trop de fenêtre demandé */
             //TODO: demander à l'utilisateur quesqu'il veut changer
@@ -235,31 +230,6 @@ public class ControleurPrincipal implements Initializable {
                     emplacement = new Emplacement(2,i%2+1);
                     if(emplacement.existe(vues)) {
                     	emplacement = new Emplacement(2, 1);
-                    }
-                    // Creation de la fenétre si inexistante
-                    if(fenDeux == null) {
-
-                        int nbScreen = 0;
-                        for (@SuppressWarnings("unused") Screen screen : Screen.getScreens()) {
-                            nbScreen++;
-                        }
-
-                        System.out.println(nbScreen);
-                        Rectangle2D primaryScreenBounds = Screen.getScreens().get(nbScreen-1).getVisualBounds();
-
-                        fenDeux = new SplitPane();
-
-                        Stage stage = new Stage();
-                        Scene scene = new Scene(fenDeux, 900, 600);
-                        stage.setScene(scene);
-                        stage.show();
-                        //set Stage boundaries to visible bounds of the main screen
-                        stage.setX(primaryScreenBounds.getMinX());
-                        stage.setY(primaryScreenBounds.getMinY());
-
-                        fenDeux.setOnKeyPressed(e -> {
-                            entreeClavier(e);
-                        });
                     }
                 } else {
                     emplacement = new Emplacement(1,i%2+1);
@@ -276,10 +246,10 @@ public class ControleurPrincipal implements Initializable {
 
                 System.out.println();
             } catch(EmplacementIncorrect e){
-                System.out.println("Franchement tu n'est pas malin !");
+                System.out.println("Sa n'arrive jamais !");
             }
         }
-        reload();
+        lancementDisposition();
     }
 
 
@@ -359,6 +329,29 @@ public class ControleurPrincipal implements Initializable {
         }
     }
 
+    void lancementDisposition() {
+    	 try {
+             /* Import FXML */
+             Stage stage = new Stage();
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/ChangementDisposition.fxml"));
+             BorderPane root = (BorderPane) loader.load();
+
+             Scene scene = new Scene(root,605,337);
+
+             scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+
+             stage.setTitle("Visio Reader - Lecteur PDF Double Affichage");
+             stage.getIcons().add(new Image("/image/icone.png"));
+             stage.initModality(Modality.APPLICATION_MODAL);
+             stage.setResizable(false);
+             stage.setScene(scene);
+             stage.showAndWait();
+             Main.controller.reload();
+         } catch (IOException e) {
+             Main.journaux.severe("Impossible d'ouvrir le fichier");
+         }
+
+    }
 
     /**
      * Permet de charger le dernier fichier lancé
