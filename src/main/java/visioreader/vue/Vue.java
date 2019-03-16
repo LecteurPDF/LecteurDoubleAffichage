@@ -130,6 +130,20 @@ public class Vue {
         this.emplacement = emplacement;
     }
 
+
+    /**
+     * Retire une vue de la liste des vues
+     * @param vue La vue que l'on souhaite retirer
+     * @return Vrai si on a pu retirer la vue, sinon faux
+     */
+    public static boolean retirerVue(Vue vue) {
+        if (listeVues.contains(vue)) {
+        listeVues.remove(vue);
+        return true;
+        }
+        return false;
+    }
+
     /**
      * Ferme la vue
      */

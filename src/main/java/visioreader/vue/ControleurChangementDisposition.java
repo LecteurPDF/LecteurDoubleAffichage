@@ -2,6 +2,7 @@ package visioreader.vue;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -71,14 +72,6 @@ public class ControleurChangementDisposition implements Initializable {
     @FXML
     private AnchorPane posSuppr;
 
-    /** TODO  */
-    @FXML
-    private Label labelSuppr;
-
-    /** TODO  */
-    @FXML
-    private AnchorPane supprimer;
-
     /** Permet de valider les changements quant aux emplacement des vues ( disposition ) */
     @FXML
     private Button valider;
@@ -130,6 +123,7 @@ public class ControleurChangementDisposition implements Initializable {
                 posB,
                 posC,
                 posD,
+                posSuppr
 
 
         };
@@ -239,12 +233,12 @@ public class ControleurChangementDisposition implements Initializable {
         anchor.setOnDragDropped(dragEvent -> {
             final Dragboard dragBroard = dragEvent.getDragboard();
             boolean success = false;
-            if (dragBroard.hasString()) {
+            if (dragBroard.hasString() && !anchor.equals(posSuppr)) {
 
                 //Label nomFich = new Label(dragBroard.getString()); // Label qui contiendra l'expediteur
                 String nomFich = "";
                 nomFich = dragBroard.getString();
-                determinePositionLabel(emplacementTmp).setText(nomFich);
+                determinePositionLabel(emplacementTmp).setText("Label");
 
                 /* On prépare à la réception de l'expéditeur */
 
@@ -297,6 +291,11 @@ public class ControleurChangementDisposition implements Initializable {
 
                 success = true;
 
+            } else if (dragBroard.hasString() && anchor.equals(posSuppr)) {
+                String nomFich = "";
+                nomFich = dragBroard.getString();
+                determinePositionLabel(emplacementTmp).setText("Label");
+                listeVuesTmp.remove(nomFich);
             }
 
             /* Termine le DragAndDrop*/
@@ -313,9 +312,20 @@ public class ControleurChangementDisposition implements Initializable {
     @FXML
     void actionValider(ActionEvent event) {
         /* Mise à jour de la liste des vues */
-        for (Vue vue : Vue.getListeVues()) {
-            vue.setEmplacement(listeVuesTmp.get(vue.toString()));
+        System.out.println("\n\n");
+        System.out.println(Vue.getListeVues());
+        LinkedList<Vue> listeVues = Vue.getListeVues();
+        for (int i = 0 ; i < Vue.getListeVues().size() ; i++) {
+            if (listeVuesTmp.containsKey(Vue.getListeVues().get(i).toString())) {
+                System.out.println("ici 1 " + Vue.getListeVues().get(i).getPdf().getCheminFichier() + " " + Vue.getListeVues().get(i));
+                Vue.getListeVues().get(i).setEmplacement(listeVuesTmp.get(Vue.getListeVues().get(i).toString()));
+            } else {
+                System.out.println("ici 2" + Vue.getListeVues().get(i).getPdf().getCheminFichier() + " " + Vue.getListeVues().get(i));
+                Vue.retirerVue(Vue.getListeVues().get(i));
+                i--;
+            }
         }
+        System.out.println(Vue.getListeVues());
         ((Stage)posA.getScene().getWindow()).close();
     }
 

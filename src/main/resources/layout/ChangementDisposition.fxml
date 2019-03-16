@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.vue.ControleurChangementDisposition">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.vue.ControleurChangementDisposition">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -52,7 +52,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="supprimer" layoutX="11.0" layoutY="206.0" prefHeight="52.0" prefWidth="582.0" style="-fx-background-color: lightgray; -fx-border-style: segments(10, 15, 15, 15)  line-cap round;">
+            <AnchorPane fx:id="posSuppr" layoutX="11.0" layoutY="206.0" prefHeight="52.0" prefWidth="582.0" style="-fx-background-color: lightgray; -fx-border-style: segments(10, 15, 15, 15)  line-cap round;">
                <children>
                   <Label layoutX="212.0" layoutY="16.0" text="Glisser ici pour supprimer" />
                </children>
