@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 import visioreader.lecteurpdf.Main;
 import visioreader.util.Emplacement;
 import visioreader.util.EmplacementIncorrect;
+import visioreader.util.OutilLecture.PageInexistante;
 
 /**
  * Fenêtre pop-up permettant de modifier la position des vues ouvertes, d'ajouter une nouvelle vue, d'en fermer une
@@ -72,6 +74,22 @@ public class ControleurChangementDisposition implements Initializable {
     @FXML
     private AnchorPane posSuppr;
 
+    /** Affiche le contenu de la vue, nom fichier + aperçu ( Emplacement(1,1) ) */
+    @FXML
+    private AnchorPane anchorA;
+
+    /** Affiche le contenu de la vue, nom fichier + aperçu ( Emplacement(1,2) ) */
+    @FXML
+    private AnchorPane anchorB;
+
+    /** Affiche le contenu de la vue, nom fichier + aperçu ( Emplacement(2,1) ) */
+    @FXML
+    private AnchorPane anchorC;
+
+    /** Affiche le contenu de la vue, nom fichier + aperçu ( Emplacement(2,2) ) */
+    @FXML
+    private AnchorPane anchorD;
+
     /** Permet de valider les changements quant aux emplacement des vues ( disposition ) */
     @FXML
     private Button valider;
@@ -86,7 +104,15 @@ public class ControleurChangementDisposition implements Initializable {
      * String -> Le nom de l'objet vue
      * Emplacement -> L'emplacement de la vue
      */
-    private static HashMap<String,Emplacement> listeVuesTmp = new HashMap<>();
+    private static HashMap<String,Emplacement> listeVuesTmpEmplacement = new HashMap<>();
+
+    /**
+     * Liste toutes les vues existantes de l'application
+     * au moment de l'ouverture de la fenêtre modale de changement de disposition
+     * String -> Le nom de l'objet vue
+     * Emplacement -> L'objet vue
+     */
+    private static HashMap<String,Vue> listeVuesTmpVue = new HashMap<>();
 
     /** L'emplacement de la fenêtre expéditeur */
     private Emplacement emplacementTmp;
@@ -100,7 +126,8 @@ public class ControleurChangementDisposition implements Initializable {
                 AnchorPane position; // L'anchorPane qui correspond à l'emplacement de la vue
 
                 /* On ajoute à la liste des vues la vue */
-                listeVuesTmp.put(vue.toString(), new Emplacement(vue.getEmplacement().getFenetre(),vue.getEmplacement().getPosition()));
+                listeVuesTmpEmplacement.put(vue.toString(), new Emplacement(vue.getEmplacement().getFenetre(),vue.getEmplacement().getPosition()));
+                listeVuesTmpVue.put(vue.toString(), vue);
 
                 /* On détermine l'anchorPane correspondant à la vue */
                 position = determinePosition(vue.getEmplacement());
@@ -115,6 +142,11 @@ public class ControleurChangementDisposition implements Initializable {
                 Main.journaux.severe("L'emplacement spécifié est incorrect");
             }
 
+        }
+        try {
+            actualiserAffichage();
+        } catch (Exception e ) {
+            e.printStackTrace();
         }
 
         /* Tous les anchorPane qui peuvent recevoir un vue */
@@ -147,6 +179,7 @@ public class ControleurChangementDisposition implements Initializable {
      * 			Emplacement(1,2) -> posB
      * 			Emplacement(2,1) -> posC
      * 			Emplacement(2,2) -> posD
+     * return.getChildren().get(0) -> Label
      */
     private AnchorPane determinePosition(Emplacement emplacement) {
 
@@ -180,6 +213,28 @@ public class ControleurChangementDisposition implements Initializable {
     }
 
     /**
+     * Permet à partir d'un emplacement de connaître son AnchorPane lié l'AnchorPane visé est celui qui gère laffichage à l'utilisateur
+     * @param emplacement L'emplacement de la vue pour lequel on souhaite connaître l'anchorPane
+     * @return L'AnchorPane lié à l'emplacement
+     *                  Emplacement(1,1) -> anchorA
+     *                  Emplacement(1,2) -> anchorB
+     *                  Emplacement(2,1) -> anchorC
+     *                  Emplacement(2,2) -> anchorD
+     *  return.getChildren().get(0) -> ImageView
+     *  return.getChildren().get(1) -> Label
+     */
+    private AnchorPane determinePositionAffichage(Emplacement emplacement) {
+
+
+        AnchorPane[][] tabPositions = {
+                {anchorA,anchorB},
+                {anchorC,anchorD},
+        };
+
+        return tabPositions[emplacement.getFenetre()-1][emplacement.getPosition()-1];
+    }
+
+    /**
      * Lorsque qu'un drag est detecté ( déplacement de la source ),
      * 'emplacementTmp' est mis à jour par l'emplacement de la vue contenue dans 'anchor'
      * @param anchor L'anchorPane sur lequel on detectera le drag ('posA','posB','posC' ou 'posD')
@@ -195,7 +250,7 @@ public class ControleurChangementDisposition implements Initializable {
 
             /* On récupéère l'emplacement de la vue que l'on place dans emplacementTmp */
             try {
-                emplacementTmp = new Emplacement(listeVuesTmp.get(((Label)anchor.getChildren().get(0)).getText()).getFenetre(),listeVuesTmp.get(((Label)anchor.getChildren().get(0)).getText()).getPosition());
+                emplacementTmp = new Emplacement(listeVuesTmpEmplacement.get(((Label)anchor.getChildren().get(0)).getText()).getFenetre(),listeVuesTmpEmplacement.get(((Label)anchor.getChildren().get(0)).getText()).getPosition());
             } catch (EmplacementIncorrect e) {
                 Main.journaux.severe("L'emplacement spécifié est incorrect");
             }
@@ -249,15 +304,17 @@ public class ControleurChangementDisposition implements Initializable {
                 if (!((Label)anchor.getChildren().get(0)).getText().equals("Label")) {
 
                     nomFich2 = ((Label)anchor.getChildren().get(0)).getText();
-                    determinePositionLabel(emplacementTmp).setText(nomFich2);
+                    //determinePositionLabel(emplacementTmp).setText(nomFich2);
+                    //System.out.println(nomFich2 + " " + emplacementTmp);
+
                 }
 
                 /* On échange les emplacements */
                 Emplacement emplacementDestinataire;
                 if (nomFich2.length() > 0) {
-                    emplacementDestinataire = listeVuesTmp.get(nomFich2);
-                    listeVuesTmp.get(nomFich).setEmplacement(emplacementDestinataire); // On place l'expediteur dans le destinataire
-
+                    emplacementDestinataire = listeVuesTmpEmplacement.get(nomFich2);
+                    listeVuesTmpEmplacement.get(nomFich).setEmplacement(emplacementDestinataire); // On place l'expediteur dans le destinataire
+                    ((Label)determinePosition(emplacementDestinataire).getChildren().get(0)).setText(nomFich);
                 } else {
                     try {
 
@@ -271,10 +328,11 @@ public class ControleurChangementDisposition implements Initializable {
                             emplacementDestinataire = new Emplacement(2,2);
                         }
 
-                        listeVuesTmp.get(nomFich).setEmplacement(emplacementDestinataire);
+                        listeVuesTmpEmplacement.get(nomFich).setEmplacement(emplacementDestinataire);
                         ((Label)determinePosition(emplacementDestinataire).getChildren().get(0)).setText(nomFich);
 
                         if (nomFich2.length() > 0) {
+
                             dragDetected(determinePosition(emplacementTmp));
                         } else {
                             determinePosition(emplacementTmp).setOnDragDetected(null);
@@ -286,7 +344,8 @@ public class ControleurChangementDisposition implements Initializable {
                 }
 
                 if (nomFich2.length() > 0) { // Si le destin ataire est une vue existante, on le place dans l'expéditeur
-                    listeVuesTmp.get(nomFich2).setEmplacement(emplacementTmp);
+                    listeVuesTmpEmplacement.get(nomFich2).setEmplacement(emplacementTmp);
+                    determinePositionLabel(emplacementTmp).setText(nomFich2);
                 }
 
                 success = true;
@@ -295,8 +354,10 @@ public class ControleurChangementDisposition implements Initializable {
                 String nomFich = "";
                 nomFich = dragBroard.getString();
                 determinePositionLabel(emplacementTmp).setText("Label");
-                listeVuesTmp.remove(nomFich);
+                listeVuesTmpEmplacement.remove(nomFich);
             }
+
+            actualiserAffichage();
 
             /* Termine le DragAndDrop*/
             dragEvent.setDropCompleted(success);
@@ -304,6 +365,39 @@ public class ControleurChangementDisposition implements Initializable {
             dragEvent.consume();
         });
     }
+
+    /**
+     * Permet d'actualiser en fonction de listeVuesTmpVue la prévisualisation des vues
+     */
+    private void actualiserAffichage() {
+
+
+        /* Tous les anchorPane qui peuvent recevoir un vue */
+        AnchorPane[][] tabAnchor = {
+                {anchorA,posA},
+                {anchorB,posB},
+                {anchorC,posC},
+                {anchorD,posD}
+
+
+        };
+
+        /* On donne à chaque AnchorPane le pouvoir de recevoir une nouvelle vue */
+        for(AnchorPane[] anchor : tabAnchor) {
+            if (!((Label)anchor[1].getChildren().get(0)).getText().equals("Label")) {
+                try {
+                    ((ImageView)anchor[0].getChildren().get(0)).setImage(listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().getPagePdfToImg(listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().getPagesCour()-1).getImage());
+                    ((Label)anchor[0].getChildren().get(1)).setText(listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().nomFichier());
+                } catch (PageInexistante e) {
+                    Main.journaux.severe("Page inexistante ! Impossible de charger la prévisualisation. ");
+                }
+            } else {
+                ((ImageView)anchor[0].getChildren().get(0)).setImage(null);
+                ((Label)anchor[0].getChildren().get(1)).setText("");
+            }
+        }
+    }
+
 
     /**
      * Applique les nouvelles dispositions à la liste des vues 'Vue.getListeVues()'
@@ -314,8 +408,8 @@ public class ControleurChangementDisposition implements Initializable {
         /* Mise à jour de la liste des vues */
         for (int i = 0 ; i < Vue.getListeVues().size() ; i++) {
             /* Si la vue n'a pas été supprimée, on met à jour son emplacement */
-            if (listeVuesTmp.containsKey(Vue.getListeVues().get(i).toString())) {
-                Vue.getListeVues().get(i).setEmplacement(listeVuesTmp.get(Vue.getListeVues().get(i).toString()));
+            if (listeVuesTmpEmplacement.containsKey(Vue.getListeVues().get(i).toString())) {
+                Vue.getListeVues().get(i).setEmplacement(listeVuesTmpEmplacement.get(Vue.getListeVues().get(i).toString()));
             } else { // Si elle a été supprimée on la retire
                 Vue.retirerVue(Vue.getListeVues().get(i));
                 i--; // On a un élément de moins dans la liste donc on décremente i

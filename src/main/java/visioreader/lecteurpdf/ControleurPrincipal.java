@@ -337,7 +337,7 @@ public class ControleurPrincipal implements Initializable {
     	 try {
              /* Import FXML */
              Stage stage = new Stage();
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/ChangementDispositionDebug.fxml"));
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/ChangementDisposition.fxml"));
              BorderPane root = (BorderPane) loader.load();
 
              Scene scene = new Scene(root,605,337);
