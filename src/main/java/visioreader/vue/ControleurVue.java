@@ -329,9 +329,9 @@ public class ControleurVue implements Initializable {
 
         // Evenment de fermeture de la fenetre courante
         fermVue.setOnAction(new EventHandler<ActionEvent>() {
-
             public void handle(ActionEvent event) {
                 fermetureVue();
+                Main.controller.reload();
             }
         });
 

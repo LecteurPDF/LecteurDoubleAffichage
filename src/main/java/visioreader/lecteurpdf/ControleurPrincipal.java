@@ -226,16 +226,12 @@ public class ControleurPrincipal implements Initializable {
         } else { /* Cas d'un ajout sur la fenetre principal */
             Emplacement emplacement;
             try {
-                if (i >= 2){
-                    emplacement = new Emplacement(2,i%2+1);
-                    if(emplacement.existe(vues)) {
-                    	emplacement = new Emplacement(2, 1);
-                    }
+
+                if(!(emplacement = new Emplacement(1, 1)).existe(vues)) {
+                } else if(!(emplacement = new Emplacement(1, 2)).existe(vues)) {
+                } else if(!(emplacement = new Emplacement(2, 1)).existe(vues)) {
                 } else {
-                    emplacement = new Emplacement(1,i%2+1);
-                    if(emplacement.existe(vues)) {
-                    	emplacement = new Emplacement(1, 1);
-                    }
+                	emplacement = new Emplacement(2, 2);
                 }
 
                 // Ajout de la vue à la fenêtre actuelle ( maximum 2 vues par fenétre)
@@ -260,12 +256,6 @@ public class ControleurPrincipal implements Initializable {
         LinkedList<Vue> vues = Vue.getListeVues();
         TreeMap<Emplacement, VBox> emps = new TreeMap<>();
         boolean presenceFenDeux = false;
-        int i = vues.size(); // Index pour l'ajout
-
-        /* Supression de la fenetre si fermé */
-        if( i <= 2) {
-            fenDeux = null;
-        }
 
         splitPanePdf.getItems().clear();
         if(fenDeux != null)
@@ -305,10 +295,11 @@ public class ControleurPrincipal implements Initializable {
                     stage.getIcons().add(new Image("/image/icone.png"));
                     stage.setScene(scene);
 
-                    stage.show();
                     //Set le stage sur l'ecran de presentation
                     stage.setX(primaryScreenBounds.getMinX());
                     stage.setY(primaryScreenBounds.getMinY());
+
+                    stage.show();
 
                     fenDeux.setOnKeyPressed(e -> {
                         entreeClavier(e);
@@ -317,13 +308,7 @@ public class ControleurPrincipal implements Initializable {
                     /* Fermeture de la fenetre */
                     fenDeux.getScene().getWindow().setOnCloseRequest(e -> {
                         fenDeux = null;
-                        for(Vue vue: vues) {
-                        	if(vue.getEmplacement().getFenetre() == 2) {
-                        		vue.fermetureVue();
-                        	}
-                        }
                     });
-
                 }
                 fenDeux.getItems().add(newAnchor);
             } else {
@@ -338,18 +323,21 @@ public class ControleurPrincipal implements Initializable {
             AnchorPane.setBottomAnchor(entree.getValue(), 0.0);
             newAnchor.getChildren().add(entree.getValue());
 
+            /* Supression de la fenetre si fermé */
+            if(!presenceFenDeux && fenDeux != null) {
+                ((Stage) fenDeux.getScene().getWindow()).close();
+                fenDeux = null;
+            }
+
         }
-        if(!presenceFenDeux && fenDeux != null) {
-            ((Stage) fenDeux.getScene().getWindow()).close();
-            fenDeux = null;
-        }
+
     }
 
     void lancementDisposition() {
     	 try {
              /* Import FXML */
              Stage stage = new Stage();
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/ChangementDisposition.fxml"));
+             FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/ChangementDispositionDebug.fxml"));
              BorderPane root = (BorderPane) loader.load();
 
              Scene scene = new Scene(root,605,337);
