@@ -312,20 +312,15 @@ public class ControleurChangementDisposition implements Initializable {
     @FXML
     void actionValider(ActionEvent event) {
         /* Mise à jour de la liste des vues */
-        System.out.println("\n\n");
-        System.out.println(Vue.getListeVues());
-        LinkedList<Vue> listeVues = Vue.getListeVues();
         for (int i = 0 ; i < Vue.getListeVues().size() ; i++) {
+            /* Si la vue n'a pas été supprimée, on met à jour son emplacement */
             if (listeVuesTmp.containsKey(Vue.getListeVues().get(i).toString())) {
-                System.out.println("ici 1 " + Vue.getListeVues().get(i).getPdf().getCheminFichier() + " " + Vue.getListeVues().get(i));
                 Vue.getListeVues().get(i).setEmplacement(listeVuesTmp.get(Vue.getListeVues().get(i).toString()));
-            } else {
-                System.out.println("ici 2" + Vue.getListeVues().get(i).getPdf().getCheminFichier() + " " + Vue.getListeVues().get(i));
+            } else { // Si elle a été supprimée on la retire
                 Vue.retirerVue(Vue.getListeVues().get(i));
-                i--;
+                i--; // On a un élément de moins dans la liste donc on décremente i
             }
         }
-        System.out.println(Vue.getListeVues());
         ((Stage)posA.getScene().getWindow()).close();
     }
 
