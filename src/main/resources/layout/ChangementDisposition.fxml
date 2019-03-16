@@ -16,7 +16,7 @@
                <children>
                   <Label fx:id="labelA" maxHeight="0.0" maxWidth="0.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" text="Label">
                      <graphic>
-                        <AnchorPane fx:id="anchorA" prefHeight="277.0" prefWidth="137.0" />
+                        <AnchorPane fx:id="anchorA" prefHeight="157.0" prefWidth="133.0" translateY="78.0" />
                      </graphic>
                   </Label>
                </children>
@@ -25,11 +25,7 @@
                <children>
                   <Label fx:id="labelB" maxHeight="0.0" maxWidth="0.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" text="Label">
                      <graphic>
-                        <AnchorPane fx:id="anchorB" prefHeight="113.0" prefWidth="367.0">
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </AnchorPane>
+                        <AnchorPane fx:id="anchorB" prefHeight="157.0" prefWidth="133.0" translateY="78.0" />
                      </graphic>
                   </Label>
                </children>
@@ -38,7 +34,7 @@
                <children>
                   <Label fx:id="labelC" maxHeight="0.0" maxWidth="0.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" text="Label">
                      <graphic>
-                        <AnchorPane fx:id="anchorC" prefHeight="200.0" prefWidth="137.0" />
+                        <AnchorPane fx:id="anchorC" prefHeight="157.0" prefWidth="133.0" translateY="78.0" />
                      </graphic>
                   </Label>
                </children>
@@ -47,7 +43,7 @@
                <children>
                   <Label fx:id="labelD" maxHeight="0.0" maxWidth="0.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" text="Label">
                      <graphic>
-                        <AnchorPane fx:id="anchorD" prefHeight="200.0" prefWidth="135.0" />
+                        <AnchorPane fx:id="anchorD" prefHeight="157.0" prefWidth="133.0" translateY="78.0" />
                      </graphic>
                   </Label>
                </children>

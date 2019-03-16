@@ -19,7 +19,7 @@ import javafx.scene.image.WritableImage;
 import visioreader.lecteurpdf.Main;
 
 /**
- * Permet de g�rer une page pdf, � partir d'un fichier pdf ( String du chemin + nom ) on cr�e
+ * Permet de gérer une page pdf, � partir d'un fichier pdf ( String du chemin + nom ) on cr�e
  * un objet qui contient :
  *   - Le fichier lui-m�me (pdf)
  *   - La page que l'on est en train de regarder
@@ -218,6 +218,28 @@ public class OutilLecture {
             return true;
         }
         return false;
+
+    }
+
+    /**
+     * Permet de connaître le nom du fichier
+     * @return Le nom du fichier
+     *          "chemin/fichier.pdf" deviens "fichier.pdf"
+     *          "chemin\fichier.pdf" deviens "fichier.pdf"
+     *          "fichier.pdf"        deviens "fichier.pdf"
+     */
+    public String nomFichier() {
+        int i; // compteur
+
+        /* On parcourt les cacrtères un par un */
+        for ( i = cheminFichier.length()-1 ; i > 0  && ( cheminFichier.charAt(i) != '\\' && cheminFichier.charAt(i) != '/' ) ; i--);
+
+        /* Si on a trouvé un caractère '/' ou '\' on incrémente i afin de ne pas l'afficher dans le résultat */
+        if ( cheminFichier.charAt(i) == '\\' || cheminFichier.charAt(i) == '/' ) {
+            i++;
+        }
+
+        return cheminFichier.substring(i); // On retire les premiers caractères
 
     }
 
