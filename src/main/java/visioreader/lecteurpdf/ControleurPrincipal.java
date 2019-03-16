@@ -333,6 +333,9 @@ public class ControleurPrincipal implements Initializable {
 
     }
 
+    /**
+     * Permet d'initialiser la disposition
+     */
     void lancementDisposition() {
     	 try {
              /* Import FXML */

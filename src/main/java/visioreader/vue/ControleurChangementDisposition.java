@@ -382,8 +382,9 @@ public class ControleurChangementDisposition implements Initializable {
 
         };
 
-        /* On donne à chaque AnchorPane le pouvoir de recevoir une nouvelle vue */
+        /* On parcourt tous les anchorPane et on met à jour leur affichage */
         for(AnchorPane[] anchor : tabAnchor) {
+            /* Si le label contient une vue, on met sa représentation  graphique associée */
             if (!((Label)anchor[1].getChildren().get(0)).getText().equals("Label")) {
                 try {
                     ((ImageView)anchor[0].getChildren().get(0)).setImage(listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().getPagePdfToImg(listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().getPagesCour()-1).getImage());
@@ -391,7 +392,7 @@ public class ControleurChangementDisposition implements Initializable {
                 } catch (PageInexistante e) {
                     Main.journaux.severe("Page inexistante ! Impossible de charger la prévisualisation. ");
                 }
-            } else {
+            } else { // Si il ne contient pas de vue, on enlève le contenu
                 ((ImageView)anchor[0].getChildren().get(0)).setImage(null);
                 ((Label)anchor[0].getChildren().get(1)).setText("");
             }
