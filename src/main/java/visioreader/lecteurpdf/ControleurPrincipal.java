@@ -265,7 +265,6 @@ public class ControleurPrincipal implements Initializable {
         /* Supression de la fenetre si fermé */
         if( i <= 2) {
             fenDeux = null;
-            presenceFenDeux = false;
         }
 
         splitPanePdf.getItems().clear();
@@ -302,12 +301,29 @@ public class ControleurPrincipal implements Initializable {
 
                     Stage stage = new Stage();
                     Scene scene = new Scene(fenDeux, 900, 600);
+                    stage.setTitle("Visio Reader - Lecteur PDF Double Affichage");
+                    stage.getIcons().add(new Image("/image/icone.png"));
                     stage.setScene(scene);
 
                     stage.show();
                     //Set le stage sur l'ecran de presentation
                     stage.setX(primaryScreenBounds.getMinX());
                     stage.setY(primaryScreenBounds.getMinY());
+
+                    fenDeux.setOnKeyPressed(e -> {
+                        entreeClavier(e);
+                    });
+
+                    /* Fermeture de la fenetre */
+                    fenDeux.getScene().getWindow().setOnCloseRequest(e -> {
+                        fenDeux = null;
+                        for(Vue vue: vues) {
+                        	if(vue.getEmplacement().getFenetre() == 2) {
+                        		vue.fermetureVue();
+                        	}
+                        }
+                    });
+
                 }
                 fenDeux.getItems().add(newAnchor);
             } else {
