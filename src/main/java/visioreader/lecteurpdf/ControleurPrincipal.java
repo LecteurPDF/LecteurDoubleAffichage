@@ -233,6 +233,9 @@ public class ControleurPrincipal implements Initializable {
             try {
                 if (i >= 2){
                     emplacement = new Emplacement(2,i%2+1);
+                    if(emplacement.existe(vues)) {
+                    	emplacement = new Emplacement(2, 1);
+                    }
                     // Creation de la fenétre si inexistante
                     if(fenDeux == null) {
 
@@ -260,6 +263,9 @@ public class ControleurPrincipal implements Initializable {
                     }
                 } else {
                     emplacement = new Emplacement(1,i%2+1);
+                    if(emplacement.existe(vues)) {
+                    	emplacement = new Emplacement(1, 1);
+                    }
                 }
 
                 // Ajout de la vue à la fenêtre actuelle ( maximum 2 vues par fenétre)
@@ -272,8 +278,8 @@ public class ControleurPrincipal implements Initializable {
             } catch(EmplacementIncorrect e){
                 System.out.println("Franchement tu n'est pas malin !");
             }
-            reload();
         }
+        reload();
     }
 
 
@@ -284,6 +290,13 @@ public class ControleurPrincipal implements Initializable {
         LinkedList<Vue> vues = Vue.getListeVues();
         TreeMap<Emplacement, VBox> emps = new TreeMap<>();
         boolean presenceFenDeux = false;
+        int i = vues.size(); // Index pour l'ajout
+
+        /* Supression de la fenetre si fermé */
+        if( i <= 2) {
+            fenDeux = null;
+            presenceFenDeux = false;
+        }
 
         splitPanePdf.getItems().clear();
         if(fenDeux != null)
@@ -294,9 +307,8 @@ public class ControleurPrincipal implements Initializable {
             emps.put(vue.getEmplacement(), vue.getVue());
         }
 
-
         Entry<Emplacement, VBox> entree = null; // Couple courant
-
+        /* Traitement de chaques Vues */
         while((entree = emps.pollFirstEntry()) != null) {
 
             Emplacement emplacement = entree.getKey();
@@ -309,11 +321,11 @@ public class ControleurPrincipal implements Initializable {
                 // Creation de la fenétre si inexistante
                 if(fenDeux == null) {
                     /* Detecte l'ecran secondaire pour la presentation */
-                    int i = 0;
+                    int nbEcran = 0;
                     for (@SuppressWarnings("unused") Screen screen : Screen.getScreens()) {
-                        i++;
+                        nbEcran++;
                     }
-                    Rectangle2D primaryScreenBounds = Screen.getScreens().get(i-1).getVisualBounds();
+                    Rectangle2D primaryScreenBounds = Screen.getScreens().get(nbEcran-1).getVisualBounds();
 
                     /* Ouverture de la nouvelle fenêtre */
                     fenDeux = new SplitPane();
@@ -326,9 +338,6 @@ public class ControleurPrincipal implements Initializable {
                     //Set le stage sur l'ecran de presentation
                     stage.setX(primaryScreenBounds.getMinX());
                     stage.setY(primaryScreenBounds.getMinY());
-
-
-
                 }
                 fenDeux.getItems().add(newAnchor);
             } else {
