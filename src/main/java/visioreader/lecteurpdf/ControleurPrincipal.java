@@ -73,16 +73,28 @@ public class ControleurPrincipal implements Initializable {
     private SplitPane fenDeux;
 
 
+    /**
+     * Definit si l'orientation courante est horizontal ou non
+     * @return	true si horizontal
+     * 			false si vertical
+     */
     public boolean isHorizontal() {
 		return splitPanePdf.getOrientation() == Orientation.HORIZONTAL;
 	}
 
+    /**
+     * Definit en horizontal ou vertical sur les deux fenetres
+     * @param horizontal	true si horizontal voulu
+     * 						false si vertical voulu
+     */
     public void setHorizontal(boolean horizontal) {
     	if(horizontal) {
     		splitPanePdf.setOrientation(Orientation.HORIZONTAL);
+    		if(fenDeux != null)
     		fenDeux.setOrientation(Orientation.HORIZONTAL);
     	} else {
     		splitPanePdf.setOrientation(Orientation.VERTICAL);
+    		if(fenDeux != null)
     		fenDeux.setOrientation(Orientation.VERTICAL);
     	}
     }

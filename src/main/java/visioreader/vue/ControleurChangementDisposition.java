@@ -101,6 +101,7 @@ public class ControleurChangementDisposition implements Initializable {
     @FXML
     private Button btn_sep;
 
+    /** Definit l'orientation des splitpane */
     private boolean orientOrizontal;
 
     /**
