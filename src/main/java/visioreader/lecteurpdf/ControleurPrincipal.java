@@ -318,7 +318,7 @@ public class ControleurPrincipal implements Initializable {
                     fenDeux = new SplitPane();
 
                     Stage stage = new Stage();
-                    Scene scene = new Scene(fenDeux, 380, 600);
+                    Scene scene = new Scene(fenDeux, 900, 600);
                     stage.setTitle("Visio Reader - Lecteur PDF Double Affichage");
                     stage.getIcons().add(new Image("/image/icone.png"));
                     stage.setScene(scene);

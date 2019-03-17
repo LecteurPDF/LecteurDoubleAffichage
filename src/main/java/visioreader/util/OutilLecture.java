@@ -116,7 +116,6 @@ public class OutilLecture {
      * @return nombre de pages du pdf
      */
     public int getNbPages() {
-    	System.out.println(nbPages);
         return nbPages;
     }
 
