@@ -304,32 +304,28 @@ public class ControleurChangementDisposition implements Initializable {
             boolean success = false;
             if (dragBroard.hasString() && !anchor.equals(posSuppr)) {
 
-                //Label nomFich = new Label(dragBroard.getString()); // Label qui contiendra l'expediteur
+                /* On récupère le nom de la vue expediteur */
                 String nomFich = "";
                 nomFich = dragBroard.getString();
                 determinePositionLabel(emplacementTmp).setText("Label");
 
-                /* On prépare à la réception de l'expéditeur */
-
-                AnchorPane expediteur = determinePosition(emplacementTmp); // On récupère l'emplacement de l'expediteur
-
-                /* On place le label destinataire dans l'expéditeur */
+                /* On récupère le nom de la vue destinataire si elle existe */
                 String nomFich2 = "";
                 if (!((Label)anchor.getChildren().get(0)).getText().equals("Label")) {
 
                     nomFich2 = ((Label)anchor.getChildren().get(0)).getText();
-                    //determinePositionLabel(emplacementTmp).setText(nomFich2);
-                    //System.out.println(nomFich2 + " " + emplacementTmp);
 
                 }
 
                 /* On échange les emplacements */
                 Emplacement emplacementDestinataire;
+
+                /* Si il y a un destinatiare on inverse simplement les emplacement */
                 if (nomFich2.length() > 0) {
                     emplacementDestinataire = listeVuesTmpEmplacement.get(nomFich2);
                     listeVuesTmpEmplacement.get(nomFich).setEmplacement(emplacementDestinataire); // On place l'expediteur dans le destinataire
                     ((Label)determinePosition(emplacementDestinataire).getChildren().get(0)).setText(nomFich);
-                } else {
+                } else { // Sinon on determine l'emplacement du destinataire
                     try {
 
                         if (anchor.equals(posA)) {
