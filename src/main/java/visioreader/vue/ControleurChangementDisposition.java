@@ -98,6 +98,7 @@ public class ControleurChangementDisposition implements Initializable {
     @FXML
     private Button retablir;
 
+    /** Bouton qui permet de changer d'orientation */
     @FXML
     private Button btn_sep;
 
@@ -400,7 +401,10 @@ public class ControleurChangementDisposition implements Initializable {
             /* Si le label contient une vue, on met sa représentation  graphique associée */
             if (!((Label)anchor[1].getChildren().get(0)).getText().equals("Label")) {
                 try {
-                    ((ImageView)anchor[0].getChildren().get(0)).setImage(listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().getPagePdfToImg(listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().getPagesCour()-1).getImage());
+                    ((ImageView)anchor[0].getChildren().get(0)).setImage(
+                    		listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().getPagePdfToImg(
+                    				listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().getPagesCour()-1, 25).getImage());
+
                     ((Label)anchor[0].getChildren().get(1)).setText(listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().nomFichier());
                 } catch (PageInexistante e) {
                     Main.journaux.severe("Page inexistante ! Impossible de charger la prévisualisation. ");
