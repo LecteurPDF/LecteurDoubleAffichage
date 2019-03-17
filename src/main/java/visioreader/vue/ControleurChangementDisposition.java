@@ -98,6 +98,11 @@ public class ControleurChangementDisposition implements Initializable {
     @FXML
     private Button retablir;
 
+    @FXML
+    private Button btn_sep;
+
+    private boolean orientOrizontal;
+
     /**
      * Liste toutes les vues existantes de l'application
      * au moment de l'ouverture de la fenêtre modale de changement de disposition
@@ -119,6 +124,13 @@ public class ControleurChangementDisposition implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+    	orientOrizontal = Main.controller.isHorizontal();
+    	if(orientOrizontal) {
+    		btn_sep.setText("Orientation vertical");
+    	} else {
+    		btn_sep.setText("Orientation horizontal");
+    	}
 
         /* On place toutes les vues dans l'AnchorPane correspondant à leur emplacement */
         for(Vue vue: Vue.getListeVues()) {
@@ -416,7 +428,26 @@ public class ControleurChangementDisposition implements Initializable {
                 i--; // On a un élément de moins dans la liste donc on décremente i
             }
         }
-        ((Stage)posA.getScene().getWindow()).close();
+
+        /* Definit l'orientation de splitpane */
+    	if(orientOrizontal) {
+    		Main.controller.setHorizontal(false);
+    	} else {
+    		Main.controller.setHorizontal(true);
+    	}
+
+    	((Stage)posA.getScene().getWindow()).close();
+    }
+
+    @FXML
+    void changerOrientation(ActionEvent event) {
+    	if(orientOrizontal) {
+    		btn_sep.setText("Orientation vertical");
+    		orientOrizontal = false;
+    	} else {
+    		btn_sep.setText("Orientation horizontal");
+    		orientOrizontal = true;
+    	}
     }
 
     /**

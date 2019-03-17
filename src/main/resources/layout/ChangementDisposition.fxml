@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.vue.ControleurChangementDisposition">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.vue.ControleurChangementDisposition">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -91,17 +91,25 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="580.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="retablir" mnemonicParsing="false" onAction="#actionRetablir" prefHeight="25.0" prefWidth="67.0" text="RETABLIR">
+            <Button fx:id="btn_sep" mnemonicParsing="false" onAction="#changerOrientation" prefHeight="31.0" prefWidth="241.0" text="Separation vertical">
+               <HBox.margin>
+                  <Insets right="200.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="retablir" mnemonicParsing="false" onAction="#actionRetablir" prefHeight="31.0" prefWidth="180.0" text="RETABLIR">
                <HBox.margin>
                   <Insets bottom="5.0" right="30.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="valider" mnemonicParsing="false" onAction="#actionValider" text="VALIDER">
+            <Button fx:id="valider" mnemonicParsing="false" onAction="#actionValider" prefHeight="31.0" prefWidth="171.0" text="VALIDER">
                <HBox.margin>
                   <Insets bottom="5.0" right="20.0" />
                </HBox.margin>
             </Button>
          </children>
+         <BorderPane.margin>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="2.0" />
+         </BorderPane.margin>
       </HBox>
    </bottom>
 </BorderPane>

@@ -175,6 +175,13 @@ public class ControleurTouches implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		txt_ouvertureFichier.setFocusTraversable(false);
+		txt_pagePrec.setFocusTraversable(false);
+		txt_pageSuiv.setFocusTraversable(false);
+		txt_pleinEcran1.setFocusTraversable(false);
+		txt_pleinEcran2.setFocusTraversable(false);
+
 		//TODO: Faire une boucle pour eviter de copié coller
 		pageSuiv = prefs.get("TOUCHE_PAGE_SUIVANTE", "");
 		txt_pageSuiv.setEditable(false);

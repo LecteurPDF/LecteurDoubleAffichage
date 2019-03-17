@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -71,7 +72,22 @@ public class ControleurPrincipal implements Initializable {
     /** La deuxième fenêtre de l'application */
     private SplitPane fenDeux;
 
-    /**
+
+    public boolean isHorizontal() {
+		return splitPanePdf.getOrientation() == Orientation.HORIZONTAL;
+	}
+
+    public void setHorizontal(boolean horizontal) {
+    	if(horizontal) {
+    		splitPanePdf.setOrientation(Orientation.HORIZONTAL);
+    		fenDeux.setOrientation(Orientation.HORIZONTAL);
+    	} else {
+    		splitPanePdf.setOrientation(Orientation.VERTICAL);
+    		fenDeux.setOrientation(Orientation.VERTICAL);
+    	}
+    }
+
+	/**
      * Capture les touches appuyées
      * @param event
      */
@@ -290,7 +306,7 @@ public class ControleurPrincipal implements Initializable {
                     fenDeux = new SplitPane();
 
                     Stage stage = new Stage();
-                    Scene scene = new Scene(fenDeux, 900, 600);
+                    Scene scene = new Scene(fenDeux, 380, 600);
                     stage.setTitle("Visio Reader - Lecteur PDF Double Affichage");
                     stage.getIcons().add(new Image("/image/icone.png"));
                     stage.setScene(scene);
