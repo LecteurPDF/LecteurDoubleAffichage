@@ -94,11 +94,10 @@ public class OutilLecture {
 				dialog.setHeaderText("Le fichier que vous avez essayé d'ouvrir est protégé d'un mot de passe");
 				dialog.setContentText("Veuillez entrer le mot de passe:");
 
-				// Traditional way to get the response value.
-				Optional<String> result = dialog.showAndWait();
-				if (result.isPresent()){
+				Optional<String> resultat = dialog.showAndWait();
+				if (resultat.isPresent()){
 					try {
-						document = PDDocument.load(new File(nomFichier), result.get());
+						document = PDDocument.load(new File(nomFichier), resultat.get());
 						mdpCorrect = true;
 					} catch (InvalidPasswordException e1) {
 						Alert alerte = new Alert(AlertType.ERROR, "Mot de passe erroné", ButtonType.OK);
@@ -108,8 +107,8 @@ public class OutilLecture {
 					throw new IOException("Annulé");
 				}
 			}
-			nbPages = document.getNumberOfPages();
 		}
+		nbPages = document.getNumberOfPages();
 	}
 
     /**
@@ -117,6 +116,7 @@ public class OutilLecture {
      * @return nombre de pages du pdf
      */
     public int getNbPages() {
+    	System.out.println(nbPages);
         return nbPages;
     }
 

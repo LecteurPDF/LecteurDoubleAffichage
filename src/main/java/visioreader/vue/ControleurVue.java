@@ -314,7 +314,7 @@ public class ControleurVue implements Initializable {
 
             menuSepare.setCenter(menu); // Ajoute le menu
 
-            Scene scene = new Scene(menuSepare,480,menu.getHeight());
+            Scene scene = new Scene(menuSepare,530,menu.getHeight());
 
             scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 
