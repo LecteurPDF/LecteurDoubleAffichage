@@ -274,6 +274,18 @@ public class ControleurVue implements Initializable {
     }
 
     /**
+     * Permet en cliquant sur le boutton de fermer la vue
+     * @param event
+     * TODO Mettre à droite
+     */
+    @FXML
+    void fermerVue(ActionEvent event) {
+        fermetureVue();
+    }
+
+
+
+    /**
      * Initialise les evenements
      */
     @Override
@@ -331,7 +343,6 @@ public class ControleurVue implements Initializable {
         fermVue.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 fermetureVue();
-                Main.controller.reload();
             }
         });
 
