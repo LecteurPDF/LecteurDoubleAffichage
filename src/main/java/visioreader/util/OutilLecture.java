@@ -7,6 +7,7 @@ package visioreader.util;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
@@ -14,6 +15,10 @@ import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import visioreader.lecteurpdf.Main;
@@ -73,21 +78,38 @@ public class OutilLecture {
      *   - La page que l'on est en train de regarder
      * @param nomFichier Le fichier pdf que l'on veut ouvrir et afficher
      */
-    public OutilLecture(String nomFichier) {
+	public OutilLecture(String nomFichier) throws IOException {
 
-        try {
-            this.cheminFichier = nomFichier;
-            document = PDDocument.load(new File(nomFichier));
-            nbPages = document.getNumberOfPages();
-        } catch (InvalidPasswordException e) {
-            // Prot�g�
-            Main.journaux.warning("FIchier prot�g� d'un mot de passe");
-        } catch (IOException e) {
-            // Fichier non trouvé
-            Main.journaux.warning("FIchier non trouv�");
-        }
+		try {
+			this.cheminFichier = nomFichier;
+			document = PDDocument.load(new File(nomFichier));
 
-    };
+		} catch (InvalidPasswordException e) {
+			// Prot�g�
+			Main.journaux.warning("FIchier prot�g� d'un mot de passe");
+			boolean mdpCorrect = false;
+			while(!mdpCorrect) {
+				TextInputDialog dialog = new TextInputDialog("Mot de passe");
+				dialog.setTitle("Fichier protégé");
+				dialog.setHeaderText("Le fichier que vous avez essayé d'ouvrir est protégé d'un mot de passe");
+				dialog.setContentText("Veuillez entrer le mot de passe:");
+
+				Optional<String> resultat = dialog.showAndWait();
+				if (resultat.isPresent()){
+					try {
+						document = PDDocument.load(new File(nomFichier), resultat.get());
+						mdpCorrect = true;
+					} catch (InvalidPasswordException e1) {
+						Alert alerte = new Alert(AlertType.ERROR, "Mot de passe erroné", ButtonType.OK);
+						alerte.showAndWait();
+					}
+				} else {
+					throw new IOException("Annulé");
+				}
+			}
+		}
+		nbPages = document.getNumberOfPages();
+	}
 
     /**
      * Retourne le nombre de pages r�el totales du PDF courant
@@ -114,7 +136,6 @@ public class OutilLecture {
      * Permet de transformer une page pdf en image ImageView
      * @param page La page que l'on souhaite transformer
      * @param qualite La qualité de l'image en dpi
-     * @param definit la qualité de l'image dpi
      * @return La page transform�e en ImageView
      * @throws PageInexistante
      */

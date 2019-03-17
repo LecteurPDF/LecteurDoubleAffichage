@@ -111,9 +111,16 @@ public class Vue {
      * Donne une nouvelle valeur à pdf
      * @param fich La nouvelle valeur de this.pdf
      */
-    public void setPdf(File fich) {
-        pdf = new OutilLecture(fich.getAbsolutePath());
-    }
+	public void setPdf(File fich) {
+		try {
+			pdf = new OutilLecture(fich.getAbsolutePath());
+		} catch (IOException e) {
+			// Fichier non trouvé
+			Main.journaux.warning("FIchier non trouv�");
+			controleur.fermerVue(null);
+			retirerVue(this);
+		}
+	}
 
     /**
      * valeur de emplacement
