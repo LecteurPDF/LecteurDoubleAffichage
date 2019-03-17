@@ -98,6 +98,13 @@ public class ControleurChangementDisposition implements Initializable {
     @FXML
     private Button retablir;
 
+    /** Bouton qui permet de changer d'orientation */
+    @FXML
+    private Button btn_sep;
+
+    /** Definit l'orientation des splitpane */
+    private boolean orientOrizontal;
+
     /**
      * Liste toutes les vues existantes de l'application
      * au moment de l'ouverture de la fenêtre modale de changement de disposition
@@ -119,6 +126,13 @@ public class ControleurChangementDisposition implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+    	orientOrizontal = Main.controller.isHorizontal();
+    	if(orientOrizontal) {
+    		btn_sep.setText("Orientation vertical");
+    	} else {
+    		btn_sep.setText("Orientation horizontal");
+    	}
 
         /* On place toutes les vues dans l'AnchorPane correspondant à leur emplacement */
         for(Vue vue: Vue.getListeVues()) {
@@ -387,7 +401,10 @@ public class ControleurChangementDisposition implements Initializable {
             /* Si le label contient une vue, on met sa représentation  graphique associée */
             if (!((Label)anchor[1].getChildren().get(0)).getText().equals("Label")) {
                 try {
-                    ((ImageView)anchor[0].getChildren().get(0)).setImage(listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().getPagePdfToImg(listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().getPagesCour()-1).getImage());
+                    ((ImageView)anchor[0].getChildren().get(0)).setImage(
+                    		listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().getPagePdfToImg(
+                    				listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().getPagesCour()-1, 25).getImage());
+
                     ((Label)anchor[0].getChildren().get(1)).setText(listeVuesTmpVue.get(((Label)anchor[1].getChildren().get(0)).getText()).getPdf().nomFichier());
                 } catch (PageInexistante e) {
                     Main.journaux.severe("Page inexistante ! Impossible de charger la prévisualisation. ");
@@ -416,7 +433,26 @@ public class ControleurChangementDisposition implements Initializable {
                 i--; // On a un élément de moins dans la liste donc on décremente i
             }
         }
-        ((Stage)posA.getScene().getWindow()).close();
+
+        /* Definit l'orientation de splitpane */
+    	if(orientOrizontal) {
+    		Main.controller.setHorizontal(false);
+    	} else {
+    		Main.controller.setHorizontal(true);
+    	}
+
+    	((Stage)posA.getScene().getWindow()).close();
+    }
+
+    @FXML
+    void changerOrientation(ActionEvent event) {
+    	if(orientOrizontal) {
+    		btn_sep.setText("Orientation vertical");
+    		orientOrizontal = false;
+    	} else {
+    		btn_sep.setText("Orientation horizontal");
+    		orientOrizontal = true;
+    	}
     }
 
     /**
