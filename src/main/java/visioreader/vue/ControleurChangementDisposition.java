@@ -1,5 +1,6 @@
 package visioreader.vue;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -7,7 +8,9 @@ import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -15,6 +18,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import visioreader.lecteurpdf.Main;
 import visioreader.util.Emplacement;
@@ -457,6 +461,18 @@ public class ControleurChangementDisposition implements Initializable {
 	 */
 	@FXML
 	void actionRetablir(ActionEvent event) {
+
+		Stage stage = ((Stage)posA.getScene().getWindow());
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/ChangementDisposition.fxml"));
+        try {
+			BorderPane root = (BorderPane) loader.load();
+			Scene scene = new Scene(root,600,360);
+			stage.setScene(scene);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 }

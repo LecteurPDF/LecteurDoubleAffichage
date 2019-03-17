@@ -422,7 +422,7 @@ public class ControleurVue implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/ChangementDisposition.fxml"));
                     BorderPane root = (BorderPane) loader.load();
 
-                    Scene scene = new Scene(root,605,337);
+                    Scene scene = new Scene(root,600,360);
 
                     scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.vue.ControleurChangementDisposition">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.vue.ControleurChangementDisposition">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -19,7 +19,7 @@
                      <graphic>
                         <AnchorPane fx:id="anchorA" prefHeight="157.0" prefWidth="133.0" translateY="78.0">
                            <children>
-                              <ImageView fx:id="imageA" fitHeight="107.0" fitWidth="93.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0" />
+                              <ImageView fx:id="imageA" fitHeight="107.0" fitWidth="93.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="40.0" />
                               <Label fx:id="labelATxt" maxHeight="30.0" maxWidth="133.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                            </children></AnchorPane>
                      </graphic>
@@ -32,7 +32,7 @@
                      <graphic>
                         <AnchorPane fx:id="anchorB" prefHeight="157.0" prefWidth="133.0" translateY="78.0">
                            <children>
-                              <ImageView fx:id="imageB" fitHeight="107.0" fitWidth="93.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0" />
+                              <ImageView fx:id="imageB" fitHeight="107.0" fitWidth="93.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="40.0" />
                               <Label fx:id="labelBTxt" maxHeight="30.0" maxWidth="133.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                            </children></AnchorPane>
                      </graphic>
@@ -45,7 +45,7 @@
                      <graphic>
                         <AnchorPane fx:id="anchorC" prefHeight="157.0" prefWidth="133.0" translateY="78.0">
                            <children>
-                              <ImageView fx:id="imageC" fitHeight="107.0" fitWidth="93.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0" />
+                              <ImageView fx:id="imageC" fitHeight="107.0" fitWidth="93.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="40.0" />
                               <Label fx:id="labelCTxt" maxHeight="30.0" maxWidth="133.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                            </children></AnchorPane>
                      </graphic>
@@ -58,7 +58,7 @@
                      <graphic>
                         <AnchorPane fx:id="anchorD" prefHeight="157.0" prefWidth="133.0" translateY="78.0">
                            <children>
-                              <ImageView fx:id="imageD" fitHeight="107.0" fitWidth="93.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0" />
+                              <ImageView fx:id="imageD" fitHeight="107.0" fitWidth="93.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="40.0" />
                               <Label fx:id="labelDTxt" maxHeight="30.0" maxWidth="133.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                            </children></AnchorPane>
                      </graphic>
