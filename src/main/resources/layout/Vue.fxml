@@ -13,7 +13,7 @@
 
 <VBox fx:id="vboxVue" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.vue.ControleurVue">
    <children>
-      <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" VBox.vgrow="ALWAYS">
+      <ToolBar fx:id="menu" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" VBox.vgrow="ALWAYS">
          <items>
             <Group>
                <children>
@@ -29,7 +29,9 @@
                   <Slider fx:id="sld_zoom" majorTickUnit="50.0" max="200.0" showTickLabels="true" value="100.0" />
                </children>
             </Group>
-            <Button mnemonicParsing="false" onAction="#fermerVue" text="X" />
+            <Label fx:id="nomFichier" maxWidth="80.0" text="/" />
+                        <Button mnemonicParsing="false" onAction="#fermerVue" text="X" />
+            <Button mnemonicParsing="false" onAction="#separerMenu" text=":" />
          </items>
          <cursor>
             <Cursor fx:constant="DEFAULT" />

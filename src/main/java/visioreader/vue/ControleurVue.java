@@ -17,11 +17,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
@@ -31,6 +33,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import visioreader.lecteurpdf.Main;
 import visioreader.util.Emplacement;
 import visioreader.util.EmplacementIncorrect;
@@ -94,6 +97,14 @@ public class ControleurVue implements Initializable {
     @FXML
     private Slider sld_zoom;
 
+    /** Le menu complet */
+    @FXML
+    private ToolBar menu;
+
+    /** Affiche le nom du fichier */
+    @FXML
+    private Label nomFichier;
+
     /** Permet de pouvoir scroll la page, sera inséré l'ImageView de la page du PDF */
     @FXML
     private ScrollPane scrollPaneImg;
@@ -110,6 +121,12 @@ public class ControleurVue implements Initializable {
     /** Indique si l'on est en plein écran */
     private boolean pleinecran = false;
 
+    /** Représente le menu (ToolBar menu) une fois qu'il est sorti de la vue */
+    private BorderPane menuSepare;
+
+    /** Représente le théatre du (ToolBar menu) une fois qu'il est sorti de la vue */
+    Stage stageMenuSepare = new Stage();
+
 
     /**
      * Change la valeur de vue
@@ -118,7 +135,6 @@ public class ControleurVue implements Initializable {
     public void setVue(Vue vue) {
         this.vue = vue;
     }
-
 
     /**
      * Permet de charger un nouveau fichier dans la vue actuelle
@@ -141,11 +157,13 @@ public class ControleurVue implements Initializable {
                 txbNbPagesTotal.setText(Integer.toString(vue.getPdf().getNbPages()));
 
                 maxZoom = imageAfficher.getImage().getHeight();
-                System.out.println("Taille de l'image = " + maxZoom);
 
                 sld_zoom.setMax(BORNE_MAX_ZOOM);
                 sld_zoom.setMajorTickUnit(BORNE_MAX_ZOOM/4);
                 sld_zoom.setValue(100);
+
+                /* Ajout nom du fichier */
+                nomFichier.setText(vue.getPdf().nomFichier());
 
                 // Ecouteur lors du changement de valeur du slider
                 sld_zoom.valueProperty().addListener(new ChangeListener<Number>() {
@@ -281,6 +299,45 @@ public class ControleurVue implements Initializable {
     @FXML
     void fermerVue(ActionEvent event) {
         fermetureVue();
+    }
+
+    /**
+     * Sépare le menu de la vue
+     * @param event
+     */
+    @FXML
+    void separerMenu(ActionEvent event) {
+        /* Si le menuSepare ne contient rien c'est que le menu est dans la vue */
+        if (menuSepare == null) {
+
+            menuSepare = new BorderPane();
+
+            menuSepare.setCenter(menu); // Ajoute le menu
+
+            Scene scene = new Scene(menuSepare,470,menu.getHeight());
+
+            scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
+
+            stageMenuSepare.setTitle(vue.getPdf().nomFichier());
+            stageMenuSepare.getIcons().add(new Image("/image/icone.png"));
+            stageMenuSepare.setResizable(false);
+            stageMenuSepare.setScene(scene);
+            stageMenuSepare.show();
+
+            /* A la fermeture on remet l'élément dans la VBox dans le bon ordre */
+            stageMenuSepare.setOnCloseRequest((WindowEvent eventClose) -> {
+                menuSepare = null;
+                vboxVue.getChildren().remove(scrollPaneImg);
+                vboxVue.getChildren().addAll(menu,scrollPaneImg);
+
+            });
+        } else { // Sinon le menu est dans une fenetre
+            /* On ferme la fenêtre, on vide le BorderPane et on remet l'élément dans la VBox dans le bon ordre*/
+            stageMenuSepare.close();
+            menuSepare = null;
+            vboxVue.getChildren().remove(scrollPaneImg);
+            vboxVue.getChildren().addAll(menu,scrollPaneImg);
+        }
     }
 
 

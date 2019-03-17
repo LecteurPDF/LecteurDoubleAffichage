@@ -152,6 +152,7 @@ public class Vue {
 
         //Retrait dans la liste des vues
         listeVues.remove(this);
+        controleur.stageMenuSepare.close(); // Fermeture du menu sorti si il est sorti
         Main.controller.reload();
 
     }
