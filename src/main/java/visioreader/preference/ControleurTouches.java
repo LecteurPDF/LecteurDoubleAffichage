@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import visioreader.util.Preferences;
@@ -40,6 +41,14 @@ public class ControleurTouches implements Initializable{
 	/** Le Keycode qui permet d'ouvrir un nouveau fichier */
 	String ouvertureFichier = "";
 
+	String pageSuivA;
+
+	String pagePrecA;
+
+	String pageSuivB;
+
+	String pagePrecB;
+
 	/** Sauvegarde les raccours claviers affectés */
 	@FXML
 	private Button btn_sauver;
@@ -64,6 +73,18 @@ public class ControleurTouches implements Initializable{
 	@FXML
 	private TextField txt_ouvertureFichier;
 
+	@FXML
+    private TextField txt_suivA;
+
+    @FXML
+    private TextField txt_precA;
+
+    @FXML
+    private TextField txt_suivB;
+
+    @FXML
+    private TextField txt_precB;
+
 	// private KeyCodeCombination combineSuiv = new KeyCodeCombination(key_pageSuiv, KeyCombination.CONTROL_DOWN);
 
 	/** Stocke les préférences actuelles */
@@ -80,6 +101,12 @@ public class ControleurTouches implements Initializable{
 		prefs.put("TOUCHE_PAGE_OUVRIR_FICHIER", ouvertureFichier);
 		prefs.put("TOUCHE_PLEIN_ECRAN_1", pleinEcran1);
 		prefs.put("TOUCHE_PLEIN_ECRAN_2", pleinEcran2);
+
+		prefs.put("TOUCHE_PAGE_SUIVANTE_A", pageSuivA);
+		prefs.put("TOUCHE_PAGE_PRECEDENTE_A", pagePrecA);
+
+		prefs.put("TOUCHE_PAGE_SUIVANTE_B", pageSuivB);
+		prefs.put("TOUCHE_PAGE_PRECEDENTE_B", pagePrecB);
 
 
 		((Stage)btn_sauver.getScene().getWindow()).close();
@@ -173,6 +200,111 @@ public class ControleurTouches implements Initializable{
 		}
 	}
 
+	@FXML
+	void saveKeySuivA(KeyEvent event) {
+
+		/* Convertion de l'evenement en combinaison ou en touche en String*/
+		try {
+			pageSuivA = Preferences.keyToString(event);
+			txt_suivA.setEditable(false);
+			txt_suivA.setText(pageSuivA);
+		} catch(IllegalArgumentException e) {
+			//e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void saveKeySuivB(KeyEvent event) {
+
+		/* Convertion de l'evenement en combinaison ou en touche en String*/
+		try {
+			pageSuivB = Preferences.keyToString(event);
+			txt_suivB.setEditable(false);
+			txt_suivB.setText(pageSuivB);
+		} catch(IllegalArgumentException e) {
+			//e.printStackTrace();
+		}
+	}
+
+//	@FXML
+//	void saveKeySuivC(KeyEvent event) {
+//
+//		/* Convertion de l'evenement en combinaison ou en touche en String*/
+//		try {
+//			pageSuivC = Preferences.keyToString(event);
+//			txt_suivC.setEditable(false);
+//			txt_suivC.setText(pageSuivC);
+//		} catch(IllegalArgumentException e) {
+//			//e.printStackTrace();
+//		}
+//	}
+
+//	@FXML
+//	void saveKeySuivD(KeyEvent event) {
+//
+//		/* Convertion de l'evenement en combinaison ou en touche en String*/
+//		try {
+//			pageSuivD = Preferences.keyToString(event);
+//			txt_suivD.setEditable(false);
+//			txt_suivD.setText(pageSuivD);
+//		} catch(IllegalArgumentException e) {
+//			//e.printStackTrace();
+//		}
+//	}
+
+	@FXML
+	void saveKeyPrecA(KeyEvent event) {
+
+		/* Convertion de l'evenement en combinaison ou en touche en String*/
+		try {
+			pagePrecA = Preferences.keyToString(event);
+			txt_precA.setEditable(false);
+			txt_precA.setText(pagePrecA);
+		} catch(IllegalArgumentException e) {
+			//e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void saveKeyPrecB(KeyEvent event) {
+
+		/* Convertion de l'evenement en combinaison ou en touche en String*/
+		try {
+			pagePrecB = Preferences.keyToString(event);
+			txt_precB.setEditable(false);
+			txt_precB.setText(pagePrecB);
+		} catch(IllegalArgumentException e) {
+			//e.printStackTrace();
+		}
+	}
+
+
+//	@FXML
+//	void saveKeyPrecC(KeyEvent event) {
+//
+//		/* Convertion de l'evenement en combinaison ou en touche en String*/
+//		try {
+//			pagePrecC = Preferences.keyToString(event);
+//			txt_precC.setEditable(false);
+//			txt_precC.setText(pagePrecC);
+//		} catch(IllegalArgumentException e) {
+//			//e.printStackTrace();
+//		}
+//	}
+
+//	@FXML
+//	void saveKeyPrecD(KeyEvent event) {
+//
+//		/* Convertion de l'evenement en combinaison ou en touche en String*/
+//		try {
+//			pagePrecD = Preferences.keyToString(event);
+//			txt_precD.setEditable(false);
+//			txt_precD.setText(pagePrecD);
+//		} catch(IllegalArgumentException e) {
+//			//e.printStackTrace();
+//		}
+//	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -208,6 +340,54 @@ public class ControleurTouches implements Initializable{
 		txt_pleinEcran2.setEditable(false);
 		if(pleinEcran2 != null)
 			txt_pleinEcran2.setText(pleinEcran2);
+
+		pageSuivA = prefs.get("TOUCHE_PAGE_SUIVANTE_A", "");
+		txt_suivA.setEditable(false);
+		if(pageSuivA != null) {
+			txt_suivA.setText(pageSuivA);
+		}
+
+		pagePrecA = prefs.get("TOUCHE_PAGE_PRECEDENTE_A", "");
+		txt_precA.setEditable(false);
+		if(pagePrecA != null) {
+			txt_precA.setText(pagePrecA);
+		}
+
+		pageSuivB = prefs.get("TOUCHE_PAGE_SUIVANTE_B", "");
+		txt_suivB.setEditable(false);
+		if(pageSuivB != null) {
+			txt_suivB.setText(pageSuivB);
+		}
+
+		pagePrecB = prefs.get("TOUCHE_PAGE_PRECEDENTE_B", "");
+		txt_precB.setEditable(false);
+		if(pagePrecB != null) {
+			txt_precB.setText(pagePrecB);
+		}
+
+//		pageSuivC = prefs.get("TOUCHE_PAGE_SUIVANTE_C", "");
+//		txt_suivC.setEditable(false);
+//		if(pageSuivC != null) {
+//			txt_suivC.setText(pageSuivC);
+//		}
+//
+//		pagePrecC = prefs.get("TOUCHE_PAGE_PRECEDENTE_C", "");
+//		txt_precC.setEditable(false);
+//		if(pagePrecC != null) {
+//			txt_precC.setText(pagePrecC);
+//		}
+
+//		pageSuivD = prefs.get("TOUCHE_PAGE_SUIVANTE_D", "");
+//		txt_suivD.setEditable(false);
+//		if(pageSuivD != null) {
+//			txt_suivD.setText(pageSuivD);
+//		}
+//
+//		pagePrecD = prefs.get("TOUCHE_PAGE_PRECEDENTE_D", "");
+//		txt_precD.setEditable(false);
+//		if(pagePrecD != null) {
+//			txt_precD.setText(pagePrecD);
+//		}
 
 	}
 }

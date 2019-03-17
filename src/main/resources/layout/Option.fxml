@@ -12,14 +12,14 @@
 
 <!-- touches -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.preference.ControleurOption">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.preference.ControleurOption">
    <children>
       <Text layoutX="3.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Options avancée" textAlignment="CENTER" wrappingWidth="394.0">
          <font>
             <Font size="32.0" />
          </font>
       </Text>
-      <Button fx:id="btn_sauver" layoutX="133.0" layoutY="469.0" mnemonicParsing="false" onAction="#changements" prefHeight="43.0" prefWidth="176.0" text="Sauvegarder" />
+      <Button fx:id="btn_sauver" layoutX="144.0" layoutY="389.0" mnemonicParsing="false" onAction="#changements" prefHeight="43.0" prefWidth="176.0" text="Sauvegarder" />
       <Line endX="710.5" layoutX="101.0" layoutY="63.0" startX="-100.0" />
       <Line endX="705.5" layoutX="104.0" layoutY="190.0" startX="-110.0" />
       <Text layoutX="135.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qualité de l'image" textAlignment="CENTER">
@@ -33,7 +33,6 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Line endX="696.0" layoutX="104.0" layoutY="448.0" startX="-110.0" />
       <RadioButton fx:id="rbtn_qualFaible" layoutX="25.0" layoutY="137.0" mnemonicParsing="false" text="Qualité basse">
          <font>
             <Font size="12.0" />
@@ -61,5 +60,6 @@
       <Label fx:id="lbl_combiPrec" layoutX="408.0" layoutY="251.0" text="combi prec" />
       <Label layoutX="48.0" layoutY="243.0" prefHeight="33.0" prefWidth="93.0" text="Page suivante : " underline="true" />
       <Label layoutX="305.0" layoutY="243.0" prefHeight="33.0" prefWidth="103.0" text="Page précédente : " underline="true" />
+      <Text layoutX="-313.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
    </children>
 </AnchorPane>

@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import visioreader.util.Preferences;
@@ -105,6 +106,7 @@ public class ControleurOption implements Initializable{
         prefs.setVueLiee(1, vueB.isSelected());
         prefs.setVueLiee(2, vueC.isSelected());
         prefs.setVueLiee(3, vueD.isSelected());
+
 
         ((Stage) btn_sauver.getScene().getWindow()).close(); // fermeture fenêtre préférence
     }

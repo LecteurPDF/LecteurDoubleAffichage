@@ -166,7 +166,7 @@ public class ControleurPrincipal implements Initializable {
                 if(touche[i].contains("+")) {
                     entreeCombi = KeyCombination.valueOf(touche[i]);
                     action[i] = entreeCombi.match(event);
-                } else {
+                } else{
                     entreeTouche = KeyCode.valueOf(touche[i]);
                     action[i] = event.getCode() == entreeTouche;
                 }
@@ -182,6 +182,7 @@ public class ControleurPrincipal implements Initializable {
                     Vue.getListeVues().get(i).getControleur().prochainePage(null);
                 }
             }
+
         }
 
         /* touchePagePrecedente */
@@ -207,6 +208,26 @@ public class ControleurPrincipal implements Initializable {
         /* toucheOuvrirFichier */
         if(action[4]) {
             changerFichier();
+        }
+
+        /* touchePageSuivanteA */
+        if (action[5]) {
+        	Vue.getListeVues().get(0).getControleur().prochainePage(null);
+        }
+
+        /* touchePagePrecedenteA */
+        if (action[6]) {
+        	Vue.getListeVues().get(0).getControleur().precedentePage(null);
+        }
+
+        /* touchePageSuivanteB */
+        if (action[7]) {
+        	Vue.getListeVues().get(1).getControleur().prochainePage(null);
+        }
+
+        /* touchePagePrecedenteB */
+        if (action[8]) {
+        	Vue.getListeVues().get(1).getControleur().precedentePage(null);
         }
 
 
