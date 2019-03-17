@@ -101,6 +101,12 @@ public class ControleurVue implements Initializable {
     @FXML
     private ToolBar menu;
 
+    /** Représente le menu (ToolBar menu) une fois qu'il est sorti de la vue */
+    private BorderPane menuSepare;
+
+    /** Représente le théatre du (ToolBar menu) une fois qu'il est sorti de la vue */
+    Stage stageMenuSepare = new Stage();
+
     /** Affiche le nom du fichier */
     @FXML
     private Label nomFichier;
@@ -120,12 +126,6 @@ public class ControleurVue implements Initializable {
 
     /** Indique si l'on est en plein écran */
     private boolean pleinecran = false;
-
-    /** Représente le menu (ToolBar menu) une fois qu'il est sorti de la vue */
-    private BorderPane menuSepare;
-
-    /** Représente le théatre du (ToolBar menu) une fois qu'il est sorti de la vue */
-    Stage stageMenuSepare = new Stage();
 
 
     /**
@@ -314,11 +314,20 @@ public class ControleurVue implements Initializable {
 
             menuSepare.setCenter(menu); // Ajoute le menu
 
-            Scene scene = new Scene(menuSepare,470,menu.getHeight());
+            Scene scene = new Scene(menuSepare,480,menu.getHeight());
 
             scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 
-            stageMenuSepare.setTitle(vue.getPdf().nomFichier());
+            /* Titre de la vue -> nomFichier - Vue n°1*/
+            int numeroVue;
+            if (vue.getEmplacement().getFenetre() == 1) {
+                numeroVue = vue.getEmplacement().getPosition()-1 + vue.getEmplacement().getFenetre();
+            } else {
+                numeroVue = vue.getEmplacement().getPosition() + vue.getEmplacement().getFenetre();
+            }
+            stageMenuSepare.setTitle(vue.getPdf().nomFichier() + " - Vue n° " + numeroVue);
+
+
             stageMenuSepare.getIcons().add(new Image("/image/icone.png"));
             stageMenuSepare.setResizable(false);
             stageMenuSepare.setScene(scene);
