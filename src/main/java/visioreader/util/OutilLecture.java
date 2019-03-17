@@ -113,6 +113,7 @@ public class OutilLecture {
     /**
      * Permet de transformer une page pdf en image ImageView
      * @param page La page que l'on souhaite transformer
+     * @param qualite La qualité de l'image en dpi
      * @param definit la qualité de l'image dpi
      * @return La page transform�e en ImageView
      * @throws PageInexistante

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.vue.ControleurChangementDisposition">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.vue.ControleurChangementDisposition">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -91,7 +91,7 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="580.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btn_sep" mnemonicParsing="false" onAction="#changerOrientation" prefHeight="31.0" prefWidth="241.0" text="Separation vertical">
+            <Button fx:id="btn_sep" mnemonicParsing="false" onAction="#changerOrientation" prefHeight="31.0" prefWidth="241.0" text="Separation verticale">
                <HBox.margin>
                   <Insets right="200.0" />
                </HBox.margin>

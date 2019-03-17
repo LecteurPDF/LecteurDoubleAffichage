@@ -103,7 +103,7 @@ public class ControleurChangementDisposition implements Initializable {
     private Button btn_sep;
 
     /** Definit l'orientation des splitpane */
-    private boolean orientOrizontal;
+    private boolean orientHorizontal;
 
     /**
      * Liste toutes les vues existantes de l'application
@@ -127,11 +127,11 @@ public class ControleurChangementDisposition implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-    	orientOrizontal = Main.controller.isHorizontal();
-    	if(orientOrizontal) {
-    		btn_sep.setText("Orientation vertical");
+        orientHorizontal = Main.controller.isHorizontal();
+    	if(orientHorizontal) {
+    		btn_sep.setText("Orientation verticale");
     	} else {
-    		btn_sep.setText("Orientation horizontal");
+    		btn_sep.setText("Orientation horizontale");
     	}
 
         /* On place toutes les vues dans l'AnchorPane correspondant à leur emplacement */
@@ -435,7 +435,7 @@ public class ControleurChangementDisposition implements Initializable {
         }
 
         /* Definit l'orientation de splitpane */
-    	if(orientOrizontal) {
+    	if(orientHorizontal) {
     		Main.controller.setHorizontal(false);
     	} else {
     		Main.controller.setHorizontal(true);
@@ -444,14 +444,18 @@ public class ControleurChangementDisposition implements Initializable {
     	((Stage)posA.getScene().getWindow()).close();
     }
 
+    /**
+     * Permet de passer l'affichage de vertical à horizontal ou inversement suviant l'orientation actuelle
+     * @param event
+     */
     @FXML
     void changerOrientation(ActionEvent event) {
-    	if(orientOrizontal) {
-    		btn_sep.setText("Orientation vertical");
-    		orientOrizontal = false;
+    	if(orientHorizontal) {
+    		btn_sep.setText("Orientation verticale");
+    		orientHorizontal = false;
     	} else {
-    		btn_sep.setText("Orientation horizontal");
-    		orientOrizontal = true;
+    		btn_sep.setText("Orientation horizontale");
+    		orientHorizontal = true;
     	}
     }
 
