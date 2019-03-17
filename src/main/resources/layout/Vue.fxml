@@ -9,9 +9,11 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vboxVue" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.vue.ControleurVue">
+<VBox fx:id="vboxVue" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visioreader.vue.ControleurVue">
    <children>
       <ToolBar fx:id="menu" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" VBox.vgrow="ALWAYS">
          <items>
@@ -31,7 +33,14 @@
             </Group>
             <Label fx:id="nomFichier" maxWidth="80.0" text="/" />
                         <Button mnemonicParsing="false" onAction="#fermerVue" text="X" />
-            <Button mnemonicParsing="false" onAction="#separerMenu" text=":" />
+            <Button mnemonicParsing="false" onAction="#separerMenu" prefHeight="31.0" prefWidth="29.0">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="16.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../image/out.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </items>
          <cursor>
             <Cursor fx:constant="DEFAULT" />
