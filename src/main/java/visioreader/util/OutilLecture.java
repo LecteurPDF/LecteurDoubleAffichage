@@ -97,15 +97,27 @@ public class OutilLecture {
         return nbPages;
     }
 
+
     /**
-     * Permet de transformer une page pdf en image ImageView
+     * Permet de transformer une page pdf en imageview
+     * avec la qualité definit dans le registre
      * @param page La page que l'on souhaite transformer
      * @return La page transform�e en ImageView
      * @throws PageInexistante
      */
     public ImageView getPagePdfToImg( int page ) throws PageInexistante {
+    	float qualite = Float.parseFloat(Preferences.getInstance().get("QUALITE", Float.toString((122))));
+    	return getPagePdfToImg(page, qualite);
+    }
 
-        float qualite = Float.parseFloat(Preferences.getInstance().get("QUALITE", Float.toString((122))));
+    /**
+     * Permet de transformer une page pdf en image ImageView
+     * @param page La page que l'on souhaite transformer
+     * @param definit la qualité de l'image dpi
+     * @return La page transform�e en ImageView
+     * @throws PageInexistante
+     */
+    public ImageView getPagePdfToImg( int page, float qualite ) throws PageInexistante {
 
         ImageView imageCentrale = new ImageView(); // L'image de la page pdf convertie
 
