@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import visioreader.util.Preferences;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -55,6 +56,11 @@ public class Main extends Application {
 
             primaryStage.setScene(scene);
             primaryStage.show();
+
+            /* Quand on ferme la fenêtre principale, on ferme l'application */
+            primaryStage.setOnCloseRequest((WindowEvent eventClose) -> {
+                System.exit(0);
+            });
 
 
 
