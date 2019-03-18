@@ -93,23 +93,23 @@ public class ControleurTouches implements Initializable{
 	 */
 	@FXML
 	void changements(ActionEvent event) {
-		prefs.put("TOUCHE_PAGE_SUIVANTE", pageSuiv); //Entre dans le registre l'element
-		prefs.put("TOUCHE_PAGE_PRECEDENTE", pagePrec);
-		prefs.put("TOUCHE_PAGE_OUVRIR_FICHIER", ouvertureFichier);
+		prefs.put("TOUCHE_PAGE_SUIVANTE", listePrefs[0]); //Entre dans le registre l'element
+		prefs.put("TOUCHE_PAGE_PRECEDENTE", listePrefs[1]);
+		prefs.put("TOUCHE_PAGE_OUVRIR_FICHIER", listePrefs[2]);
 		prefs.put("TOUCHE_PLEIN_ECRAN_1", listePrefs[3]);
-		prefs.put("TOUCHE_PLEIN_ECRAN_2", pleinEcran2);
+		prefs.put("TOUCHE_PLEIN_ECRAN_2", listePrefs[4]);
 
-		prefs.put("TOUCHE_PAGE_SUIVANTE_A", pageSuivA);
-		prefs.put("TOUCHE_PAGE_PRECEDENTE_A", pagePrecA);
+		prefs.put("TOUCHE_PAGE_SUIVANTE_A", listePrefs[5]);
+		prefs.put("TOUCHE_PAGE_PRECEDENTE_A", listePrefs[6]);
 
-		prefs.put("TOUCHE_PAGE_SUIVANTE_B", pageSuivB);
-		prefs.put("TOUCHE_PAGE_PRECEDENTE_B", pagePrecB);
+		prefs.put("TOUCHE_PAGE_SUIVANTE_B", listePrefs[7]);
+		prefs.put("TOUCHE_PAGE_PRECEDENTE_B", listePrefs[8]);
 
-		prefs.put("TOUCHE_PAGE_SUIVANTE_C", pageSuivC);
-		prefs.put("TOUCHE_PAGE_PRECEDENTE_C", pagePrecC);
+		prefs.put("TOUCHE_PAGE_SUIVANTE_C", listePrefs[9]);
+		prefs.put("TOUCHE_PAGE_PRECEDENTE_C", listePrefs[10]);
 
-		prefs.put("TOUCHE_PAGE_SUIVANTE_D", pageSuivD);
-		prefs.put("TOUCHE_PAGE_PRECEDENTE_D", pagePrecD);
+		prefs.put("TOUCHE_PAGE_SUIVANTE_D", listePrefs[11]);
+		prefs.put("TOUCHE_PAGE_PRECEDENTE_D", listePrefs[12]);
 
 
 		((Stage)btn_sauver.getScene().getWindow()).close();
