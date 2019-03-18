@@ -230,6 +230,26 @@ public class ControleurPrincipal implements Initializable {
         	Vue.getListeVues().get(1).getControleur().precedentePage(null);
         }
 
+        /* touchePageSuivanteC */
+        if (action[9]) {
+        	Vue.getListeVues().get(2).getControleur().prochainePage(null);
+        }
+
+        /* touchePagePrecedenteC */
+        if (action[10]) {
+        	Vue.getListeVues().get(2).getControleur().precedentePage(null);
+        }
+
+        /* touchePageSuivanteD */
+        if (action[11]) {
+        	Vue.getListeVues().get(3).getControleur().prochainePage(null);
+        }
+
+        /* touchePagePrecedenteD */
+        if (action[12]) {
+        	Vue.getListeVues().get(3).getControleur().precedentePage(null);
+        }
+
 
     }
 

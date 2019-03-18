@@ -26,6 +26,12 @@ import visioreader.util.Preferences;
  */
 public class ControleurTouches implements Initializable{
 
+	/** tableau qui répertorie les combinaisons de touches */
+	String[] listePrefs;
+
+	/** tableau qui répertorie les champs de texte */
+	TextField[] listeTextePrefs;
+
 	/** Le Keycode de la page suivante */
 	String pageSuiv;
 
@@ -41,13 +47,9 @@ public class ControleurTouches implements Initializable{
 	/** Le Keycode qui permet d'ouvrir un nouveau fichier */
 	String ouvertureFichier = "";
 
-	String pageSuivA;
-
-	String pagePrecA;
-
-	String pageSuivB;
-
-	String pagePrecB;
+	/** Le Keycode de chaque vue du lecteur pour page suivante et précédente */
+	String pageSuivA, pagePrecA, pageSuivB, pagePrecB,
+		   pageSuivC, pagePrecC, pageSuivD, pagePrecD;
 
 	/** Sauvegarde les raccours claviers affectés */
 	@FXML
@@ -73,17 +75,12 @@ public class ControleurTouches implements Initializable{
 	@FXML
 	private TextField txt_ouvertureFichier;
 
+	/** Affiche le raccourcis clavier pour : page suivante/précédente
+	 * de chaque vue individuellement.
+	 */
 	@FXML
-    private TextField txt_suivA;
-
-    @FXML
-    private TextField txt_precA;
-
-    @FXML
-    private TextField txt_suivB;
-
-    @FXML
-    private TextField txt_precB;
+    private TextField txt_suivA, txt_precA, txt_suivB, txt_precB,
+    				  txt_suivC, txt_precC, txt_suivD, txt_precD;
 
 	// private KeyCodeCombination combineSuiv = new KeyCodeCombination(key_pageSuiv, KeyCombination.CONTROL_DOWN);
 
@@ -99,7 +96,7 @@ public class ControleurTouches implements Initializable{
 		prefs.put("TOUCHE_PAGE_SUIVANTE", pageSuiv); //Entre dans le registre l'element
 		prefs.put("TOUCHE_PAGE_PRECEDENTE", pagePrec);
 		prefs.put("TOUCHE_PAGE_OUVRIR_FICHIER", ouvertureFichier);
-		prefs.put("TOUCHE_PLEIN_ECRAN_1", pleinEcran1);
+		prefs.put("TOUCHE_PLEIN_ECRAN_1", listePrefs[3]);
 		prefs.put("TOUCHE_PLEIN_ECRAN_2", pleinEcran2);
 
 		prefs.put("TOUCHE_PAGE_SUIVANTE_A", pageSuivA);
@@ -107,6 +104,12 @@ public class ControleurTouches implements Initializable{
 
 		prefs.put("TOUCHE_PAGE_SUIVANTE_B", pageSuivB);
 		prefs.put("TOUCHE_PAGE_PRECEDENTE_B", pagePrecB);
+
+		prefs.put("TOUCHE_PAGE_SUIVANTE_C", pageSuivC);
+		prefs.put("TOUCHE_PAGE_PRECEDENTE_C", pagePrecC);
+
+		prefs.put("TOUCHE_PAGE_SUIVANTE_D", pageSuivD);
+		prefs.put("TOUCHE_PAGE_PRECEDENTE_D", pagePrecD);
 
 
 		((Stage)btn_sauver.getScene().getWindow()).close();
@@ -130,9 +133,9 @@ public class ControleurTouches implements Initializable{
 	@FXML
 	void saveKeyFullScreenUn(KeyEvent event) {
 		try {
-			pleinEcran1 = Preferences.keyToString(event);
-			txt_pleinEcran1.setEditable(false);
-			txt_pleinEcran1.setText(pleinEcran1);
+			listePrefs[3] = Preferences.keyToString(event);
+			listeTextePrefs[3].setEditable(false);
+			listeTextePrefs[3].setText(listePrefs[3]);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
@@ -168,10 +171,10 @@ public class ControleurTouches implements Initializable{
 		}
 	}
 
-        /**
-         * Sauvegarde la combinaison de touche pour : la page précédente
-         * @param event
-         */
+    /**
+     * Sauvegarde la combinaison de touche pour : la page précédente
+     * @param event
+     */
 	@FXML
 	void saveKeyPrec(KeyEvent event) {
 		try {
@@ -183,10 +186,10 @@ public class ControleurTouches implements Initializable{
 		}
 	}
 
-        /**
-         * Sauvegarde la combinaison de touche pour : la page suivante
-         * @param event
-         */
+    /**
+     * Sauvegarde la combinaison de touche pour : la page suivante
+     * @param event
+     */
 	@FXML
 	void saveKeySuiv(KeyEvent event) {
 
@@ -200,6 +203,10 @@ public class ControleurTouches implements Initializable{
 		}
 	}
 
+	/**
+     * Sauvegarde la combinaison de touche pour : la page suivante pour la vue A
+     * @param event
+     */
 	@FXML
 	void saveKeySuivA(KeyEvent event) {
 
@@ -213,6 +220,10 @@ public class ControleurTouches implements Initializable{
 		}
 	}
 
+	/**
+     * Sauvegarde la combinaison de touche pour : la page suivante pour la vue B
+     * @param event
+     */
 	@FXML
 	void saveKeySuivB(KeyEvent event) {
 
@@ -226,32 +237,44 @@ public class ControleurTouches implements Initializable{
 		}
 	}
 
-//	@FXML
-//	void saveKeySuivC(KeyEvent event) {
-//
-//		/* Convertion de l'evenement en combinaison ou en touche en String*/
-//		try {
-//			pageSuivC = Preferences.keyToString(event);
-//			txt_suivC.setEditable(false);
-//			txt_suivC.setText(pageSuivC);
-//		} catch(IllegalArgumentException e) {
-//			//e.printStackTrace();
-//		}
-//	}
+	/**
+     * Sauvegarde la combinaison de touche pour : la page suivante pour la vue C
+     * @param event
+     */
+	@FXML
+	void saveKeySuivC(KeyEvent event) {
 
-//	@FXML
-//	void saveKeySuivD(KeyEvent event) {
-//
-//		/* Convertion de l'evenement en combinaison ou en touche en String*/
-//		try {
-//			pageSuivD = Preferences.keyToString(event);
-//			txt_suivD.setEditable(false);
-//			txt_suivD.setText(pageSuivD);
-//		} catch(IllegalArgumentException e) {
-//			//e.printStackTrace();
-//		}
-//	}
+		/* Convertion de l'evenement en combinaison ou en touche en String*/
+		try {
+			pageSuivC = Preferences.keyToString(event);
+			txt_suivC.setEditable(false);
+			txt_suivC.setText(pageSuivC);
+		} catch(IllegalArgumentException e) {
+			//e.printStackTrace();
+		}
+	}
 
+	/**
+     * Sauvegarde la combinaison de touche pour : la page suivante pour la vue D
+     * @param event
+     */
+	@FXML
+	void saveKeySuivD(KeyEvent event) {
+
+		/* Convertion de l'evenement en combinaison ou en touche en String*/
+		try {
+			pageSuivD = Preferences.keyToString(event);
+			txt_suivD.setEditable(false);
+			txt_suivD.setText(pageSuivD);
+		} catch(IllegalArgumentException e) {
+			//e.printStackTrace();
+		}
+	}
+
+	/**
+     * Sauvegarde la combinaison de touche pour : la page précédente A
+     * @param event
+     */
 	@FXML
 	void saveKeyPrecA(KeyEvent event) {
 
@@ -265,6 +288,10 @@ public class ControleurTouches implements Initializable{
 		}
 	}
 
+	/**
+     * Sauvegarde la combinaison de touche pour : la page précédente B
+     * @param event
+     */
 	@FXML
 	void saveKeyPrecB(KeyEvent event) {
 
@@ -279,31 +306,39 @@ public class ControleurTouches implements Initializable{
 	}
 
 
-//	@FXML
-//	void saveKeyPrecC(KeyEvent event) {
-//
-//		/* Convertion de l'evenement en combinaison ou en touche en String*/
-//		try {
-//			pagePrecC = Preferences.keyToString(event);
-//			txt_precC.setEditable(false);
-//			txt_precC.setText(pagePrecC);
-//		} catch(IllegalArgumentException e) {
-//			//e.printStackTrace();
-//		}
-//	}
+	/**
+     * Sauvegarde la combinaison de touche pour : la page précédente C
+     * @param event
+     */
+	@FXML
+	void saveKeyPrecC(KeyEvent event) {
 
-//	@FXML
-//	void saveKeyPrecD(KeyEvent event) {
-//
-//		/* Convertion de l'evenement en combinaison ou en touche en String*/
-//		try {
-//			pagePrecD = Preferences.keyToString(event);
-//			txt_precD.setEditable(false);
-//			txt_precD.setText(pagePrecD);
-//		} catch(IllegalArgumentException e) {
-//			//e.printStackTrace();
-//		}
-//	}
+		/* Convertion de l'evenement en combinaison ou en touche en String*/
+		try {
+			pagePrecC = Preferences.keyToString(event);
+			txt_precC.setEditable(false);
+			txt_precC.setText(pagePrecC);
+		} catch(IllegalArgumentException e) {
+			//e.printStackTrace();
+		}
+	}
+
+	/**
+     * Sauvegarde la combinaison de touche pour : la page précédente D
+     * @param event
+     */
+	@FXML
+	void saveKeyPrecD(KeyEvent event) {
+
+		/* Convertion de l'evenement en combinaison ou en touche en String*/
+		try {
+			pagePrecD = Preferences.keyToString(event);
+			txt_precD.setEditable(false);
+			txt_precD.setText(pagePrecD);
+		} catch(IllegalArgumentException e) {
+			//e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -314,80 +349,46 @@ public class ControleurTouches implements Initializable{
 		txt_pleinEcran1.setFocusTraversable(false);
 		txt_pleinEcran2.setFocusTraversable(false);
 
-		//TODO: Faire une boucle pour eviter de copié coller
-		pageSuiv = prefs.get("TOUCHE_PAGE_SUIVANTE", "");
-		txt_pageSuiv.setEditable(false);
-		if(pageSuiv != null)
-			txt_pageSuiv.setText(pageSuiv);
+		/* initialisaion de la liste des préférences */
+		listePrefs = new String[] {
+				prefs.get("TOUCHE_PAGE_SUIVANTE", ""),
+				prefs.get("TOUCHE_PAGE_PRECEDENTE", ""),
+				prefs.get("TOUCHE_PAGE_OUVRIR_FICHIER", ""),
+				prefs.get("TOUCHE_PLEIN_ECRAN_1", ""),
+				prefs.get("TOUCHE_PLEIN_ECRAN_2", ""),
+				prefs.get("TOUCHE_PAGE_SUIVANTE_A", ""),
+				prefs.get("TOUCHE_PAGE_PRECEDENTE_A", ""),
+				prefs.get("TOUCHE_PAGE_SUIVANTE_B", ""),
+				prefs.get("TOUCHE_PAGE_PRECEDENTE_B", ""),
+				prefs.get("TOUCHE_PAGE_SUIVANTE_C", ""),
+				prefs.get("TOUCHE_PAGE_PRECEDENTE_C", ""),
+				prefs.get("TOUCHE_PAGE_SUIVANTE_D", ""),
+				prefs.get("TOUCHE_PAGE_PRECEDENTE_D", "")
 
+		};
 
-		pagePrec = prefs.get("TOUCHE_PAGE_PRECEDENTE", "");
-		txt_pagePrec.setEditable(false);
-		if(pagePrec != null)
-			txt_pagePrec.setText(pagePrec);
+		/* tableau qui répertorie les champs de texte */
+		listeTextePrefs = new TextField[] {
+				txt_pageSuiv,
+				txt_pagePrec,
+				txt_ouvertureFichier,
+				txt_pleinEcran1,
+				txt_pleinEcran2,
+				txt_suivA,
+				txt_precA,
+				txt_suivB,
+				txt_precB,
+				txt_suivC,
+				txt_precC,
+				txt_suivD,
+				txt_precD,
+		};
 
-		ouvertureFichier = prefs.get("TOUCHE_PAGE_OUVRIR_FICHIER", "");
-		txt_ouvertureFichier.setEditable(false);
-		if(ouvertureFichier != null)
-			txt_ouvertureFichier.setText(ouvertureFichier);
-
-		pleinEcran1 = prefs.get("TOUCHE_PLEIN_ECRAN_1", "");
-		txt_pleinEcran1.setEditable(false);
-		if(pleinEcran1 != null)
-			txt_pleinEcran1.setText(pleinEcran1);
-
-		pleinEcran2 = prefs.get("TOUCHE_PLEIN_ECRAN_2", "");
-		txt_pleinEcran2.setEditable(false);
-		if(pleinEcran2 != null)
-			txt_pleinEcran2.setText(pleinEcran2);
-
-		pageSuivA = prefs.get("TOUCHE_PAGE_SUIVANTE_A", "");
-		txt_suivA.setEditable(false);
-		if(pageSuivA != null) {
-			txt_suivA.setText(pageSuivA);
+		/* Applique le traitement sur les éléments de listeTextePrefs */
+		for (int i=0; i < listePrefs.length; i++) {
+			listeTextePrefs[i].setEditable(false);
+			if(listePrefs[i] != null)
+				listeTextePrefs[i].setText(listePrefs[i]);
 		}
-
-		pagePrecA = prefs.get("TOUCHE_PAGE_PRECEDENTE_A", "");
-		txt_precA.setEditable(false);
-		if(pagePrecA != null) {
-			txt_precA.setText(pagePrecA);
-		}
-
-		pageSuivB = prefs.get("TOUCHE_PAGE_SUIVANTE_B", "");
-		txt_suivB.setEditable(false);
-		if(pageSuivB != null) {
-			txt_suivB.setText(pageSuivB);
-		}
-
-		pagePrecB = prefs.get("TOUCHE_PAGE_PRECEDENTE_B", "");
-		txt_precB.setEditable(false);
-		if(pagePrecB != null) {
-			txt_precB.setText(pagePrecB);
-		}
-
-//		pageSuivC = prefs.get("TOUCHE_PAGE_SUIVANTE_C", "");
-//		txt_suivC.setEditable(false);
-//		if(pageSuivC != null) {
-//			txt_suivC.setText(pageSuivC);
-//		}
-//
-//		pagePrecC = prefs.get("TOUCHE_PAGE_PRECEDENTE_C", "");
-//		txt_precC.setEditable(false);
-//		if(pagePrecC != null) {
-//			txt_precC.setText(pagePrecC);
-//		}
-
-//		pageSuivD = prefs.get("TOUCHE_PAGE_SUIVANTE_D", "");
-//		txt_suivD.setEditable(false);
-//		if(pageSuivD != null) {
-//			txt_suivD.setText(pageSuivD);
-//		}
-//
-//		pagePrecD = prefs.get("TOUCHE_PAGE_PRECEDENTE_D", "");
-//		txt_precD.setEditable(false);
-//		if(pagePrecD != null) {
-//			txt_precD.setText(pagePrecD);
-//		}
-
 	}
 }
