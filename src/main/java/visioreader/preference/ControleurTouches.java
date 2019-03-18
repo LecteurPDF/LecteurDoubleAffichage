@@ -49,7 +49,7 @@ public class ControleurTouches implements Initializable{
 
 	/** Le Keycode de chaque vue du lecteur pour page suivante et précédente */
 	String pageSuivA, pagePrecA, pageSuivB, pagePrecB,
-		   pageSuivC, pagePrecC, pageSuivD, pagePrecD;
+	pageSuivC, pagePrecC, pageSuivD, pagePrecD;
 
 	/** Sauvegarde les raccours claviers affectés */
 	@FXML
@@ -79,8 +79,8 @@ public class ControleurTouches implements Initializable{
 	 * de chaque vue individuellement.
 	 */
 	@FXML
-    private TextField txt_suivA, txt_precA, txt_suivB, txt_precB,
-    				  txt_suivC, txt_precC, txt_suivD, txt_precD;
+	private TextField txt_suivA, txt_precA, txt_suivB, txt_precB,
+	txt_suivC, txt_precC, txt_suivD, txt_precD;
 
 	// private KeyCodeCombination combineSuiv = new KeyCodeCombination(key_pageSuiv, KeyCombination.CONTROL_DOWN);
 
@@ -141,165 +141,165 @@ public class ControleurTouches implements Initializable{
 		}
 	}
 
-        /**
-         * Sauvegarde la combinaison de touche pour : le plein Ecran de la fenêtre secondaire
-         * @param event
-         */
+	/**
+	 * Sauvegarde la combinaison de touche pour : le plein Ecran de la fenêtre secondaire
+	 * @param event
+	 */
 	@FXML
 	void saveKeyFullScreenDeux(KeyEvent event) {
 		try {
-			pleinEcran2 = Preferences.keyToString(event);
-			txt_pleinEcran2.setEditable(false);
-			txt_pleinEcran2.setText(pleinEcran2);
+			listePrefs[4] = Preferences.keyToString(event);
+			listeTextePrefs[4].setEditable(false);
+			listeTextePrefs[4].setText(listePrefs[4]);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
 	}
 
-        /**
-         * Sauvegarde la combinaison de touche pour : l'ouverture de fichier
-         * @param event
-         */
+	/**
+	 * Sauvegarde la combinaison de touche pour : l'ouverture de fichier
+	 * @param event
+	 */
 	@FXML
 	void saveKeyOpen(KeyEvent event) {
 		try {
-			ouvertureFichier = Preferences.keyToString(event);
-			txt_ouvertureFichier.setEditable(false);
-			txt_ouvertureFichier.setText(ouvertureFichier);
+			listePrefs[2] = Preferences.keyToString(event);
+			listeTextePrefs[2].setEditable(false);
+			listeTextePrefs[2].setText(listePrefs[2]);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
 	}
 
-    /**
-     * Sauvegarde la combinaison de touche pour : la page précédente
-     * @param event
-     */
+	/**
+	 * Sauvegarde la combinaison de touche pour : la page précédente
+	 * @param event
+	 */
 	@FXML
 	void saveKeyPrec(KeyEvent event) {
 		try {
-			pagePrec = Preferences.keyToString(event);
-			txt_pagePrec.setEditable(false);
-			txt_pagePrec.setText(pagePrec);
+			listePrefs[1] = Preferences.keyToString(event);
+			listeTextePrefs[1].setEditable(false);
+			listeTextePrefs[1].setText(listePrefs[1]);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
 	}
 
-    /**
-     * Sauvegarde la combinaison de touche pour : la page suivante
-     * @param event
-     */
+	/**
+	 * Sauvegarde la combinaison de touche pour : la page suivante
+	 * @param event
+	 */
 	@FXML
 	void saveKeySuiv(KeyEvent event) {
 
 		/* Convertion de l'evenement en combinaison ou en touche en String*/
 		try {
-			pageSuiv = Preferences.keyToString(event);
-			txt_pageSuiv.setEditable(false);
-			txt_pageSuiv.setText(pageSuiv);
+			listePrefs[0] = Preferences.keyToString(event);
+			listeTextePrefs[0].setEditable(false);
+			listeTextePrefs[0].setText(listePrefs[0]);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
 	}
 
 	/**
-     * Sauvegarde la combinaison de touche pour : la page suivante pour la vue A
-     * @param event
-     */
+	 * Sauvegarde la combinaison de touche pour : la page suivante pour la vue A
+	 * @param event
+	 */
 	@FXML
 	void saveKeySuivA(KeyEvent event) {
 
-		/* Convertion de l'evenement en combinaison ou en touche en String*/
-		try {
-			pageSuivA = Preferences.keyToString(event);
-			txt_suivA.setEditable(false);
-			txt_suivA.setText(pageSuivA);
-		} catch(IllegalArgumentException e) {
-			//e.printStackTrace();
-		}
+			/* Convertion de l'evenement en combinaison ou en touche en String*/
+			try {
+				listePrefs[5] = Preferences.keyToString(event);
+				listeTextePrefs[5].setEditable(false);
+				listeTextePrefs[5].setText(listePrefs[5]);
+			} catch(IllegalArgumentException e) {
+				//e.printStackTrace();
+			}
 	}
 
 	/**
-     * Sauvegarde la combinaison de touche pour : la page suivante pour la vue B
-     * @param event
-     */
+	 * Sauvegarde la combinaison de touche pour : la page suivante pour la vue B
+	 * @param event
+	 */
 	@FXML
 	void saveKeySuivB(KeyEvent event) {
 
 		/* Convertion de l'evenement en combinaison ou en touche en String*/
 		try {
-			pageSuivB = Preferences.keyToString(event);
-			txt_suivB.setEditable(false);
-			txt_suivB.setText(pageSuivB);
+			listePrefs[7] = Preferences.keyToString(event);
+			listeTextePrefs[7].setEditable(false);
+			listeTextePrefs[7].setText(listePrefs[7]);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
 	}
 
 	/**
-     * Sauvegarde la combinaison de touche pour : la page suivante pour la vue C
-     * @param event
-     */
+	 * Sauvegarde la combinaison de touche pour : la page suivante pour la vue C
+	 * @param event
+	 */
 	@FXML
 	void saveKeySuivC(KeyEvent event) {
 
 		/* Convertion de l'evenement en combinaison ou en touche en String*/
 		try {
-			pageSuivC = Preferences.keyToString(event);
-			txt_suivC.setEditable(false);
-			txt_suivC.setText(pageSuivC);
+			listePrefs[9] = Preferences.keyToString(event);
+			listeTextePrefs[9].setEditable(false);
+			listeTextePrefs[9].setText(listePrefs[9]);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
 	}
 
 	/**
-     * Sauvegarde la combinaison de touche pour : la page suivante pour la vue D
-     * @param event
-     */
+	 * Sauvegarde la combinaison de touche pour : la page suivante pour la vue D
+	 * @param event
+	 */
 	@FXML
 	void saveKeySuivD(KeyEvent event) {
 
 		/* Convertion de l'evenement en combinaison ou en touche en String*/
 		try {
-			pageSuivD = Preferences.keyToString(event);
-			txt_suivD.setEditable(false);
-			txt_suivD.setText(pageSuivD);
+			listePrefs[11] = Preferences.keyToString(event);
+			listeTextePrefs[11].setEditable(false);
+			listeTextePrefs[11].setText(listePrefs[11]);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
 	}
 
 	/**
-     * Sauvegarde la combinaison de touche pour : la page précédente A
-     * @param event
-     */
+	 * Sauvegarde la combinaison de touche pour : la page précédente A
+	 * @param event
+	 */
 	@FXML
 	void saveKeyPrecA(KeyEvent event) {
 
 		/* Convertion de l'evenement en combinaison ou en touche en String*/
 		try {
-			pagePrecA = Preferences.keyToString(event);
-			txt_precA.setEditable(false);
-			txt_precA.setText(pagePrecA);
+			listePrefs[6] = Preferences.keyToString(event);
+			listeTextePrefs[6].setEditable(false);
+			listeTextePrefs[6].setText(listePrefs[6]);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
 	}
 
 	/**
-     * Sauvegarde la combinaison de touche pour : la page précédente B
-     * @param event
-     */
+	 * Sauvegarde la combinaison de touche pour : la page précédente B
+	 * @param event
+	 */
 	@FXML
 	void saveKeyPrecB(KeyEvent event) {
 
 		/* Convertion de l'evenement en combinaison ou en touche en String*/
 		try {
-			pagePrecB = Preferences.keyToString(event);
-			txt_precB.setEditable(false);
-			txt_precB.setText(pagePrecB);
+			listePrefs[8] = Preferences.keyToString(event);
+			listeTextePrefs[8].setEditable(false);
+			listeTextePrefs[8].setText(listePrefs[8]);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
@@ -307,34 +307,34 @@ public class ControleurTouches implements Initializable{
 
 
 	/**
-     * Sauvegarde la combinaison de touche pour : la page précédente C
-     * @param event
-     */
+	 * Sauvegarde la combinaison de touche pour : la page précédente C
+	 * @param event
+	 */
 	@FXML
 	void saveKeyPrecC(KeyEvent event) {
 
 		/* Convertion de l'evenement en combinaison ou en touche en String*/
 		try {
-			pagePrecC = Preferences.keyToString(event);
-			txt_precC.setEditable(false);
-			txt_precC.setText(pagePrecC);
+			listePrefs[10] = Preferences.keyToString(event);
+			listeTextePrefs[10].setEditable(false);
+			listeTextePrefs[10].setText(listePrefs[10]);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
 	}
 
 	/**
-     * Sauvegarde la combinaison de touche pour : la page précédente D
-     * @param event
-     */
+	 * Sauvegarde la combinaison de touche pour : la page précédente D
+	 * @param event
+	 */
 	@FXML
 	void saveKeyPrecD(KeyEvent event) {
 
 		/* Convertion de l'evenement en combinaison ou en touche en String*/
 		try {
-			pagePrecD = Preferences.keyToString(event);
-			txt_precD.setEditable(false);
-			txt_precD.setText(pagePrecD);
+			listePrefs[12] = Preferences.keyToString(event);
+			listeTextePrefs[12].setEditable(false);
+			listeTextePrefs[12].setText(listePrefs[12]);
 		} catch(IllegalArgumentException e) {
 			//e.printStackTrace();
 		}
