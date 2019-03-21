@@ -77,6 +77,19 @@ public class ControleurPrincipal implements Initializable {
 	/** Vue actuellement en création */
 	private Vue vueEnCreation;
 
+	/**
+	 * @return valeur de splitPanePdf
+	 */
+	public SplitPane getSplitPanePdf() {
+		return splitPanePdf;
+	}
+
+	/**
+	 * @return valeur de fenDeux
+	 */
+	public SplitPane getFenDeux() {
+		return fenDeux;
+	}
 
 	/**
 	 * Definit si l'orientation courante est horizontal ou non
