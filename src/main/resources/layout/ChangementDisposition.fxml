@@ -26,6 +26,7 @@
                   </Label>
                </children>
             </AnchorPane>
+            <Label fx:id="lbl_empA" layoutX="68.0" layoutY="170.0" text="Haut" textAlignment="CENTER" visible="false" />
             <AnchorPane fx:id="posB" layoutX="152.0" layoutY="16.0" prefHeight="157.0" prefWidth="133.0" style="-fx-background-color: #A9A9A9; -fx-border-color: gray;">
                <children>
                   <Label fx:id="labelB" maxHeight="0.0" maxWidth="0.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" text="Label">
@@ -39,6 +40,7 @@
                   </Label>
                </children>
             </AnchorPane>
+            <Label fx:id="lbl_empB" layoutX="202.0" layoutY="170.0" prefHeight="21.0" prefWidth="26.0" text="Bas" textAlignment="CENTER" visible="false" />
             <AnchorPane fx:id="posC" layoutX="319.0" layoutY="15.0" prefHeight="157.0" prefWidth="133.0" style="-fx-background-color: lightgray; -fx-border-color: grey;">
                <children>
                   <Label fx:id="labelC" maxHeight="0.0" maxWidth="0.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" text="Label">
@@ -52,6 +54,7 @@
                   </Label>
                </children>
             </AnchorPane>
+            <Label fx:id="lbl_empC" layoutX="368.0" layoutY="170.0" prefHeight="21.0" prefWidth="36.0" text="Haut" textAlignment="CENTER" visible="false" />
             <AnchorPane fx:id="posD" layoutX="452.0" layoutY="15.0" prefHeight="157.0" prefWidth="133.0" style="-fx-background-color: #A9A9A9; -fx-border-color: grey;">
                <children>
                   <Label fx:id="labelD" maxHeight="0.0" maxWidth="0.0" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" text="Label">
@@ -65,12 +68,26 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="posSuppr" layoutX="11.0" layoutY="206.0" prefHeight="52.0" prefWidth="582.0" style="-fx-background-color: lightgray; -fx-border-style: segments(10, 15, 15, 15)  line-cap round;">
+            <Label fx:id="lbl_empD" layoutX="510.0" layoutY="170.0" prefHeight="21.0" prefWidth="30.0" text="Bas" textAlignment="CENTER" visible="false" />
+            <AnchorPane fx:id="posSuppr" layoutX="11.0" layoutY="196.0" prefHeight="52.0" prefWidth="582.0" style="-fx-background-color: lightgray; -fx-border-style: segments(10, 15, 15, 15)  line-cap round;">
                <children>
                   <Label layoutX="212.0" layoutY="16.0" text="Glisser ici pour supprimer" />
                </children>
             </AnchorPane>
+            <Label layoutX="101.0" layoutY="-4.0" text="Ecran principal" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="395.0" layoutY="-4.0" text="Ecran secondaire" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
          </children>
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
       </AnchorPane>
    </center>
    <top>
@@ -98,17 +115,17 @@
             </Button>
             <Button fx:id="retablir" mnemonicParsing="false" onAction="#actionRetablir" prefHeight="31.0" prefWidth="180.0" text="RETABLIR">
                <HBox.margin>
-                  <Insets bottom="5.0" right="30.0" />
+                  <Insets bottom="2.0" right="30.0" />
                </HBox.margin>
             </Button>
             <Button fx:id="valider" mnemonicParsing="false" onAction="#actionValider" prefHeight="31.0" prefWidth="171.0" text="VALIDER">
                <HBox.margin>
-                  <Insets bottom="5.0" right="20.0" />
+                  <Insets bottom="2.0" right="20.0" />
                </HBox.margin>
             </Button>
          </children>
          <BorderPane.margin>
-            <Insets bottom="15.0" left="15.0" right="15.0" top="2.0" />
+            <Insets bottom="10.0" left="15.0" right="15.0" top="2.0" />
          </BorderPane.margin>
       </HBox>
    </bottom>

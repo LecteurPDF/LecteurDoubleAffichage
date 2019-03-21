@@ -109,6 +109,18 @@ public class ControleurChangementDisposition implements Initializable {
 	/** Definit l'orientation des splitpane */
 	private boolean orientHorizontal;
 
+    @FXML
+    private Label lbl_empA;
+
+    @FXML
+    private Label lbl_empB;
+
+    @FXML
+    private Label lbl_empC;
+
+    @FXML
+    private Label lbl_empD;
+
 	/**
 	 * Liste toutes les vues existantes de l'application
 	 * au moment de l'ouverture de la fenêtre modale de changement de disposition
@@ -134,8 +146,16 @@ public class ControleurChangementDisposition implements Initializable {
 		orientHorizontal = Main.controller.isHorizontal();
 		if(orientHorizontal) {
 			btn_sep.setText("Orientation verticale");
+			lbl_empA.setVisible(false);
+			lbl_empB.setVisible(false);
+			lbl_empC.setVisible(false);
+			lbl_empD.setVisible(false);
 		} else {
 			btn_sep.setText("Orientation horizontale");
+			lbl_empA.setVisible(true);
+			lbl_empB.setVisible(true);
+			lbl_empC.setVisible(true);
+			lbl_empD.setVisible(true);
 		}
 
 		/* On place toutes les vues dans l'AnchorPane correspondant à leur emplacement */
@@ -446,11 +466,27 @@ public class ControleurChangementDisposition implements Initializable {
 	 */
 	@FXML
 	void changerOrientation(ActionEvent event) {
+
+
+
 		if(orientHorizontal) {
 			btn_sep.setText("Orientation verticale");
+
+			lbl_empA.setVisible(true);
+			lbl_empB.setVisible(true);
+			lbl_empC.setVisible(true);
+			lbl_empD.setVisible(true);
+
 			orientHorizontal = false;
 		} else {
+			System.out.println("horizontal");
 			btn_sep.setText("Orientation horizontale");
+
+			lbl_empA.setVisible(false);
+			lbl_empB.setVisible(false);
+			lbl_empC.setVisible(false);
+			lbl_empD.setVisible(false);
+
 			orientHorizontal = true;
 		}
 	}

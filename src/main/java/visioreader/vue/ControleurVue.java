@@ -27,6 +27,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -340,6 +341,15 @@ public class ControleurVue implements Initializable {
                 vboxVue.getChildren().addAll(menu,scrollPaneImg);
 
             });
+
+			vboxVue.getScene().setOnMouseDragEntered(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent arg0) {
+					Stage stage = (Stage) vboxVue.getScene().getWindow();
+					stage.toFront();
+				}
+			});
+
         } else { // Sinon le menu est dans une fenetre
             /* On ferme la fenêtre, on vide le BorderPane et on remet l'élément dans la VBox dans le bon ordre*/
             stageMenuSepare.close();

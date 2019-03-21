@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import java.util.TreeMap;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -378,6 +380,9 @@ public class ControleurPrincipal implements Initializable {
 
 					stage.show();
 
+					stage.toFront();
+					stage.setAlwaysOnTop(true);
+
 					fenDeux.setOnKeyPressed(e -> {
 						entreeClavier(e);
 					});
@@ -386,6 +391,7 @@ public class ControleurPrincipal implements Initializable {
 					fenDeux.getScene().getWindow().setOnCloseRequest(e -> {
 						fenDeux = null;
 					});
+
 				}
 				fenDeux.getItems().add(newAnchor);
 			} else {
@@ -420,7 +426,7 @@ public class ControleurPrincipal implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/ChangementDisposition.fxml"));
 			BorderPane root = (BorderPane) loader.load();
 
-			Scene scene = new Scene(root,605,337);
+			Scene scene = new Scene(root,600,360);
 
 			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 
@@ -523,6 +529,7 @@ public class ControleurPrincipal implements Initializable {
 	 */
 	@FXML
 	void modePresentation(ActionEvent event) {
+
 		if(fenDeux != null) {
 			((Stage)fenDeux.getScene().getWindow()).setFullScreen(true);
 		}
