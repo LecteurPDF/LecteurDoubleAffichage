@@ -341,9 +341,8 @@ public class ControleurPrincipal implements Initializable {
 
 				vues.get(i).getControleur().chargementFichier(fich);
 
-				System.out.println();
 			} catch(EmplacementIncorrect e){
-				System.out.println("Sa n'arrive jamais !");
+				System.out.println("Ca n'arrive jamais !");
 			}
 		}
 		lancementDisposition();
@@ -442,7 +441,8 @@ public class ControleurPrincipal implements Initializable {
 	}
 
 	/**
-	 * Applique la méthode 'zoomeVue' sur toutes les vues de Vue.getListeVues()
+	 * Applique la méthode 'zoomeVue' sur toutes les vues de V
+	 *
 	 */
 	public void zoomAuto() {
 		/* On parcourt toutes les vues */
@@ -469,6 +469,7 @@ public class ControleurPrincipal implements Initializable {
 
 		// SI il y a un diviseur, alors il y a deux vues dans la fenêtre
 		nbVues = tab[fenetre-1].getDividerPositions().length == 1 ? 2 : 1;
+		vue.getControleur().getSldZoom().setValue((tab[fenetre-1].getHeight()-tailleMenu)/vue.getControleur().getImageAfficher().getImage().getHeight()*100);
 
 		// On règle la hauteur voulue
 		vue.getControleur().getImageAfficher().setFitHeight(tab[fenetre-1].getHeight()-tailleMenu);
