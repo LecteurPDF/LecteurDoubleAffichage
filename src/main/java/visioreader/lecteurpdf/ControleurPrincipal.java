@@ -219,7 +219,10 @@ public class ControleurPrincipal implements Initializable {
 		/* touchePleinEcran2 */
 		if(action[3]) {
 			if(fenDeux != null) {
-				((Stage)fenDeux.getScene().getWindow()).setFullScreen(true);
+				Stage stage = (Stage) fenDeux.getScene().getWindow();
+				stage.setFullScreen(true);
+				stage.toFront();
+				stage.setAlwaysOnTop(true);
 			}
 		}
 		/* toucheOuvrirFichier */
@@ -389,7 +392,6 @@ public class ControleurPrincipal implements Initializable {
 					stage.show();
 
 					stage.toFront();
-					stage.setAlwaysOnTop(true);
 
 					fenDeux.setOnKeyPressed(e -> {
 						entreeClavier(e);
