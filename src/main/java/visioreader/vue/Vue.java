@@ -36,6 +36,9 @@ public class Vue {
     /** La représentation ( fxml ( graphique ) ) de la vue */
     private VBox vue;
 
+    /** Vrai si le menu est sorti de la fenêtre, sinon faux */
+    private boolean menuSorti;
+
     /** Le controleur lié à la vue ( graphique ) */
     private ControleurVue controleur;
 
@@ -54,6 +57,8 @@ public class Vue {
             vue = (VBox) loader.load();
             controleur = loader.getController();
             controleur.setVue(this);
+
+            menuSorti = false;
 
             listeVues.add(this);
         } catch (IOException e) {
@@ -151,7 +156,23 @@ public class Vue {
         return false;
     }
 
+
+
     /**
+     * @return Vrai si le menu est sorti, sinon faux
+     */
+    public boolean isMenuSorti() {
+		return menuSorti;
+	}
+
+    /**
+     * @param menuSorti nouvelle valeur de menuSorti, vrai si le menu est sorti, sinon faux
+     */
+	public void setMenuSorti(boolean menuSorti) {
+		this.menuSorti = menuSorti;
+	}
+
+	/**
      * Ferme la vue
      */
     public void fermetureVue() {

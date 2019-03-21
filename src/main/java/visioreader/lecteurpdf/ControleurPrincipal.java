@@ -24,9 +24,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
@@ -435,6 +437,48 @@ public class ControleurPrincipal implements Initializable {
 
 		}
 
+		zoomAuto();
+
+	}
+
+	/**
+	 * Applique la méthode 'zoomeVue' sur toutes les vues de Vue.getListeVues()
+	 */
+	public void zoomAuto() {
+		/* On parcourt toutes les vues */
+		for (Vue vue : Vue.getListeVues()) {
+			zoomVue(vue);
+		}
+	}
+
+	/**
+	 * Permet de faire un zoom automatique sur la vue en fonction de la taille du
+	 * SplitPane dans lequel elle se trouve
+	 * @param vue La vue sur la laquette on souhaite faire le zoom
+	 */
+	public void zoomVue(Vue vue) {
+		int tailleMenu; // La taille en pixel du menu
+		int fenetre; // La fenetre sur laquelle la vue est présente
+		int nbVues; // Le nombre de vues ouvertes dans la fenêtre
+
+		tailleMenu = vue.isMenuSorti() ? 0 : 52;  // 0 Si le menu est sorti sinon 52
+		fenetre = vue.getEmplacement().getFenetre();
+
+		// On définit nbVues
+		SplitPane[] tab = {splitPanePdf, fenDeux};
+
+		// SI il y a un diviseur, alors il y a deux vues dans la fenêtre
+		nbVues = tab[fenetre-1].getDividerPositions().length == 1 ? 2 : 1;
+
+		// On règle la hauteur voulue
+		vue.getControleur().getImageAfficher().setFitHeight(tab[fenetre-1].getHeight()-tailleMenu);
+
+		// On règle la largeur voulue
+		if (nbVues == 1) {
+			vue.getControleur().getImageAfficher().setFitWidth(tab[fenetre-1].getWidth());
+		} else {
+			vue.getControleur().getImageAfficher().setFitWidth(tab[fenetre-1].getWidth()/2);
+		}
 	}
 
 	/**

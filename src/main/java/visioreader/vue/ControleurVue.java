@@ -350,6 +350,8 @@ public class ControleurVue implements Initializable {
 
             });
 
+            vue.setMenuSorti(true); // le menu est sorti
+
 			vboxVue.getScene().setOnMouseDragEntered(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
@@ -364,12 +366,22 @@ public class ControleurVue implements Initializable {
             menuSepare = null;
             vboxVue.getChildren().remove(scrollPaneImg);
             vboxVue.getChildren().addAll(menu,scrollPaneImg);
+            vue.setMenuSorti(false); // le menu n'est plus sorti
         }
     }
 
 
 
-    /**
+
+/**
+ *
+ * @return valeur de imageAfficher
+ */
+    public ImageView getImageAfficher() {
+		return imageAfficher;
+	}
+
+	/**
      * Initialise les evenements
      */
     @Override
