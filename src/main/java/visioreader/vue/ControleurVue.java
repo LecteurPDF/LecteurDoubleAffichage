@@ -176,7 +176,6 @@ public class ControleurVue implements Initializable {
 					}
 				});
 
-
 			}
 		} catch (PageInexistante e) {
 			Main.journaux.warning("Page inexistante");

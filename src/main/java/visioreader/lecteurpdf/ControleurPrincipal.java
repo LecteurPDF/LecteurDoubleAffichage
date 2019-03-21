@@ -455,7 +455,7 @@ public class ControleurPrincipal implements Initializable {
 
 	/**
 	 * Permet de faire un zoom automatique sur la vue en fonction de la taille du
-	 * SplitPane dans lequel elle se trouve
+	 * SplitPane dans lequel elle se trouve.
 	 * @param vue La vue sur la laquette on souhaite faire le zoom
 	 */
 	public void zoomVue(Vue vue) {

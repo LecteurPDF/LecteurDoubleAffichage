@@ -30,7 +30,7 @@ public class Vue {
     /** Emplacement courant définit par une fenêtre et une position */
     private Emplacement emplacement;
 
-    /** Elements du fichier pdf ouvert en cours ( fichier et page affich�e en ce moment ) */
+    /** Elements du fichier pdf ouvert en cours ( fichier et page affichée en ce moment ) */
     private OutilLecture pdf = new OutilLecture();
 
     /** La représentation ( fxml ( graphique ) ) de la vue */
