@@ -204,7 +204,11 @@ public class ControleurPrincipal implements Initializable {
 
 		/* touchePleinEcran1 */
 		if(action[2]) {
-			((Stage)parentVBox.getScene().getWindow()).setFullScreen(true);
+			if (action[3]) {
+
+			} else {
+				((Stage)parentVBox.getScene().getWindow()).setFullScreen(true);
+			}
 		}
 
 		/* touchePleinEcran2 */
