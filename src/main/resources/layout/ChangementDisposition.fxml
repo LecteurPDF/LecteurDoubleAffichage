@@ -108,7 +108,7 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="580.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btn_sep" mnemonicParsing="false" onAction="#changerOrientation" prefHeight="31.0" prefWidth="241.0" text="Separation verticale">
+            <Button fx:id="btn_sep" mnemonicParsing="false" onAction="#changerOrientation" prefHeight="31.0" prefWidth="241.0">
                <HBox.margin>
                   <Insets right="200.0" />
                </HBox.margin>
