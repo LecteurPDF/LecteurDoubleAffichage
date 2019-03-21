@@ -176,6 +176,7 @@ public class ControleurVue implements Initializable {
                     }
                 });
 
+
             }
         } catch (PageInexistante e) {
             Main.journaux.warning("Page inexistante");
@@ -189,12 +190,19 @@ public class ControleurVue implements Initializable {
      */
     private void setImagePrefs() {
 
-        StackPane conteneurImage = new StackPane(imageAfficher);
+        StackPane conteneurImage = new StackPane();
+
+        conteneurImage.getChildren().add(imageAfficher);
 
         imageAfficher.setPreserveRatio(true);
+        imageAfficher.setSmooth(true);
+        imageAfficher.setCache(true);
+
         scrollPaneImg.setContent(null);
 
         scrollPaneImg.setContent(conteneurImage);
+        System.out.println(conteneurImage.getWidth());
+        imageAfficher.setFitWidth(conteneurImage.getWidth());
 
         conteneurImage.minWidthProperty().bind(Bindings.createDoubleBinding(() ->
         scrollPaneImg.getViewportBounds().getWidth(), scrollPaneImg.viewportBoundsProperty()));

@@ -74,6 +74,9 @@ public class ControleurPrincipal implements Initializable {
 	/** La deuxième fenêtre de l'application */
 	private SplitPane fenDeux;
 
+	/** Vue actuellement en création */
+	private Vue vueEnCreation;
+
 
 	/**
 	 * Definit si l'orientation courante est horizontal ou non
@@ -318,7 +321,7 @@ public class ControleurPrincipal implements Initializable {
 				}
 
 				// Ajout de la vue à la fenêtre actuelle ( maximum 2 vues par fenétre)
-				new Vue(emplacement);
+				vueEnCreation = new Vue(emplacement);
 				vues = Vue.getListeVues();
 
 				vues.get(i).getControleur().chargementFichier(fich);
@@ -329,6 +332,7 @@ public class ControleurPrincipal implements Initializable {
 			}
 		}
 		lancementDisposition();
+		vueEnCreation = null;
 	}
 
 
@@ -439,6 +443,13 @@ public class ControleurPrincipal implements Initializable {
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setResizable(false);
 			stage.setScene(scene);
+
+			stage.setOnCloseRequest(e -> {
+				if(vueEnCreation != null) {
+					vueEnCreation.fermetureVue();
+				}
+			});
+
 			stage.showAndWait();
 			Main.controller.reload();
 		} catch (IOException e) {
