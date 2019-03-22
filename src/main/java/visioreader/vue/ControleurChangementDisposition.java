@@ -144,7 +144,6 @@ public class ControleurChangementDisposition implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		orientHorizontal = Main.controller.isHorizontal();
-		System.out.println(orientHorizontal);
 		if(orientHorizontal) {
 			btn_sep.setText("Separation vertical");
 			lbl_empA.setVisible(false);
@@ -152,7 +151,6 @@ public class ControleurChangementDisposition implements Initializable {
 			lbl_empC.setVisible(false);
 			lbl_empD.setVisible(false);
 		} else {
-			System.out.println("1");
 			btn_sep.setText("Separation horizontal");
 			lbl_empA.setVisible(true);
 			lbl_empB.setVisible(true);
@@ -472,7 +470,6 @@ public class ControleurChangementDisposition implements Initializable {
 
 
 		if(orientHorizontal) {
-			System.out.println("3");
 			btn_sep.setText("Separation horizontal");
 
 			lbl_empA.setVisible(true);
@@ -482,7 +479,6 @@ public class ControleurChangementDisposition implements Initializable {
 
 			orientHorizontal = false;
 		} else {
-			System.out.println("2");
 			btn_sep.setText("Separation vertical");
 
 			lbl_empA.setVisible(false);

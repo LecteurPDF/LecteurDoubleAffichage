@@ -115,7 +115,6 @@ public class Preferences {
 		}
 
 		prefs.put("DERNIER_FICHIER_" + 0, def);
-		System.out.println(i);
 	}
 
 	/**

@@ -29,6 +29,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
@@ -228,6 +229,12 @@ public class ControleurPrincipal implements Initializable {
 
 			} else {
 				((Stage)parentVBox.getScene().getWindow()).setFullScreen(true);
+				/* On parcourt toutes les vues */
+				for (Vue vue : Vue.getListeVues()) {
+					if(vue.getEmplacement().getFenetre() == 1)
+						zoomVue(vue);
+				}
+
 			}
 		}
 
@@ -238,6 +245,11 @@ public class ControleurPrincipal implements Initializable {
 				stage.setFullScreen(true);
 				stage.toFront();
 				stage.setAlwaysOnTop(true);
+
+				for (Vue vue : Vue.getListeVues()) {
+					if(vue.getEmplacement().getFenetre() == 2)
+						zoomVue(vue);
+				}
 			}
 		}
 		/* toucheOuvrirFichier */
@@ -345,7 +357,7 @@ public class ControleurPrincipal implements Initializable {
 				vues.get(i).getControleur().chargementFichier(fich);
 
 			} catch(EmplacementIncorrect e){
-				System.out.println("Ca n'arrive jamais !");
+				Main.journaux.severe("Erreur emplacement impossible");
 			}
 		}
 		lancementDisposition();
@@ -475,12 +487,19 @@ public class ControleurPrincipal implements Initializable {
 
 		// On règle la hauteur voulue
 		vue.getControleur().getImageAfficher().setFitHeight(tab[fenetre-1].getHeight()-tailleMenu);
+		ScrollPane sp = (ScrollPane) vue.getVue().getChildren().get(1);
+		sp.setHbarPolicy(ScrollBarPolicy.NEVER);
 
 		// On règle la largeur voulue
 		if (nbVues == 1) {
+			vue.getControleur().getImageAfficher().setPreserveRatio(false);
 			vue.getControleur().getImageAfficher().setFitWidth(tab[fenetre-1].getWidth());
+			vue.getControleur().getImageAfficher().setPreserveRatio(true);
+
 		} else {
+			vue.getControleur().getImageAfficher().setPreserveRatio(false);
 			vue.getControleur().getImageAfficher().setFitWidth(tab[fenetre-1].getWidth()/2);
+			vue.getControleur().getImageAfficher().setPreserveRatio(true);
 		}
 	}
 

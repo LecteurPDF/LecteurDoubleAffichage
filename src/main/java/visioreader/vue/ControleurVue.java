@@ -24,6 +24,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
@@ -203,13 +204,10 @@ public class ControleurVue implements Initializable {
 
 		imageAfficher.setPreserveRatio(true);
 		imageAfficher.setSmooth(true);
-		imageAfficher.setCache(true);
 
 		scrollPaneImg.setContent(null);
 
 		scrollPaneImg.setContent(conteneurImage);
-		System.out.println(conteneurImage.getWidth());
-		imageAfficher.setFitWidth(conteneurImage.getWidth());
 
 		conteneurImage.minWidthProperty().bind(Bindings.createDoubleBinding(() ->
 		scrollPaneImg.getViewportBounds().getWidth(), scrollPaneImg.viewportBoundsProperty()));
@@ -271,11 +269,17 @@ public class ControleurVue implements Initializable {
 	 * Définit le zoom de l'image du pdf en court
 	 * Le ratio hauteur et largeur est gardé
 	 * @param hauteur souhaité
+	 *
 	 */
 	public void setZoom(Double hauteur){
 		if(hauteur != 0) {
 			imageAfficher.setPreserveRatio(true);
 			imageAfficher.setFitHeight(hauteur);
+			imageAfficher.setFitWidth(0);// On regle par la hauteu, non par la largeur
+
+			ScrollPane sp = (ScrollPane) vue.getVue().getChildren().get(1);
+			sp.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+
 		}
 
 	}
@@ -349,15 +353,18 @@ public class ControleurVue implements Initializable {
 			stageMenuSepare.setScene(scene);
 			stageMenuSepare.show();
 
+			vue.setMenuSorti(true); // le menu est sorti
+			Main.controller.zoomVue(vue);
+
 			/* A la fermeture on remet l'élément dans la VBox dans le bon ordre */
 			stageMenuSepare.setOnCloseRequest((WindowEvent eventClose) -> {
 				menuSepare = null;
 				vboxVue.getChildren().remove(scrollPaneImg);
 				vboxVue.getChildren().addAll(menu,scrollPaneImg);
+				vue.setMenuSorti(false); // le menu n'est plus sorti
+				Main.controller.zoomVue(vue);
 
 			});
-
-			vue.setMenuSorti(true); // le menu est sorti
 
 			vboxVue.getScene().setOnMouseDragEntered(new EventHandler<MouseEvent>() {
 				@Override
@@ -374,6 +381,7 @@ public class ControleurVue implements Initializable {
 			vboxVue.getChildren().remove(scrollPaneImg);
 			vboxVue.getChildren().addAll(menu,scrollPaneImg);
 			vue.setMenuSorti(false); // le menu n'est plus sorti
+			Main.controller.zoomVue(vue);
 		}
 	}
 
