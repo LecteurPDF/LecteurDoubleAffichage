@@ -54,8 +54,11 @@ public class Main extends Application {
             primaryStage.setTitle("Visio Reader - Lecteur PDF Double Affichage");
             primaryStage.getIcons().add(new Image("/image/icone.png"));
 
+            primaryStage.setMaximized(true);
+            
             primaryStage.setScene(scene);
             primaryStage.show();
+          
 
             /* Quand on ferme la fenêtre principale, on ferme l'application */
             primaryStage.setOnCloseRequest((WindowEvent eventClose) -> {

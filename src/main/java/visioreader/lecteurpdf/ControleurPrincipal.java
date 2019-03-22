@@ -619,7 +619,9 @@ public class ControleurPrincipal implements Initializable {
 
 	@FXML
 	void ouvrirManuel() {
-		chargementFichier(new File("/manuel.pdf"));
+		URL url = getClass().getResource("/manuel.pdf");
+		
+		chargementFichier(new File(url.getPath()));
 	}
 
 	/**
