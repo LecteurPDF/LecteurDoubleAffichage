@@ -619,10 +619,34 @@ public class ControleurPrincipal implements Initializable {
 
 	@FXML
 	void ouvrirManuel() {
-		URL url = getClass().getResource("/manuel.pdf");
-		
+		URL url = getClass().getResource("/manuel/manuel.pdf");
+
 		chargementFichier(new File(url.getPath()));
 	}
+
+    @FXML
+    void ouvrirAPropos(ActionEvent event) {
+    	try {
+			/* Chargement du fxml du menu préférence */
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(getClass().getResource("/layout/APropos.fxml"));
+
+			/* On prépare le théatre ( stage ) et la scene */
+			Stage stage = new Stage();
+			Scene scene = new Scene(fxmlLoader.load(), 800, 500);
+			stage.setTitle("A Propos - Lecteur PDF");
+			stage.setScene(scene);
+
+			//stage.setResizable(false);
+
+			/* Fenetre modale */
+			stage.initOwner( parentVBox.getScene().getWindow() );
+			stage.initModality( Modality.APPLICATION_MODAL );
+			stage.showAndWait();
+		} catch (IOException e) {
+			Main.journaux.severe("Problème de lancement de la fenetre a propos");
+		}
+    }
 
 	/**
 	 * Permet de passer en mode présentation ( deuxième fenêtre en plein écran )

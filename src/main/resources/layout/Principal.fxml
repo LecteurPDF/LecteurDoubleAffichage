@@ -41,7 +41,7 @@
               <Menu mnemonicParsing="false" text="Aide">
                 <items>
                   <MenuItem mnemonicParsing="false" onAction="#ouvrirManuel" text="Manuel utilisateur" />
-                        <MenuItem disable="true" mnemonicParsing="false" text="A propos de ..." />
+                        <MenuItem mnemonicParsing="false" onAction="#ouvrirAPropos" text="A propos de ..." />
                 </items>
               </Menu>
             </menus>
