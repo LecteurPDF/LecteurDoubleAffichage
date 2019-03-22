@@ -26,8 +26,6 @@
                   <MenuItem mnemonicParsing="false" onAction="#changerFichier" onMenuValidation="#changerFichier" text="Ouvrir" />
                   <Menu fx:id="menuDerniersFichiers" mnemonicParsing="false" text="Ouvrir dernier fichier" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Fermer fichier" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#ouvrirPref" text="Preferences" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#fermetureFenetre" text="Quitter" />
@@ -35,20 +33,14 @@
               </Menu>
               <Menu mnemonicParsing="false" text="Affichage">
                 <items>
-                  <MenuItem disable="true" mnemonicParsing="false" text="Ouvrir une deuxiéme vue" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Changer disposition" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Changer décallage" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Permuter vue" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Permuter écran" />
+                  <MenuItem mnemonicParsing="false" onAction="#lancementDisposition" text="Changer disposition" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#modePresentation" text="Mode présentation" />
+                        <MenuItem mnemonicParsing="false" onAction="#zoomAuto" text="Zoom automatique" />
                 </items>
               </Menu>
               <Menu mnemonicParsing="false" text="Aide">
                 <items>
-                  <MenuItem disable="true" mnemonicParsing="false" text="Manuel utilisateur" />
+                  <MenuItem mnemonicParsing="false" onAction="#ouvrirManuel" text="Manuel utilisateur" />
                         <MenuItem disable="true" mnemonicParsing="false" text="A propos de ..." />
                 </items>
               </Menu>

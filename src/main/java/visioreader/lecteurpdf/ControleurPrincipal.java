@@ -506,6 +506,7 @@ public class ControleurPrincipal implements Initializable {
 	/**
 	 * Permet d'initialiser la disposition
 	 */
+	@FXML
 	void lancementDisposition() {
 		try {
 			/* Import FXML */
@@ -616,6 +617,10 @@ public class ControleurPrincipal implements Initializable {
 		//TODO
 	}
 
+	@FXML
+	void ouvrirManuel() {
+		chargementFichier(new File("/manuel.pdf"));
+	}
 
 	/**
 	 * Permet de passer en mode présentation ( deuxième fenêtre en plein écran )
