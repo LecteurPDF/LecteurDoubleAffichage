@@ -166,12 +166,11 @@ public class Preferences {
 		return liaisonVue;
 	}
 
-	/** TODO CEST QUOI CA
+	/**
 	 * Nouvelle valeur de liaisonVue
-	 * @param indice
-	 * @param vue
+	 * @param vuesLiees nouvelle valeur de liaisonVue
 	 */
-	public void setVueLiee(int indice, boolean vue) {
-		liaisonVue.add(indice, vue);
+	public void setVueLiee(LinkedList<Boolean> vuesLiees) {
+		liaisonVue = vuesLiees;
 	}
 }

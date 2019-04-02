@@ -203,9 +203,25 @@ public class ControleurPrincipal implements Initializable {
 			if (action[5] || action[7] || action[9] || action[11]) {
 				// Ne rien faire pour éviter conflit avec les changements de vue
 			} else {
-				for (int i=0; i < Vue.getListeVues().size() ; i++) {
+				/* On regarde les vues liées */
+				for (Vue vue : Vue.getListeVues()) {
+					int i;
+					if (vue.getEmplacement().getFenetre() == 1) {
+						if (vue.getEmplacement().getPosition() == 1) {
+							i = 0;
+						} else  {
+							i = 1;
+						}
+					} else  {
+						if (vue.getEmplacement().getPosition() == 1) {
+							i = 2;
+						} else  {
+							i = 3;
+						}
+					}
+
 					if (Preferences.getInstance().getVueLiee().get(i)) {
-						Vue.getListeVues().get(i).getControleur().prochainePage(null);
+						vue.getControleur().prochainePage(null);
 					}
 				}
 			}
@@ -217,9 +233,25 @@ public class ControleurPrincipal implements Initializable {
 			if (action[6] || action[8] || action[10] || action[12]) {
 				// Ne rien faire pour éviter conflit avec les changements de vue
 			} else {
-				for (int i=0; i < Vue.getListeVues().size() ; i++) {
+				/* On regarde les vues liées */
+				for (Vue vue : Vue.getListeVues()) {
+					int i;
+					if (vue.getEmplacement().getFenetre() == 1) {
+						if (vue.getEmplacement().getPosition() == 1) {
+							i = 0;
+						} else  {
+							i = 1;
+						}
+					} else  {
+						if (vue.getEmplacement().getPosition() == 1) {
+							i = 2;
+						} else  {
+							i = 3;
+						}
+					}
+
 					if (Preferences.getInstance().getVueLiee().get(i)) {
-						Vue.getListeVues().get(i).getControleur().precedentePage(null);
+						vue.getControleur().precedentePage(null);
 					}
 				}
 			}
@@ -449,8 +481,8 @@ public class ControleurPrincipal implements Initializable {
 				((Stage) fenDeux.getScene().getWindow()).close();
 				fenDeux = null;
 			}
-			
-			
+
+
 			setHorizontal(isHorizontal());
 
 		}

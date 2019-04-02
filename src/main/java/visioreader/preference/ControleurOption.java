@@ -1,6 +1,7 @@
 package visioreader.preference;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -102,10 +103,12 @@ public class ControleurOption implements Initializable{
         prefs.put("QUALITE", valQual);
 
         /* Permet de lier les vues dont la checkbow à été cochée */
-        prefs.setVueLiee(0, vueA.isSelected());
-        prefs.setVueLiee(1, vueB.isSelected());
-        prefs.setVueLiee(2, vueC.isSelected());
-        prefs.setVueLiee(3, vueD.isSelected());
+        LinkedList<Boolean> vueLiees = new LinkedList<Boolean> ();
+        vueLiees.add(0, vueA.isSelected());
+        vueLiees.add(1, vueB.isSelected());
+        vueLiees.add(2, vueC.isSelected());
+        vueLiees.add(3, vueD.isSelected());
+        prefs.setVueLiee(vueLiees);
 
 
         ((Stage) btn_sauver.getScene().getWindow()).close(); // fermeture fenêtre préférence
