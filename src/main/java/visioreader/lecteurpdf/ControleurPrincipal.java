@@ -487,7 +487,7 @@ public class ControleurPrincipal implements Initializable {
 
 		// On règle la hauteur voulue
 		vue.getControleur().getImageAfficher().setFitHeight(tab[fenetre-1].getHeight()-tailleMenu);
-		ScrollPane sp = (ScrollPane) vue.getVue().getChildren().get(1);
+		ScrollPane sp = (ScrollPane) vue.getVue().getChildren().get(vue.getVue().getChildren().size()-1);
 		sp.setHbarPolicy(ScrollBarPolicy.NEVER);
 
 		// On règle la largeur voulue

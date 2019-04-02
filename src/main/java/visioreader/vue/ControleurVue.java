@@ -277,7 +277,7 @@ public class ControleurVue implements Initializable {
 			imageAfficher.setFitHeight(hauteur);
 			imageAfficher.setFitWidth(0);// On regle par la hauteu, non par la largeur
 
-			ScrollPane sp = (ScrollPane) vue.getVue().getChildren().get(1);
+			ScrollPane sp = (ScrollPane) vue.getVue().getChildren().get(vue.getVue().getChildren().size()-1);
 			sp.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 
 		}
