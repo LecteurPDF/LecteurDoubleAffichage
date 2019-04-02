@@ -111,12 +111,14 @@ public class ControleurPrincipal implements Initializable {
 	public void setHorizontal(boolean horizontal) {
 		if(horizontal) {
 			splitPanePdf.setOrientation(Orientation.HORIZONTAL);
-			if(fenDeux != null)
+			if(fenDeux != null) {
 				fenDeux.setOrientation(Orientation.HORIZONTAL);
+			}
 		} else {
 			splitPanePdf.setOrientation(Orientation.VERTICAL);
-			if(fenDeux != null)
+			if(fenDeux != null) {
 				fenDeux.setOrientation(Orientation.VERTICAL);
+			}
 		}
 	}
 
@@ -447,6 +449,9 @@ public class ControleurPrincipal implements Initializable {
 				((Stage) fenDeux.getScene().getWindow()).close();
 				fenDeux = null;
 			}
+			
+			
+			setHorizontal(isHorizontal());
 
 		}
 
@@ -564,7 +569,6 @@ public class ControleurPrincipal implements Initializable {
 						Main.journaux.warning("Aucun fichier en mémoire");
 						Alert alerte = new Alert(AlertType.WARNING, "Erreur chemin du fichier", ButtonType.OK);
 						alerte.showAndWait();
-						e.printStackTrace();
 					}
 				}
 			});
