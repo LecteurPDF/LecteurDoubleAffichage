@@ -28,7 +28,7 @@
          </font>
       </Text>
       <Line endX="695.0" layoutX="104.0" layoutY="363.0" startX="-110.0" />
-      <Text layoutX="169.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vues liées TODO">
+      <Text layoutX="169.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vues liées">
          <font>
             <Font size="14.0" />
          </font>
