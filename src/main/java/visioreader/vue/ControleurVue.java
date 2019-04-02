@@ -408,6 +408,7 @@ public class ControleurVue implements Initializable {
 		MenuItem changeDisp = new MenuItem("Changer disposition");
 		MenuItem changeEnPres = new MenuItem("Mettre en présentation");
 		MenuItem changeFich = new MenuItem("Changer fichier");
+		MenuItem zoomAuto = new MenuItem("Zoom Automatique");
 		MenuItem fermVue = new MenuItem("Fermer vue");
 
 		/* Evénements des différentes options */
@@ -484,12 +485,20 @@ public class ControleurVue implements Initializable {
 
 			}
 		});
+		
+		// Evenement d'affichage de la popup de changement de disposition
+				zoomAuto.setOnAction(new EventHandler<ActionEvent>() {
+
+					public void handle(ActionEvent event) {
+						Main.controller.zoomVue(vue);
+					}
+				});
 
 
 
 
 		/* Ajout des options */
-		contextMenu.getItems().addAll(changeDisp, changeEnPres,changeFich, fermVue);
+		contextMenu.getItems().addAll(changeDisp, changeEnPres,changeFich,zoomAuto, fermVue);
 		scrollPaneImg.setContextMenu(contextMenu);
 	}
 
