@@ -186,11 +186,19 @@ public class ControleurPrincipal implements Initializable {
 
 		for (int i = 0 ; i < touche.length ; i++) {
 			if(!touche[i].equals("")) {
+				//touche[i] = touche[i].toUpperCase();
 				if(touche[i].contains("+")) {
 					entreeCombi = KeyCombination.valueOf(touche[i]);
 					action[i] = entreeCombi.match(event);
 				} else{
-					entreeTouche = KeyCode.valueOf(touche[i]);
+					String uneTouche ;
+					if(touche[i].contains("NUMPAD")) {
+						uneTouche = touche[i].replace(" ", "");
+					} else {
+						uneTouche = touche[i].replace(' ', '_');
+					}
+					entreeTouche = KeyCode.valueOf(uneTouche);
+					System.out.println(uneTouche + "\n" + entreeTouche.getName());
 					action[i] = event.getCode() == entreeTouche;
 				}
 			}

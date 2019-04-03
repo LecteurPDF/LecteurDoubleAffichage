@@ -28,6 +28,7 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -356,6 +357,10 @@ public class ControleurVue implements Initializable {
 			vue.setMenuSorti(true); // le menu est sorti
 			Main.controller.zoomVue(vue);
 
+			scene.setOnKeyPressed(e -> {
+				Main.controller.entreeClavier(e);
+			});
+
 			/* A la fermeture on remet l'élément dans la VBox dans le bon ordre */
 			stageMenuSepare.setOnCloseRequest((WindowEvent eventClose) -> {
 				menuSepare = null;
@@ -386,14 +391,17 @@ public class ControleurVue implements Initializable {
 	}
 
 
-
-
 	/**
 	 *
 	 * @return valeur de imageAfficher
 	 */
 	public ImageView getImageAfficher() {
 		return imageAfficher;
+	}
+
+    @FXML
+    void appuyerTouche(KeyEvent event) {
+		Main.controller.entreeClavier(event);
 	}
 
 	/**
@@ -485,7 +493,7 @@ public class ControleurVue implements Initializable {
 
 			}
 		});
-		
+
 		// Evenement d'affichage de la popup de changement de disposition
 				zoomAuto.setOnAction(new EventHandler<ActionEvent>() {
 
