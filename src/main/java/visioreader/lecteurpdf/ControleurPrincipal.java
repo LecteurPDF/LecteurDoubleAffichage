@@ -198,7 +198,6 @@ public class ControleurPrincipal implements Initializable {
 						uneTouche = touche[i].replace(' ', '_');
 					}
 					entreeTouche = KeyCode.valueOf(uneTouche);
-					System.out.println(uneTouche + "\n" + entreeTouche.getName());
 					action[i] = event.getCode() == entreeTouche;
 				}
 			}
@@ -284,8 +283,8 @@ public class ControleurPrincipal implements Initializable {
 		if(action[3]) {
 			if(fenDeux != null) {
 				Stage stage = (Stage) fenDeux.getScene().getWindow();
-				stage.setFullScreen(true);
 				stage.toFront();
+				stage.setFullScreen(true);
 				stage.setAlwaysOnTop(true);
 
 				for (Vue vue : Vue.getListeVues()) {
@@ -301,42 +300,194 @@ public class ControleurPrincipal implements Initializable {
 
 		/* touchePageSuivanteA */
 		if (action[5]) {
-			Vue.getListeVues().get(0).getControleur().prochainePage(null);
+			for (Vue vue : Vue.getListeVues()) {
+				int i;
+				if (vue.getEmplacement().getFenetre() == 1) {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 0;
+					} else  {
+						i = 1;
+					}
+				} else  {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 2;
+					} else  {
+						i = 3;
+					}
+				}
+
+				if ( i == 0) {
+					vue.getControleur().prochainePage(null);
+				}
+			}
 		}
 
 		/* touchePagePrecedenteA */
 		if (action[6]) {
-			Vue.getListeVues().get(0).getControleur().precedentePage(null);
+			for (Vue vue : Vue.getListeVues()) {
+				int i;
+				if (vue.getEmplacement().getFenetre() == 1) {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 0;
+					} else  {
+						i = 1;
+					}
+				} else  {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 2;
+					} else  {
+						i = 3;
+					}
+				}
+
+				if ( i == 0) {
+					vue.getControleur().precedentePage(null);
+				}
+			}
 		}
 
 		/* touchePageSuivanteB */
 		if (action[7]) {
-			Vue.getListeVues().get(1).getControleur().prochainePage(null);
+			for (Vue vue : Vue.getListeVues()) {
+				int i;
+				if (vue.getEmplacement().getFenetre() == 1) {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 0;
+					} else  {
+						i = 1;
+					}
+				} else  {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 2;
+					} else  {
+						i = 3;
+					}
+				}
+
+				if ( i == 1) {
+					vue.getControleur().prochainePage(null);
+				}
+			}
 		}
 
 		/* touchePagePrecedenteB */
 		if (action[8]) {
-			Vue.getListeVues().get(1).getControleur().precedentePage(null);
+			for (Vue vue : Vue.getListeVues()) {
+				int i;
+				if (vue.getEmplacement().getFenetre() == 1) {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 0;
+					} else  {
+						i = 1;
+					}
+				} else  {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 2;
+					} else  {
+						i = 3;
+					}
+				}
+
+				if ( i == 1) {
+					vue.getControleur().precedentePage(null);
+				}
+			}
 		}
 
 		/* touchePageSuivanteC */
 		if (action[9]) {
-			Vue.getListeVues().get(2).getControleur().prochainePage(null);
+			for (Vue vue : Vue.getListeVues()) {
+				int i;
+				if (vue.getEmplacement().getFenetre() == 1) {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 0;
+					} else  {
+						i = 1;
+					}
+				} else  {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 2;
+					} else  {
+						i = 3;
+					}
+				}
+
+				if ( i == 2) {
+					vue.getControleur().prochainePage(null);
+				}
+			}
 		}
 
 		/* touchePagePrecedenteC */
 		if (action[10]) {
-			Vue.getListeVues().get(2).getControleur().precedentePage(null);
+			for (Vue vue : Vue.getListeVues()) {
+				int i;
+				if (vue.getEmplacement().getFenetre() == 1) {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 0;
+					} else  {
+						i = 1;
+					}
+				} else  {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 2;
+					} else  {
+						i = 3;
+					}
+				}
+
+				if ( i == 2) {
+					vue.getControleur().precedentePage(null);
+				}
+			}
 		}
 
 		/* touchePageSuivanteD */
 		if (action[11]) {
-			Vue.getListeVues().get(3).getControleur().prochainePage(null);
+			for (Vue vue : Vue.getListeVues()) {
+				int i;
+				if (vue.getEmplacement().getFenetre() == 1) {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 0;
+					} else  {
+						i = 1;
+					}
+				} else  {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 2;
+					} else  {
+						i = 3;
+					}
+				}
+
+				if ( i == 3) {
+					vue.getControleur().prochainePage(null);
+				}
+			}
 		}
 
 		/* touchePagePrecedenteD */
 		if (action[12]) {
-			Vue.getListeVues().get(3).getControleur().precedentePage(null);
+			for (Vue vue : Vue.getListeVues()) {
+				int i;
+				if (vue.getEmplacement().getFenetre() == 1) {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 0;
+					} else  {
+						i = 1;
+					}
+				} else  {
+					if (vue.getEmplacement().getPosition() == 1) {
+						i = 2;
+					} else  {
+						i = 3;
+					}
+				}
+
+				if ( i == 3) {
+					vue.getControleur().precedentePage(null);
+				}
+			}
 		}
 
 
@@ -668,9 +819,9 @@ public class ControleurPrincipal implements Initializable {
 		chargementFichier(new File(url.getPath()));
 	}
 
-    @FXML
-    void ouvrirAPropos(ActionEvent event) {
-    	try {
+	@FXML
+	void ouvrirAPropos(ActionEvent event) {
+		try {
 			/* Chargement du fxml du menu préférence */
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			fxmlLoader.setLocation(getClass().getResource("/layout/APropos.fxml"));
@@ -690,7 +841,7 @@ public class ControleurPrincipal implements Initializable {
 		} catch (IOException e) {
 			Main.journaux.severe("Problème de lancement de la fenetre a propos");
 		}
-    }
+	}
 
 	/**
 	 * Permet de passer en mode présentation ( deuxième fenêtre en plein écran )

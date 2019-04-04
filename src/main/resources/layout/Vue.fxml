@@ -19,20 +19,20 @@
          <items>
             <Group>
                <children>
-                  <Button fx:id="btnPrecPage" layoutX="2.0" layoutY="-3.0" mnemonicParsing="false" onAction="#precedentePage" text="&lt;" />
-                  <TextField fx:id="txbNbPage" layoutX="33.0" layoutY="-5.0" onAction="#nbPage" prefWidth="51.0" />
+                  <Button fx:id="btnPrecPage" focusTraversable="false" layoutX="2.0" layoutY="-3.0" mnemonicParsing="false" onAction="#precedentePage" onKeyPressed="#appuyerTouche" text="&lt;" />
+                  <TextField fx:id="txbNbPage" focusTraversable="false" layoutX="33.0" layoutY="-5.0" onAction="#nbPage" prefWidth="51.0" />
                   <Label layoutX="90.0" layoutY="1.0" text="/" />
-                  <TextField fx:id="txbNbPagesTotal" disable="true" editable="false" layoutX="100.0" layoutY="-5.0" prefWidth="51.0" />
-                  <Button fx:id="btnNextPage" contentDisplay="CENTER" layoutX="158.0" layoutY="-3.0" mnemonicParsing="false" onAction="#prochainePage" text="&gt;" />
+                  <TextField fx:id="txbNbPagesTotal" disable="true" editable="false" focusTraversable="false" layoutX="100.0" layoutY="-5.0" prefWidth="51.0" />
+                  <Button fx:id="btnNextPage" contentDisplay="CENTER" focusTraversable="false" layoutX="158.0" layoutY="-3.0" mnemonicParsing="false" onAction="#prochainePage" onKeyPressed="#appuyerTouche" text="&gt;" />
                </children>
             </Group>
             <Group>
                <children>
-                  <Slider fx:id="sld_zoom" majorTickUnit="50.0" max="200.0" showTickLabels="true" value="100.0" />
+                  <Slider fx:id="sld_zoom" focusTraversable="false" majorTickUnit="50.0" max="200.0" showTickLabels="true" value="100.0" />
                </children>
             </Group>
             <Label fx:id="nomFichier" maxWidth="80.0" text="/" />
-                        <Button mnemonicParsing="false" onAction="#fermerVue" text="X" />
+                        <Button focusTraversable="false" mnemonicParsing="false" onAction="#fermerVue" text="X" />
             <Button mnemonicParsing="false" onAction="#separerMenu" prefHeight="31.0" prefWidth="29.0">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="16.0" pickOnBounds="true">
