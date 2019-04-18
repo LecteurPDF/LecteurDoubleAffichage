@@ -77,6 +77,7 @@ public class OutilLecture {
      *   - Le fichier lui-m�me (pdf)
      *   - La page que l'on est en train de regarder
      * @param nomFichier Le fichier pdf que l'on veut ouvrir et afficher
+     * @throws IOException Erreur de lecture
      */
 	public OutilLecture(String nomFichier) throws IOException {
 

@@ -51,7 +51,6 @@ public class ControleurPreference implements Initializable{
             affichageInfos.setContent(FXMLLoader.load(getClass().getResource("/layout/Disposition.fxml")));
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -68,7 +67,6 @@ public class ControleurPreference implements Initializable{
             affichageInfos.setContent(FXMLLoader.load(getClass().getResource("/layout/Option.fxml")));
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -80,6 +78,7 @@ public class ControleurPreference implements Initializable{
      * Detecte le survol du bouton du menu ( change la couleur au survol )
      * @param event
      */
+    @SuppressWarnings("static-method")
     @FXML
     void survolEntreeBouton(MouseEvent event) {
         ((Button)event.getSource()).setStyle("-fx-background-color:#f17d49;-fx-text-fill:white;");
@@ -89,6 +88,7 @@ public class ControleurPreference implements Initializable{
      * Detecte la sortie du survol du bouton du menu ( change la couleur au survol )
      * @param event
      */
+    @SuppressWarnings("static-method")
     @FXML
     void survolSortieBouton(MouseEvent event) {
         ((Button)event.getSource()).setStyle("-fx-background-color:#e16731;-fx-text-fill:white;");

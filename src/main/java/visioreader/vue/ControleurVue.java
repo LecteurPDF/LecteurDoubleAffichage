@@ -49,11 +49,12 @@ import visioreader.util.OutilLecture.PageInexistante;
  *  - Changements de page ( suivant, précédent )
  *  - Page Actuelle ( et nombre de page total )
  *  - Barre de zoom
- *  - Menu contextuel ( clic droit ) : TODO chanegemt ?
+ *  - Menu contextuel ( clic droit ) :
  *      - Fermer vue              - Ferme la vue
  *      - Changer disposition     - Ouvre la fenpetre de changement de disposition 'ChangementDisposition.fxml'
  *      - Changer Fichier         - Change le fichier de la vue
  *      - Mettre en présentation  - Met la vue en présentation ( plein ecran )
+ *      - Zoom                    - Permet de faire un zoom sur la fenetre
  *
  * @author sannac, vivier, pouzelgues, renoleau
  * @version 1.0
@@ -315,7 +316,6 @@ public class ControleurVue implements Initializable {
 	/**
 	 * Permet en cliquant sur le boutton de fermer la vue
 	 * @param event
-	 * TODO Mettre à droite
 	 */
 	@FXML
 	void fermerVue(ActionEvent event) {
@@ -399,6 +399,11 @@ public class ControleurVue implements Initializable {
 		return imageAfficher;
 	}
 
+    /**
+     * Evenement appelé lorsque l'on appuie sur une touche
+     * @param event
+     */
+    @SuppressWarnings("static-method")
     @FXML
     void appuyerTouche(KeyEvent event) {
 		Main.controller.entreeClavier(event);

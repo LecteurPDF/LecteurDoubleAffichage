@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import visioreader.util.Preferences;
@@ -47,9 +46,22 @@ public class ControleurTouches implements Initializable{
 	/** Le Keycode qui permet d'ouvrir un nouveau fichier */
 	String ouvertureFichier = "";
 
-	/** Le Keycode de chaque vue du lecteur pour page suivante et précédente */
-	String pageSuivA, pagePrecA, pageSuivB, pagePrecB,
-	pageSuivC, pagePrecC, pageSuivD, pagePrecD;
+	/** Le Keycode de A pour page suivante */
+	String pageSuivA;
+	/** Le Keycode de A pour page précédente */
+	String pagePrecA;
+	/** Le Keycode de B pour page suivante */
+	String pageSuivB;
+	/** Le Keycode de B pour page précédente */
+	String pagePrecB;
+	/** Le Keycode de C pour page suivante */
+	String pageSuivC;
+	/** Le Keycode de C pour page précédente */
+	String pagePrecC;
+	/** Le Keycode de D pour page suivante */
+	String pageSuivD;
+	/** Le Keycode de D pour page précédente */
+	String pagePrecD;
 
 	/** Sauvegarde les raccours claviers affectés */
 	@FXML
@@ -75,12 +87,30 @@ public class ControleurTouches implements Initializable{
 	@FXML
 	private TextField txt_ouvertureFichier;
 
-	/** Affiche le raccourcis clavier pour : page suivante/précédente
-	 * de chaque vue individuellement.
-	 */
+	/** Affiche le raccourcis clavier pour : page suivante de A */
 	@FXML
-	private TextField txt_suivA, txt_precA, txt_suivB, txt_precB,
-	txt_suivC, txt_precC, txt_suivD, txt_precD;
+	private TextField txt_suivA;
+	/** Affiche le raccourcis clavier pour : page précédente de A */
+	@FXML
+        private TextField txt_precA;
+	/** Affiche le raccourcis clavier pour : page suivante de B */
+	@FXML
+        private TextField txt_suivB;
+	/** Affiche le raccourcis clavier pour : page précédente de B */
+	@FXML
+        private TextField txt_precB;
+	/** Affiche le raccourcis clavier pour : page suivante de C */
+	@FXML
+        private TextField txt_suivC;
+	/** Affiche le raccourcis clavier pour : page précédente de C */
+	@FXML
+        private TextField txt_precC;
+	/** Affiche le raccourcis clavier pour : page suivante de D */
+	@FXML
+        private TextField txt_suivD;
+	/** Affiche le raccourcis clavier pour : page précédente de D */
+	@FXML
+        private TextField txt_precD;
 
 	// private KeyCodeCombination combineSuiv = new KeyCodeCombination(key_pageSuiv, KeyCombination.CONTROL_DOWN);
 

@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
 import java.util.TreeMap;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +23,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -34,7 +32,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -527,7 +524,6 @@ public class ControleurPrincipal implements Initializable {
 		int i = vues.size(); // Index pour l'ajout
 
 		if( i >= 4 ) { /* Trop de fenêtre demandé */
-			//TODO: demander à l'utilisateur quesqu'il veut changer
 			Main.journaux.info("Max de vue atteint : " + i);
 			Alert alerte = new Alert(AlertType.WARNING, "Vous ne pouvez pas ouvrir plus de 4 vues.", ButtonType.OK);
 			alerte.showAndWait();
@@ -754,7 +750,6 @@ public class ControleurPrincipal implements Initializable {
 				@Override
 				public void handle(ActionEvent event) {
 					try {
-						//TODO Afficher liste des fichiers ouvert -> 5 fichiers ?
 						chargementFichier(new File(newItem.getText()));
 					} catch( NullPointerException e ) {
 						Main.journaux.warning("Aucun fichier en mémoire");
@@ -809,9 +804,11 @@ public class ControleurPrincipal implements Initializable {
 	 */
 	@FXML
 	void fermetureFenetre(ActionEvent event) {
-		//TODO
 	}
 
+	/**
+	 * ouvre le manuel
+	 */
 	@FXML
 	void ouvrirManuel() {
 		URL url = getClass().getResource("/manuel/manuel.pdf");
@@ -819,6 +816,10 @@ public class ControleurPrincipal implements Initializable {
 		chargementFichier(new File(url.getPath()));
 	}
 
+	/**
+	 * Ouvre le menu à propose de
+	 * @param event
+	 */
 	@FXML
 	void ouvrirAPropos(ActionEvent event) {
 		try {
