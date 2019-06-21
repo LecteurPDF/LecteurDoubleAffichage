@@ -125,369 +125,269 @@ public class ControleurPrincipal implements Initializable {
      */
     @FXML
     public void entreeClavier(KeyEvent event) {
+        if (event.getSource().toString().contains("vboxVue") || event.getSource().toString().contains("parentVBox")) {
+            // Les éntrées vboxVue et parentVBox permettent de détecter les entrées claviers et de les faire rmeonter
+            // néanmoins à chaque fois qu'elle sont appellées il y a  aussi la fenêtre principale qui est appélée et donc appelle 3 fois l'entrée clavier
+            // A CORRIGER -> Ca marche mais c'est moche
+        } else {
 
-        /* Temporaire */
-        KeyCode entreeTouche;
-        KeyCombination entreeCombi;
+            /* Temporaire */
+            KeyCode entreeTouche;
+            KeyCombination entreeCombi;
 
-        /* Permet de determiner l'action à réalisé */
-        String[] touche = {
-                prefs.get("TOUCHE_PAGE_SUIVANTE", "").toUpperCase(),            // touchePageSuivante
-                prefs.get("TOUCHE_PAGE_PRECEDENTE", "").toUpperCase(),          // touchePagePrecedente
+            /* Permet de determiner l'action à réalisé */
+            String[] touche = {
+                    prefs.get("TOUCHE_PAGE_SUIVANTE", "").toUpperCase(),            // touchePageSuivante
+                    prefs.get("TOUCHE_PAGE_PRECEDENTE", "").toUpperCase(),          // touchePagePrecedente
 
-                prefs.get("TOUCHE_PLEIN_ECRAN_1", "").toUpperCase(),            // touchePleinEcran1
-                prefs.get("TOUCHE_PLEIN_ECRAN_2", "").toUpperCase(),            // touchePleinEcran2
+                    prefs.get("TOUCHE_PLEIN_ECRAN_1", "").toUpperCase(),            // touchePleinEcran1
+                    prefs.get("TOUCHE_PLEIN_ECRAN_2", "").toUpperCase(),            // touchePleinEcran2
 
-                prefs.get("TOUCHE_PAGE_OUVRIR_FICHIER", "").toUpperCase(),      // toucheOuvrirFichier
+                    prefs.get("TOUCHE_PAGE_OUVRIR_FICHIER", "").toUpperCase(),      // toucheOuvrirFichier
 
-                prefs.get("TOUCHE_PAGE_SUIVANTE_A", "").toUpperCase(),          // touchePgSuivanteVueA
-                prefs.get("TOUCHE_PAGE_PRECEDENTE_A", "").toUpperCase(),        // touchePgPrecedenteVueA
+                    prefs.get("TOUCHE_PAGE_SUIVANTE_A", "").toUpperCase(),          // touchePgSuivanteVueA
+                    prefs.get("TOUCHE_PAGE_PRECEDENTE_A", "").toUpperCase(),        // touchePgPrecedenteVueA
 
-                prefs.get("TOUCHE_PAGE_SUIVANTE_B", "").toUpperCase(),          // touchePgSuivanteVueB
-                prefs.get("TOUCHE_PAGE_PRECEDENTE_B", "").toUpperCase(),        // touchePgPrecedenteVueB
+                    prefs.get("TOUCHE_PAGE_SUIVANTE_B", "").toUpperCase(),          // touchePgSuivanteVueB
+                    prefs.get("TOUCHE_PAGE_PRECEDENTE_B", "").toUpperCase(),        // touchePgPrecedenteVueB
 
-                prefs.get("TOUCHE_PAGE_SUIVANTE_C", "").toUpperCase(),          // touchePgSuivanteVueC
-                prefs.get("TOUCHE_PAGE_PRECEDENTE_C", "").toUpperCase(),        // touchePgPrecedenteVueC
+                    prefs.get("TOUCHE_PAGE_SUIVANTE_C", "").toUpperCase(),          // touchePgSuivanteVueC
+                    prefs.get("TOUCHE_PAGE_PRECEDENTE_C", "").toUpperCase(),        // touchePgPrecedenteVueC
 
-                prefs.get("TOUCHE_PAGE_SUIVANTE_D", "").toUpperCase(),          // touchePgSuivanteVueD
-                prefs.get("TOUCHE_PAGE_PRECEDENTE_D", "").toUpperCase(),        // touchePgPrecedenteVueD
-        };
+                    prefs.get("TOUCHE_PAGE_SUIVANTE_D", "").toUpperCase(),          // touchePgSuivanteVueD
+                    prefs.get("TOUCHE_PAGE_PRECEDENTE_D", "").toUpperCase(),        // touchePgPrecedenteVueD
+            };
 
-        /* Vrai si c'est l'action à faire */
-        boolean[] action = {
-                false,          // pgSuivante
-                false,          // pgPrecedente
+            /* Vrai si c'est l'action à faire */
+            boolean[] action = {
+                    false,          // pgSuivante
+                    false,          // pgPrecedente
 
-                false,          // tchPleinEcran1
-                false,          // tchPleinEcran2
+                    false,          // tchPleinEcran1
+                    false,          // tchPleinEcran2
 
-                false,          // ouvFichier
+                    false,          // ouvFichier
 
-                false,          // pgSuivanteVueA
-                false,          // pgPrecendenteVueA
+                    false,          // pgSuivanteVueA
+                    false,          // pgPrecendenteVueA
 
-                false,          // pgSuivanteVueB
-                false,          // pgPrecendenteVueB
+                    false,          // pgSuivanteVueB
+                    false,          // pgPrecendenteVueB
 
-                false,          // pgSuivanteVueC
-                false,          // pgPrecendenteVueC
+                    false,          // pgSuivanteVueC
+                    false,          // pgPrecendenteVueC
 
-                false,          // pgSuivanteVueD
-                false,          // pgPrecendenteVueD
+                    false,          // pgSuivanteVueD
+                    false,          // pgPrecendenteVueD
 
-        };
+            };
 
-        /* Definit si la touche ou la combinaison entree correspond
-         * a un element definit dans les preferences
-         */
+            /* Definit si la touche ou la combinaison entree correspond
+             * a un element definit dans les preferences
+             */
 
-        for (int i = 0 ; i < touche.length ; i++) {
-            if(!touche[i].equals("")) {
-                //touche[i] = touche[i].toUpperCase();
-                if(touche[i].contains("+")) {
-                    entreeCombi = KeyCombination.valueOf(touche[i]);
-                    action[i] = entreeCombi.match(event);
-                } else{
-                    String uneTouche ;
-                    if(touche[i].contains("NUMPAD")) {
-                        uneTouche = touche[i].replace(" ", "");
-                    } else {
-                        uneTouche = touche[i].replace(' ', '_');
+            for (int i = 0 ; i < touche.length ; i++) {
+                if(!touche[i].equals("")) {
+                    //touche[i] = touche[i].toUpperCase();
+                    if(touche[i].contains("+")) {
+                        entreeCombi = KeyCombination.valueOf(touche[i]);
+                        action[i] = entreeCombi.match(event);
+                    } else{
+                        String uneTouche ;
+                        if(touche[i].contains("NUMPAD")) {
+                            uneTouche = touche[i].replace(" ", "");
+                        } else {
+                            uneTouche = touche[i].replace(' ', '_');
+                        }
+                        entreeTouche = KeyCode.valueOf(uneTouche);
+                        action[i] = event.getCode() == entreeTouche;
                     }
-                    entreeTouche = KeyCode.valueOf(uneTouche);
-                    action[i] = event.getCode() == entreeTouche;
                 }
             }
-        }
 
-        /* Definit les actions à réalisé lié a une combinaison de touches */
+            /* Definit les actions à réalisé lié a une combinaison de touches */
 
-        /* touchePageSuivante */
-        if(action[0]) {
-            if (action[5] || action[7] || action[9] || action[11]) {
+            /* touchePageSuivante */
+            if(action[0]) {
                 // Ne rien faire pour éviter conflit avec les changements de vue
-            } else {
-                /* On regarde les vues liées */
+                if (!(action[5] || action[7] || action[9] || action[11])) {
+                    /* On regarde les vues liées */
+                    for (Vue vue : Vue.getListeVues()) {
+                        int i;
+                        if (vue.getEmplacement().getFenetre() == 1) {
+                            if (vue.getEmplacement().getPosition() == 1) {
+                                i = 0;
+                            } else  {
+                                i = 1;
+                            }
+                        } else  {
+                            if (vue.getEmplacement().getPosition() == 1) {
+                                i = 2;
+                            } else  {
+                                i = 3;
+                            }
+                        }
+
+                        if (Preferences.getInstance().getVueLiee().get(i)) {
+                            vue.getControleur().prochainePage(null);
+                        }
+                    }
+                }
+
+            }
+
+            /* touchePagePrecedente */
+            if(action[1]) {
+                if (action[6] || action[8] || action[10] || action[12]) {
+                    // Ne rien faire pour éviter conflit avec les changements de vue
+                } else {
+                    /* On regarde les vues liées */
+                    for (Vue vue : Vue.getListeVues()) {
+                        int i;
+                        if (vue.getEmplacement().getFenetre() == 1) {
+                            if (vue.getEmplacement().getPosition() == 1) {
+                                i = 0;
+                            } else  {
+                                i = 1;
+                            }
+                        } else  {
+                            if (vue.getEmplacement().getPosition() == 1) {
+                                i = 2;
+                            } else  {
+                                i = 3;
+                            }
+                        }
+
+                        if (Preferences.getInstance().getVueLiee().get(i)) {
+                            vue.getControleur().precedentePage(null);
+                        }
+                    }
+                }
+            }
+
+            /* touchePleinEcran1 */
+            if(action[2]) {
+                if (action[3]) {
+
+                } else {
+                    ((Stage)parentVBox.getScene().getWindow()).setFullScreen(true);
+                    /* On parcourt toutes les vues */
+                    for (Vue vue : Vue.getListeVues()) {
+                        if(vue.getEmplacement().getFenetre() == 1)
+                            zoomVue(vue);
+                    }
+
+                }
+            }
+
+            /* touchePleinEcran2 */
+            if(action[3]) {
+                if(fenDeux != null) {
+                    Stage stage = (Stage) fenDeux.getScene().getWindow();
+                    stage.toFront();
+                    stage.setFullScreen(true);
+                    stage.setAlwaysOnTop(true);
+
+                    for (Vue vue : Vue.getListeVues()) {
+                        if(vue.getEmplacement().getFenetre() == 2)
+                            zoomVue(vue);
+                    }
+                }
+            }
+            /* toucheOuvrirFichier */
+            if(action[4]) {
+                changerFichier();
+            }
+
+            /* touchePageSuivanteA */
+            if (action[5]) {
                 for (Vue vue : Vue.getListeVues()) {
-                    int i;
                     if (vue.getEmplacement().getFenetre() == 1) {
                         if (vue.getEmplacement().getPosition() == 1) {
-                            i = 0;
-                        } else  {
-                            i = 1;
+                            vue.getControleur().prochainePage(null);
                         }
-                    } else  {
-                        if (vue.getEmplacement().getPosition() == 1) {
-                            i = 2;
-                        } else  {
-                            i = 3;
-                        }
-                    }
-
-                    if (Preferences.getInstance().getVueLiee().get(i)) {
-                        vue.getControleur().prochainePage(null);
                     }
                 }
             }
 
-        }
-
-        /* touchePagePrecedente */
-        if(action[1]) {
-            if (action[6] || action[8] || action[10] || action[12]) {
-                // Ne rien faire pour éviter conflit avec les changements de vue
-            } else {
-                /* On regarde les vues liées */
+            /* touchePagePrecedenteA */
+            if (action[6]) {
                 for (Vue vue : Vue.getListeVues()) {
-                    int i;
                     if (vue.getEmplacement().getFenetre() == 1) {
                         if (vue.getEmplacement().getPosition() == 1) {
-                            i = 0;
-                        } else  {
-                            i = 1;
+                            vue.getControleur().precedentePage(null);
                         }
-                    } else  {
+                    }
+                }
+            }
+
+            /* touchePageSuivanteB */
+            if (action[7]) {
+                for (Vue vue : Vue.getListeVues()) {
+                    if (vue.getEmplacement().getFenetre() == 1) {
+                        if (vue.getEmplacement().getPosition() != 1) {
+                            vue.getControleur().prochainePage(null);
+                        }
+                    }
+                }
+            }
+
+            /* touchePagePrecedenteB */
+            if (action[8]) {
+                for (Vue vue : Vue.getListeVues()) {
+                    if (vue.getEmplacement().getFenetre() == 1) {
+                        if (vue.getEmplacement().getPosition() != 1) {
+                            vue.getControleur().precedentePage(null);
+                        }
+                    }
+                }
+            }
+
+            /* touchePageSuivanteC */
+            if (action[9]) {
+                for (Vue vue : Vue.getListeVues()) {
+                    if (vue.getEmplacement().getFenetre() != 1) {
                         if (vue.getEmplacement().getPosition() == 1) {
-                            i = 2;
-                        } else  {
-                            i = 3;
+                            vue.getControleur().prochainePage(null);
                         }
                     }
-
-                    if (Preferences.getInstance().getVueLiee().get(i)) {
-                        vue.getControleur().precedentePage(null);
-                    }
                 }
             }
-        }
 
-        /* touchePleinEcran1 */
-        if(action[2]) {
-            if (action[3]) {
-
-            } else {
-                ((Stage)parentVBox.getScene().getWindow()).setFullScreen(true);
-                /* On parcourt toutes les vues */
+            /* touchePagePrecedenteC */
+            if (action[10]) {
                 for (Vue vue : Vue.getListeVues()) {
-                    if(vue.getEmplacement().getFenetre() == 1)
-                        zoomVue(vue);
+                    if (vue.getEmplacement().getFenetre() != 1) {
+                        if (vue.getEmplacement().getPosition() == 1) {
+                            vue.getControleur().precedentePage(null);
+                        }
+                    }
                 }
-
             }
-        }
 
-        /* touchePleinEcran2 */
-        if(action[3]) {
-            if(fenDeux != null) {
-                Stage stage = (Stage) fenDeux.getScene().getWindow();
-                stage.toFront();
-                stage.setFullScreen(true);
-                stage.setAlwaysOnTop(true);
-
+            /* touchePageSuivanteD */
+            if (action[11]) {
                 for (Vue vue : Vue.getListeVues()) {
-                    if(vue.getEmplacement().getFenetre() == 2)
-                        zoomVue(vue);
+                    if (vue.getEmplacement().getFenetre() != 1) {
+                        if (vue.getEmplacement().getPosition() != 1) {
+                            vue.getControleur().prochainePage(null);
+                        }
+                    }
                 }
             }
-        }
-        /* toucheOuvrirFichier */
-        if(action[4]) {
-            changerFichier();
-        }
 
-        /* touchePageSuivanteA */
-        if (action[5]) {
-            for (Vue vue : Vue.getListeVues()) {
-                int i;
-                if (vue.getEmplacement().getFenetre() == 1) {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 0;
-                    } else  {
-                        i = 1;
+            /* touchePagePrecedenteD */
+            if (action[12]) {
+                for (Vue vue : Vue.getListeVues()) {
+                    if (vue.getEmplacement().getFenetre() != 1) {
+                        if (vue.getEmplacement().getPosition() != 1) {
+                            vue.getControleur().precedentePage(null);
+                        }
                     }
-                } else  {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 2;
-                    } else  {
-                        i = 3;
-                    }
-                }
-
-                if ( i == 0) {
-                    vue.getControleur().prochainePage(null);
                 }
             }
+
         }
-
-        /* touchePagePrecedenteA */
-        if (action[6]) {
-            for (Vue vue : Vue.getListeVues()) {
-                int i;
-                if (vue.getEmplacement().getFenetre() == 1) {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 0;
-                    } else  {
-                        i = 1;
-                    }
-                } else  {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 2;
-                    } else  {
-                        i = 3;
-                    }
-                }
-
-                if ( i == 0) {
-                    vue.getControleur().precedentePage(null);
-                }
-            }
-        }
-
-        /* touchePageSuivanteB */
-        if (action[7]) {
-            for (Vue vue : Vue.getListeVues()) {
-                int i;
-                if (vue.getEmplacement().getFenetre() == 1) {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 0;
-                    } else  {
-                        i = 1;
-                    }
-                } else  {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 2;
-                    } else  {
-                        i = 3;
-                    }
-                }
-
-                if ( i == 1) {
-                    vue.getControleur().prochainePage(null);
-                }
-            }
-        }
-
-        /* touchePagePrecedenteB */
-        if (action[8]) {
-            for (Vue vue : Vue.getListeVues()) {
-                int i;
-                if (vue.getEmplacement().getFenetre() == 1) {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 0;
-                    } else  {
-                        i = 1;
-                    }
-                } else  {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 2;
-                    } else  {
-                        i = 3;
-                    }
-                }
-
-                if ( i == 1) {
-                    vue.getControleur().precedentePage(null);
-                }
-            }
-        }
-
-        /* touchePageSuivanteC */
-        if (action[9]) {
-            for (Vue vue : Vue.getListeVues()) {
-                int i;
-                if (vue.getEmplacement().getFenetre() == 1) {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 0;
-                    } else  {
-                        i = 1;
-                    }
-                } else  {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 2;
-                    } else  {
-                        i = 3;
-                    }
-                }
-
-                if ( i == 2) {
-                    vue.getControleur().prochainePage(null);
-                }
-            }
-        }
-
-        /* touchePagePrecedenteC */
-        if (action[10]) {
-            for (Vue vue : Vue.getListeVues()) {
-                int i;
-                if (vue.getEmplacement().getFenetre() == 1) {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 0;
-                    } else  {
-                        i = 1;
-                    }
-                } else  {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 2;
-                    } else  {
-                        i = 3;
-                    }
-                }
-
-                if ( i == 2) {
-                    vue.getControleur().precedentePage(null);
-                }
-            }
-        }
-
-        /* touchePageSuivanteD */
-        if (action[11]) {
-            for (Vue vue : Vue.getListeVues()) {
-                int i;
-                if (vue.getEmplacement().getFenetre() == 1) {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 0;
-                    } else  {
-                        i = 1;
-                    }
-                } else  {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 2;
-                    } else  {
-                        i = 3;
-                    }
-                }
-
-                if ( i == 3) {
-                    vue.getControleur().prochainePage(null);
-                }
-            }
-        }
-
-        /* touchePagePrecedenteD */
-        if (action[12]) {
-            for (Vue vue : Vue.getListeVues()) {
-                int i;
-                if (vue.getEmplacement().getFenetre() == 1) {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 0;
-                    } else  {
-                        i = 1;
-                    }
-                } else  {
-                    if (vue.getEmplacement().getPosition() == 1) {
-                        i = 2;
-                    } else  {
-                        i = 3;
-                    }
-                }
-
-                if ( i == 3) {
-                    vue.getControleur().precedentePage(null);
-                }
-            }
-        }
-
-
     }
 
     /**
