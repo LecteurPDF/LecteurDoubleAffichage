@@ -125,12 +125,13 @@ public class ControleurPrincipal implements Initializable {
      */
     @FXML
     public void entreeClavier(KeyEvent event) {
-        if (event.getSource().toString().contains("vboxVue") || event.getSource().toString().contains("parentVBox")) {
+        if (event.getSource().toString().contains("vboxVue") || event.getSource().toString().contains("parentVBox")|| event.getSource().toString().contains("split-pane")) {
+            System.out.println(event.getSource());
             // Les éntrées vboxVue et parentVBox permettent de détecter les entrées claviers et de les faire rmeonter
             // néanmoins à chaque fois qu'elle sont appellées il y a  aussi la fenêtre principale qui est appélée et donc appelle 3 fois l'entrée clavier
             // A CORRIGER -> Ca marche mais c'est moche
         } else {
-
+            System.out.println(event.getSource());
             /* Temporaire */
             KeyCode entreeTouche;
             KeyCombination entreeCombi;
